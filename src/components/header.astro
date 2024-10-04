@@ -1,0 +1,22 @@
+---
+import { Github } from "lucide-react"
+import { site } from "~/config"
+import SiteInfo from "./site-info"
+import ThemeToggle from "./theme-toggle"
+---
+
+<div class="flex h-20 w-full items-center justify-between">
+  <SiteInfo />
+  <div class="flex items-center gap-3">
+    <a href={site.github}>
+      <Github
+        client:only="react"
+        className="cursor-pointer"
+        size={22}
+        strokeWidth={2.25}
+        absoluteStrokeWidth
+      />
+    </a>
+    <ThemeToggle client:only="react" />
+  </div>
+</div>

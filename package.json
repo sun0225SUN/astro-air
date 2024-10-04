@@ -15,10 +15,18 @@
     "@astrojs/tailwind": "^5.1.1",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.0",
+    "@uidotdev/usehooks": "^2.4.1",
     "astro": "^4.15.11",
+    "lucide-react": "^0.447.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tailwindcss": "^3.4.13",
     "typescript": "^5.6.2"
+  },
+  "devDependencies": {
+    "@types/dom-view-transitions": "^1.0.5",
+    "prettier": "^3.3.3",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.6.8"
   }
 }

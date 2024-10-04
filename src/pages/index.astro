@@ -1,11 +1,18 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Test from "../components/Test";
+import Footer from "~/components/footer"
+import Header from "~/components/header.astro"
+import Introduction from "~/components/introduction"
+import PostsList from "~/components/posts-list.astro"
+import { Tabs } from "~/components/tabs"
+import Layout from "~/layouts/Layout.astro"
 ---
 
 <Layout title="Welcome to Astro.">
-	<main>
-		<div class="text-red-400">hello world</div>
-		<Test title="hhhh" />
-	</main>
+  <main class="w-full max-w-3xl min-h-screen p-6 md:p-0">
+    <Header />
+    <Tabs />
+    <Introduction />
+    <PostsList />
+    <Footer />
+  </main>
 </Layout>

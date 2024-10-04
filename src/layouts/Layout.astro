@@ -1,50 +1,61 @@
 ---
-interface Props {
-	title: string;
-}
-
-const { title } = Astro.props;
+import { site } from "~/config"
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href={site.favicon} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{site.title + " - " + site.description}</title>
+    <script is:inline>
+      ;(function () {
+        const theme = localStorage.getItem("theme")
+        const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
+          .matches
+          ? "dark"
+          : "light"
+        const initialTheme = theme !== null ? theme : systemTheme
+
+        document.documentElement.classList.add(initialTheme)
+        document.documentElement.style.setProperty("color-scheme", initialTheme)
+      })()
+    </script>
+  </head>
+  <body class="w-full flex justify-center">
+    <slot />
+  </body>
 </html>
+
 <style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
+  /* Theme toggle effect */
+  /* https://theme-toggle.rdsx.dev/ */
+  /* https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API */
+  ::view-transition-group(root) {
+    animation-timing-function: var(--expo-out);
+  }
+
+  ::view-transition-new(root) {
+    mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><defs><filter id="blur"><feGaussianBlur stdDeviation="2"/></filter></defs><circle cx="0" cy="0" r="18" fill="white" filter="url(%23blur)"/></svg>')
+      top left / 0 no-repeat;
+    mask-origin: content-box;
+    animation: scale 0.8s;
+    transform-origin: top left;
+  }
+
+  ::view-transition-old(root),
+  .dark::view-transition-old(root) {
+    animation: scale 0.8s;
+    transform-origin: top left;
+    z-index: -1;
+  }
+
+  @keyframes scale {
+    to {
+      mask-size: 350vmax;
+    }
+  }
 </style>

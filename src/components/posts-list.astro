@@ -1,0 +1,31 @@
+---
+import { getCollection } from "astro:content"
+import FormattedDate from "~/components/formatted-date.astro"
+
+interface PostProps {
+  slug: string
+  data: {
+    title: string
+    pubDate: Date
+  }
+}
+
+const posts = (await getCollection("blog")).sort(
+  (a: { data: { pubDate: Date } }, b: { data: { pubDate: Date } }) =>
+    b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+)
+---
+
+<div class="text-xl font-medium mb-4 md:my-8">最新文章</div>
+{
+  posts.map((post: PostProps) => (
+    <a href={`/blog/${post.slug}/`}>
+      <div class="flex items-center my-2 text-lg">
+        <p class="w-36 truncate">
+          <FormattedDate date={post.data.pubDate} />
+        </p>
+        <p class="line-clamp-1">{post.data.title}</p>
+      </div>
+    </a>
+  ))
+}
