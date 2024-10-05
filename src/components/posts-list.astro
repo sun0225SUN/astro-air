@@ -17,7 +17,7 @@ const posts = await getPosts()
   posts.map((post: PostProps) => (
     <a href={`/posts/${post.slug}/`}>
       <div class="flex items-center my-2 text-lg">
-        <p class="w-36 truncate">
+        <p class="w-36 truncate flex flex-shrink-0">
           <time>{post.data.pubDate}</time>
         </p>
         <p class="line-clamp-1">{post.data.title}</p>
