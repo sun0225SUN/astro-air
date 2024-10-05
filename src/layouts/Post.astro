@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content"
 import Footer from "~/components/footer"
-import FormattedDate from "~/components/formatted-date.astro"
+
 import Header from "~/components/header.astro"
 
 type Props = CollectionEntry<"posts">["data"]
@@ -77,11 +77,11 @@ const { title, description, pubDate, updatedDate } = Astro.props
         <div class="prose">
           <div class="title">
             <div class="date">
-              <FormattedDate date={pubDate} />
+              <time>{pubDate}</time>
               {
                 updatedDate && (
                   <div class="last-updated-on">
-                    Last updated on <FormattedDate date={updatedDate} />
+                    Last updated on <time>{updatedDate}</time>
                   </div>
                 )
               }

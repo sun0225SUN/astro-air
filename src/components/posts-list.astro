@@ -1,6 +1,5 @@
 ---
-import { getCollection } from "astro:content"
-import FormattedDate from "~/components/formatted-date.astro"
+import { getPosts } from "~/utils"
 
 interface PostProps {
   slug: string
@@ -10,10 +9,7 @@ interface PostProps {
   }
 }
 
-const posts = (await getCollection("posts")).sort(
-  (a: { data: { pubDate: Date } }, b: { data: { pubDate: Date } }) =>
-    b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-)
+const posts = await getPosts()
 ---
 
 <div class="text-xl font-medium mb-4 md:my-8">Recent Posts</div>
@@ -22,7 +18,7 @@ const posts = (await getCollection("posts")).sort(
     <a href={`/posts/${post.slug}/`}>
       <div class="flex items-center my-2 text-lg">
         <p class="w-36 truncate">
-          <FormattedDate date={post.data.pubDate} />
+          <time>{post.data.pubDate}</time>
         </p>
         <p class="line-clamp-1">{post.data.title}</p>
       </div>
