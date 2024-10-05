@@ -16,7 +16,7 @@ const posts = (await getCollection("posts")).sort(
 )
 ---
 
-<div class="text-xl font-medium mb-4 md:my-8">最新文章</div>
+<div class="text-xl font-medium mb-4 md:my-8">Recent Posts</div>
 {
   posts.map((post: PostProps) => (
     <a href={`/posts/${post.slug}/`}>

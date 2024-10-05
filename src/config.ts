@@ -1,12 +1,9 @@
 export const site = {
-  name: "小孙同学",
+  name: "Astro Air",
   favicon: "/avatar.png",
-  title: "小孙同学",
-  description: "路虽远行则将至，事虽难做则必成！",
-  github: "https://github.com/sun0225SUN/astro-air",
+  title: "Astro Air",
+  description: "minimal, personal blog theme for Astro",
 }
-
-export const introduction = "minimal, personal blog theme for Astro"
 
 export const tabs = [
   {

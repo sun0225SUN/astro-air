@@ -10,7 +10,8 @@ import { site } from "~/config"
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href={site.favicon} />
     <meta name="generator" content={Astro.generator} />
-    <title>{site.title + " - " + site.description}</title>
+    <title>{site.title}</title>
+    <meta name="description" content={site.description} />
     <script is:inline>
       ;(function () {
         const theme = localStorage.getItem("theme")
