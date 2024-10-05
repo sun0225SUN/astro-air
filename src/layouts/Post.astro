@@ -52,6 +52,19 @@ const { title, description, pubDate, updatedDate } = Astro.props
         font-style: italic;
       }
     </style>
+    <script is:inline>
+      ;(function () {
+        const theme = localStorage.getItem("theme")
+        const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
+          .matches
+          ? "dark"
+          : "light"
+        const initialTheme = theme !== null ? theme : systemTheme
+
+        document.documentElement.classList.add(initialTheme)
+        document.documentElement.style.setProperty("color-scheme", initialTheme)
+      })()
+    </script>
   </head>
 
   <body>
