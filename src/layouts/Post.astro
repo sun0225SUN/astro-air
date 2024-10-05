@@ -4,7 +4,7 @@ import Footer from "~/components/footer"
 import FormattedDate from "~/components/formatted-date.astro"
 import Header from "~/components/header.astro"
 
-type Props = CollectionEntry<"blog">["data"]
+type Props = CollectionEntry<"posts">["data"]
 
 const { title, description, pubDate, updatedDate } = Astro.props
 ---

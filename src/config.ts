@@ -1,7 +1,6 @@
 export const site = {
   name: "小孙同学",
-  url: "https://blog.sunguoqi.com",
-  favicon: "/avatar.ico",
+  favicon: "/avatar.png",
   title: "小孙同学",
   description: "路虽远行则将至，事虽难做则必成！",
   github: "https://github.com/sun0225SUN/astro-air",

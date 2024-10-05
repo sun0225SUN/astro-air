@@ -10,7 +10,7 @@ interface PostProps {
   }
 }
 
-const posts = (await getCollection("blog")).sort(
+const posts = (await getCollection("posts")).sort(
   (a: { data: { pubDate: Date } }, b: { data: { pubDate: Date } }) =>
     b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 )
@@ -19,7 +19,7 @@ const posts = (await getCollection("blog")).sort(
 <div class="text-xl font-medium mb-4 md:my-8">最新文章</div>
 {
   posts.map((post: PostProps) => (
-    <a href={`/blog/${post.slug}/`}>
+    <a href={`/posts/${post.slug}/`}>
       <div class="flex items-center my-2 text-lg">
         <p class="w-36 truncate">
           <FormattedDate date={post.data.pubDate} />

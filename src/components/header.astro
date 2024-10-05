@@ -1,12 +1,13 @@
 ---
 import { Github } from "lucide-react"
 import { site } from "~/config"
-import SiteInfo from "./site-info"
 import ThemeToggle from "./theme-toggle"
 ---
 
 <div class="flex h-20 w-full items-center justify-between">
-  <SiteInfo />
+  <a href="/">
+    <div class="text-xl font-semibold">{site.name}</div>
+  </a>
   <div class="flex items-center gap-3">
     <a href={site.github}>
       <Github
