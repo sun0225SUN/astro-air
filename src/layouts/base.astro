@@ -1,0 +1,42 @@
+---
+import "~/styles/globals.css"
+import { site } from "~/config"
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href={site.favicon} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{site.title} - {site.slogan}</title>
+    <meta name="description" content={site.description} />
+    <script is:inline>
+      // set theme before page load
+      const theme = (() => {
+        if (
+          typeof localStorage !== "undefined" &&
+          localStorage.getItem("theme")
+        ) {
+          return localStorage.getItem("theme")
+        }
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          return "dark"
+        }
+        return "light"
+      })()
+
+      if (theme === "dark") {
+        document.documentElement.classList.add("dark")
+      }
+    </script>
+  </head>
+  <body>
+    <div
+      class="flex min-h-screen w-full justify-center dark:bg-[#121212] dark:text-white"
+    >
+      <slot />
+    </div>
+  </body>
+</html>

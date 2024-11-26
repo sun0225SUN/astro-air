@@ -1,8 +1,12 @@
 ---
-import Layout from "../layouts/layout.astro"
-import { Test } from "../components/test"
+import Footer from "~/components/astro/footer.astro"
+import Header from "~/components/astro/header.astro"
+import { Test } from "../components/react/test"
+import HomeLayout from "../layouts/home.astro"
 ---
 
-<Layout>
+<HomeLayout>
+  <Header />
   <Test />
-</Layout>
+  <Footer />
+</HomeLayout>

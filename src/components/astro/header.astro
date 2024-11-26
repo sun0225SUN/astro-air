@@ -1,0 +1,17 @@
+---
+import { Rss } from "lucide-react"
+import ThemeToggle from "~/components/astro/theme-toggle.astro"
+import { site } from "~/config"
+---
+
+<header class="flex h-20 w-full items-center justify-between">
+  <a href="/">
+    <div class="text-xl font-semibold">{site.name}</div>
+  </a>
+  <div class="flex items-center gap-4">
+    <a href="/atom.xml" target="_blank">
+      <Rss />
+    </a>
+    <ThemeToggle />
+  </div>
+</header>
