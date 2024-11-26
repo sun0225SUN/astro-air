@@ -1,0 +1,28 @@
+---
+import { config } from "~/config"
+import { formatDate, getPosts } from "~/utils"
+
+interface PostProps {
+  slug: string
+  data: {
+    title: string
+    pubDate: Date
+  }
+}
+
+const posts = (await getPosts()).slice(0, config.latestPosts ?? 8)
+---
+
+<div class="mb-4 text-xl font-medium md:my-8">近期文章</div>
+{
+  posts.map((post: PostProps) => (
+    <a href={`/posts/${post.slug}/`}>
+      <div class="my-2 flex text-lg">
+        <p class="flex w-36 flex-shrink-0 truncate text-gray-500 dark:text-gray-400">
+          <time>{formatDate(post.data.pubDate)}</time>
+        </p>
+        <p class="line-clamp-3">{post.data.title}</p>
+      </div>
+    </a>
+  ))
+}

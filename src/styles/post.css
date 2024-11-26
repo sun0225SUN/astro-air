@@ -1,0 +1,8 @@
+article code {
+  @apply rounded bg-gray-100 px-1 dark:bg-gray-900;
+}
+
+article code::before,
+article code::after {
+  content: none !important;
+}

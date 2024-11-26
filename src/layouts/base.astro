@@ -1,6 +1,6 @@
 ---
 import "~/styles/globals.css"
-import { site } from "~/config"
+import { config } from "~/config"
 ---
 
 <!doctype html>
@@ -8,10 +8,10 @@ import { site } from "~/config"
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href={site.favicon} />
+    <link rel="icon" type="image/svg+xml" href={config.meta.favicon} />
     <meta name="generator" content={Astro.generator} />
-    <title>{site.title} - {site.slogan}</title>
-    <meta name="description" content={site.description} />
+    <title>{config.meta.title} - {config.meta.slogan}</title>
+    <meta name="description" content={config.meta.description} />
     <script is:inline>
       // set theme before page load
       const theme = (() => {
@@ -32,10 +32,8 @@ import { site } from "~/config"
       }
     </script>
   </head>
-  <body>
-    <div
-      class="flex min-h-screen w-full justify-center dark:bg-[#121212] dark:text-white"
-    >
+  <body class="dark:bg-[#121212] dark:text-white">
+    <div class="flex min-h-screen w-full justify-center px-10 md:p-0">
       <slot />
     </div>
   </body>

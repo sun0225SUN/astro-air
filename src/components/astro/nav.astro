@@ -1,0 +1,54 @@
+---
+import { config } from "~/config"
+
+const { home, archive, category, tags, custom, about } = config.navigation
+---
+
+<div class="flex gap-4 text-lg">
+  {
+    home && (
+      <a href="/" class="hover:underline hover:underline-offset-4">
+        <p>首页</p>
+      </a>
+    )
+  }
+  {
+    archive && (
+      <a href="/archive" class="hover:underline hover:underline-offset-4">
+        <p>归档</p>
+      </a>
+    )
+  }
+  {
+    category && (
+      <a href="/category" class="hover:underline hover:underline-offset-4">
+        <p>分类</p>
+      </a>
+    )
+  }
+  {
+    tags && (
+      <a href="/tags" class="hover:underline hover:underline-offset-4">
+        <p>标签</p>
+      </a>
+    )
+  }
+  {
+    custom?.map((tab) => (
+      <a
+        href={tab.link}
+        class="hover:underline hover:underline-offset-4"
+        target="_blank"
+      >
+        <p>{tab.label}</p>
+      </a>
+    ))
+  }
+  {
+    about && (
+      <a href="/about" class="hover:underline hover:underline-offset-4">
+        <p>关于</p>
+      </a>
+    )
+  }
+</div>
