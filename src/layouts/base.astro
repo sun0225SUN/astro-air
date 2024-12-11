@@ -1,6 +1,7 @@
 ---
 import "~/styles/globals.css"
 import { config } from "~/config"
+import { NoiseBg } from "~/components/react/noise-bg"
 ---
 
 <!doctype html>
@@ -35,6 +36,7 @@ import { config } from "~/config"
   <body class="dark:bg-[#121212] dark:text-white">
     <div class="flex min-h-screen w-full justify-center px-10 md:p-0">
       <slot />
+      <NoiseBg />
     </div>
   </body>
 </html>
