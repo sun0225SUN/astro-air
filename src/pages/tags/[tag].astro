@@ -1,0 +1,35 @@
+---
+import HomeLayout from "~/layouts/home.astro"
+import { formatDate, getPosts } from "~/utils"
+
+export async function getStaticPaths() {
+  const posts = await getPosts()
+  const uniqueTags = [...new Set(posts.flatMap((post) => post.data.tags || []))]
+
+  return uniqueTags.map((tag) => ({
+    params: { tag },
+    props: { posts },
+  }))
+}
+
+const { tag } = Astro.params
+const { posts } = Astro.props
+const filteredPosts = posts.filter((post) => post.data.tags?.includes(tag))
+---
+
+<HomeLayout>
+  <ul>
+    {
+      filteredPosts.map((post) => (
+        <a href={`/posts/${post.slug}/`}>
+          <div class="my-2 flex text-lg">
+            <p class="flex w-36 flex-shrink-0 truncate text-gray-500 dark:text-gray-400">
+              <time>{formatDate(post.data.pubDate)}</time>
+            </p>
+            <p class="line-clamp-3">{post.data.title}</p>
+          </div>
+        </a>
+      ))
+    }
+  </ul>
+</HomeLayout>

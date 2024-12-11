@@ -1,0 +1,19 @@
+---
+import HomeLayout from "~/layouts/home.astro"
+import { getPosts } from "~/utils"
+
+const posts = await getPosts()
+const tags = [...new Set(posts.map((post) => post.data.tags).flat())]
+---
+
+<HomeLayout>
+  <div>
+    {
+      tags.map((tag) => (
+        <span class="mx-4">
+          <a href={`/tags/${tag}`}>{tag}</a>
+        </span>
+      ))
+    }
+  </div>
+</HomeLayout>

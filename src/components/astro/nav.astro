@@ -1,10 +1,10 @@
 ---
 import { config } from "~/config"
 
-const { home, archive, category, tags, custom, about } = config.navigation
+const { home, archive, tags, custom, about } = config.navigation
 ---
 
-<div class="flex gap-4 text-lg">
+<div class="mb-8 flex gap-4 text-lg">
   {
     home && (
       <a href="/" class="hover:underline hover:underline-offset-4">
@@ -16,13 +16,6 @@ const { home, archive, category, tags, custom, about } = config.navigation
     archive && (
       <a href="/archive" class="hover:underline hover:underline-offset-4">
         <p>归档</p>
-      </a>
-    )
-  }
-  {
-    category && (
-      <a href="/category" class="hover:underline hover:underline-offset-4">
-        <p>分类</p>
       </a>
     )
   }

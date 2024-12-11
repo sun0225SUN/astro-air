@@ -25,8 +25,7 @@ export const config = {
   navigation: {
     home: true,
     archive: true,
-    category: false,
-    tags: false,
+    tags: true,
     about: true,
     custom: [
       {

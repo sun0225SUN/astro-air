@@ -1,5 +1,5 @@
 ---
-layout: ../layouts/post.astro
+layout: ../../layouts/post.astro
 title: "关于我"
 description: "前端开发者 | 摄影爱好者 | 骑行爱好者"
 ---
