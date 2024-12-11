@@ -34,6 +34,5 @@ export const config = {
       },
     ],
   },
-  intro: `🖥️ 前端小学生｜📸 摄影爱好者｜🛸 旅行探索家｜🚴 骑行蹭风选手｜🍎 科技产品发烧友`,
   latestPosts: 8,
 }

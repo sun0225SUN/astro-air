@@ -2,13 +2,40 @@
 import type { CollectionEntry } from "astro:content"
 import HomeLayout from "~/layouts/home.astro"
 import "~/styles/post.css"
+import { formatDate } from "~/utils"
+
 type Props = CollectionEntry<"posts">["data"]
 
 const { title, description, pubDate, updatedDate } = Astro.props
 ---
 
 <HomeLayout>
-  <article class="prose my-10 dark:prose-invert">
+  <head slot="head">
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+  </head>
+  {
+    title && (
+      <div class="mb-4 flex flex-col gap-3">
+        <h1 class="text-2xl font-bold">{title}</h1>
+        {pubDate && (
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            {formatDate(pubDate)}
+          </p>
+        )}
+      </div>
+    )
+  }
+  <article class="prose dark:prose-invert">
     <slot />
   </article>
+  {
+    updatedDate && (
+      <div class="mt-10">
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+          更新时间：{formatDate(updatedDate)}
+        </p>
+      </div>
+    )
+  }
 </HomeLayout>

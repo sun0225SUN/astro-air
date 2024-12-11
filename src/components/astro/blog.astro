@@ -1,6 +1,5 @@
 ---
 import { config } from "~/config"
-import { type Post } from "~/types/post"
 import { formatDate, getPosts } from "~/utils"
 
 const posts = (await getPosts()).slice(0, config.latestPosts ?? 8)
@@ -8,13 +7,13 @@ const posts = (await getPosts()).slice(0, config.latestPosts ?? 8)
 
 <div class="mb-4 text-xl font-medium md:my-8">近期文章</div>
 {
-  posts.map((post: Post) => (
-    <a href={`/posts/${post.slug}/`}>
+  posts.map((post: any) => (
+    <a href={`/posts/${post.slug}/`} class="visited:text-purple-500/90">
       <div class="my-2 flex text-lg">
         <p class="flex w-36 flex-shrink-0 truncate text-gray-500 dark:text-gray-400">
           <time>{formatDate(post.data.pubDate)}</time>
         </p>
-        <p class="line-clamp-3">{post.data.title}</p>
+        <p class="line-clamp-2">{post.data.title}</p>
       </div>
     </a>
   ))

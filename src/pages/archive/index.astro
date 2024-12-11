@@ -6,7 +6,7 @@ import { formatDate, getPosts } from "~/utils"
 const posts = await getPosts()
 
 const postsByYear = posts.reduce(
-  (acc: Record<string, Post[]>, post: Post) => {
+  (acc: Record<string, Post[]>, post: any) => {
     const year = new Date(post.data.pubDate).getFullYear().toString()
     if (!acc[year]) {
       acc[year] = []
@@ -27,13 +27,13 @@ const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a))
         <div class="year-group">
           <h2 class="mb-4 text-2xl font-bold">{year}</h2>
           <div class="space-y-2">
-            {postsByYear[year].map((post: Post) => (
+            {postsByYear[year].map((post: any) => (
               <a href={`/posts/${post.slug}/`}>
                 <div class="my-2 flex text-lg">
                   <p class="flex w-36 flex-shrink-0 truncate text-gray-500 dark:text-gray-400">
                     <time>{formatDate(post.data.pubDate)}</time>
                   </p>
-                  <p class="line-clamp-3">{post.data.title}</p>
+                  <p class="line-clamp-2">{post.data.title}</p>
                 </div>
               </a>
             ))}

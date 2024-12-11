@@ -3,7 +3,7 @@ import HomeLayout from "~/layouts/home.astro"
 import { getPosts } from "~/utils"
 
 const posts = await getPosts()
-const tags = [...new Set(posts.map((post) => post.data.tags).flat())]
+const tags = [...new Set(posts.map((post: any) => post.data.tags).flat())]
 ---
 
 <HomeLayout>
