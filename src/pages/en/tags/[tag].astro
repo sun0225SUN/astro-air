@@ -1,0 +1,22 @@
+---
+import TagComponent from "~/components/astro/tag.astro"
+import { getPostsByLocale } from "~/utils"
+
+export async function getStaticPaths() {
+  const posts = await getPostsByLocale("en")
+  const uniqueTags = [
+    ...new Set(posts.flatMap((post: any) => post.data.tags || [])),
+  ]
+
+  return uniqueTags.map((tag) => ({
+    params: { tag },
+    props: {
+      posts,
+      tag,
+      locale: "en",
+    },
+  }))
+}
+---
+
+<TagComponent {...Astro.props} />

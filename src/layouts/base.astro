@@ -1,7 +1,11 @@
 ---
 import "~/styles/globals.css"
-import { config } from "~/config"
+import { en, zh } from "~/config"
+import { getLocale } from "astro-i18n-aut"
 import { NoiseBg } from "~/components/react/noise-bg"
+
+const locale = getLocale(Astro.url)
+const config = locale === "zh" ? zh.meta : en.meta
 ---
 
 <!doctype html>
@@ -9,10 +13,11 @@ import { NoiseBg } from "~/components/react/noise-bg"
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href={config.meta.favicon} />
+    <link rel="icon" type="image/svg+xml" href={config.favicon} />
     <meta name="generator" content={Astro.generator} />
-    <title>{config.meta.title} - {config.meta.slogan}</title>
-    <meta name="description" content={config.meta.description} />
+    <title>{config.title} - {config.slogan}</title>
+    <meta name="description" content={config.description} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <script is:inline>
       // set theme before page load
       const theme = (() => {

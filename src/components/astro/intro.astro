@@ -1,0 +1,13 @@
+---
+import { getLocale } from "astro-i18n-aut"
+import IntroContentEn from "~/content/en/intro.mdx"
+import IntroContentZh from "~/content/zh/intro.mdx"
+
+const locale = getLocale(Astro.url)
+
+const IntroContent = locale === "zh" ? IntroContentZh : IntroContentEn
+---
+
+<div class="my-10">
+  <IntroContent />
+</div>

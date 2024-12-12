@@ -1,11 +1,10 @@
 import rss from "@astrojs/rss"
-import type { CollectionEntry } from "astro:content"
 import sanitizeHtml from "sanitize-html"
-import { config } from "~/config"
-import { getPosts } from "~/utils"
+import { zh as config } from "~/config"
+import { getPostsByLocale } from "~/utils"
 
 export async function GET() {
-  const posts = await getPosts()
+  const posts = await getPostsByLocale("zh")
 
   return rss({
     title: config.meta.title,
@@ -14,11 +13,11 @@ export async function GET() {
       process.env.NODE_ENV === "development"
         ? "http://localhost:4321"
         : config.meta.url,
-    items: posts.map((post: CollectionEntry<"posts">) => ({
+    items: posts.map((post: any) => ({
       title: post.data.title,
       description: post.data.description,
       pubDate: post.data.pubDate,
-      link: `/posts/${post.slug}/`,
+      link: `/posts/${post.id}/`,
       content: sanitizeHtml(post.body),
     })),
     customData: "",

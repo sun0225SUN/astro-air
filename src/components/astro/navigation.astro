@@ -1,0 +1,120 @@
+---
+import { getLocale } from "astro-i18n-aut"
+import { defaultLanguage, en, zh } from "~/config"
+
+const locale = getLocale(Astro.url)
+
+const { home, archive, tags, custom, about } =
+  locale === "zh" ? zh.navigation : en.navigation
+
+let navList: {
+  home: string
+  archive: string
+  tags: string
+  about: string
+}
+
+switch (locale) {
+  case "zh":
+    navList = {
+      home: "首页",
+      archive: "归档",
+      tags: "标签",
+      about: "关于",
+    }
+    break
+  default:
+    navList = {
+      home: "Home",
+      archive: "Archive",
+      tags: "Tags",
+      about: "About",
+    }
+}
+---
+
+<div class="mb-10 mt-4 flex gap-4 overflow-x-auto whitespace-nowrap text-lg">
+  {
+    home && (
+      <a
+        href={
+          defaultLanguage === "zh"
+            ? locale === "zh"
+              ? "/"
+              : "/en"
+            : locale === "en"
+              ? "/"
+              : "/zh"
+        }
+        class="hover:underline hover:underline-offset-4"
+      >
+        <p>{navList.home}</p>
+      </a>
+    )
+  }
+  {
+    archive && (
+      <a
+        href={
+          defaultLanguage === "zh"
+            ? locale === "zh"
+              ? "/archive"
+              : "/en/archive"
+            : locale === "en"
+              ? `/archive`
+              : `/zh/archive`
+        }
+        class="hover:underline hover:underline-offset-4"
+      >
+        <p>{navList.archive}</p>
+      </a>
+    )
+  }
+  {
+    tags && (
+      <a
+        href={
+          defaultLanguage === "zh"
+            ? locale === "zh"
+              ? "/tags"
+              : "/en/tags"
+            : locale === "en"
+              ? `/tags`
+              : `/zh/tags`
+        }
+        class="hover:underline hover:underline-offset-4"
+      >
+        <p>{navList.tags}</p>
+      </a>
+    )
+  }
+  {
+    custom?.map((tab) => (
+      <a
+        href={tab.link}
+        class="hover:underline hover:underline-offset-4"
+        target="_blank"
+      >
+        <p>{tab.label}</p>
+      </a>
+    ))
+  }
+  {
+    about && (
+      <a
+        href={
+          defaultLanguage === "zh"
+            ? locale === "zh"
+              ? "/about"
+              : "/en/about"
+            : locale === "en"
+              ? `/about`
+              : `/zh/about`
+        }
+        class="hover:underline hover:underline-offset-4"
+      >
+        <p>{navList.about}</p>
+      </a>
+    )
+  }
+</div>

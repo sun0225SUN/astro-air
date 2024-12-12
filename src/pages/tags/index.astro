@@ -1,8 +1,11 @@
 ---
+import { getLocale } from "astro-i18n-aut"
+import { defaultLanguage } from "~/config"
 import HomeLayout from "~/layouts/home.astro"
-import { getPosts } from "~/utils"
+import { getPostsByLocale } from "~/utils"
 
-const posts = await getPosts()
+const locale = getLocale(Astro.url)
+const posts = await getPostsByLocale(locale)
 const tags = [...new Set(posts.map((post: any) => post.data.tags).flat())]
 ---
 
@@ -11,7 +14,19 @@ const tags = [...new Set(posts.map((post: any) => post.data.tags).flat())]
     {
       tags.map((tag) => (
         <span class="mx-4">
-          <a href={`/tags/${tag}`}>{tag}</a>
+          <a
+            href={
+              defaultLanguage === "zh"
+                ? locale === "zh"
+                  ? `/tags/${tag}`
+                  : `/en/tags/${tag}`
+                : locale === "en"
+                  ? `/tags/${tag}`
+                  : `/zh/tags/${tag}`
+            }
+          >
+            {tag}
+          </a>
         </span>
       ))
     }

@@ -1,4 +1,3 @@
-import type { CollectionEntry } from "astro:content"
 import { getCollection } from "astro:content"
 
 export const formatDate = (date: Date | string | undefined): string => {
@@ -14,10 +13,10 @@ export const formatDate = (date: Date | string | undefined): string => {
   return `${year}-${month}-${day}`
 }
 
-export const getPosts = async () => {
-  const posts = await getCollection("posts")
+export const getPostsByLocale = async (locale: string) => {
+  const posts =
+    locale === "zh" ? await getCollection("zh") : await getCollection("en")
   return posts.sort(
-    (a: CollectionEntry<"posts">, b: CollectionEntry<"posts">) =>
-      b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
   )
 }

@@ -1,12 +1,14 @@
 ---
+import { getLocale } from "astro-i18n-aut"
+import { defaultLanguage } from "~/config"
 import HomeLayout from "~/layouts/home.astro"
-import { type Post } from "~/types/post"
-import { formatDate, getPosts } from "~/utils"
+import { formatDate, getPostsByLocale } from "~/utils"
 
-const posts = await getPosts()
+const locale = getLocale(Astro.url)
+const posts = await getPostsByLocale(locale)
 
 const postsByYear = posts.reduce(
-  (acc: Record<string, Post[]>, post: any) => {
+  (acc: Record<string, any[]>, post: any) => {
     const year = new Date(post.data.pubDate).getFullYear().toString()
     if (!acc[year]) {
       acc[year] = []
@@ -14,7 +16,7 @@ const postsByYear = posts.reduce(
     acc[year].push(post)
     return acc
   },
-  {} as Record<string, Post[]>,
+  {} as Record<string, any[]>,
 )
 
 const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a))
@@ -28,7 +30,17 @@ const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a))
           <h2 class="mb-4 text-2xl font-bold">{year}</h2>
           <div class="space-y-2">
             {postsByYear[year].map((post: any) => (
-              <a href={`/posts/${post.slug}/`}>
+              <a
+                href={
+                  defaultLanguage === "zh"
+                    ? locale === "zh"
+                      ? `/posts/${post.id}/`
+                      : `/en/posts/${post.id}/`
+                    : locale === "en"
+                      ? `/posts/${post.id}/`
+                      : `/zh/posts/${post.id}/`
+                }
+              >
                 <div class="my-2 flex text-lg">
                   <p class="flex w-36 flex-shrink-0 truncate text-gray-500 dark:text-gray-400">
                     <time>{formatDate(post.data.pubDate)}</time>

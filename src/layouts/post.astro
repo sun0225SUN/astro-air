@@ -1,10 +1,7 @@
 ---
-import type { CollectionEntry } from "astro:content"
 import HomeLayout from "~/layouts/home.astro"
 import "~/styles/post.css"
 import { formatDate } from "~/utils"
-
-type Props = CollectionEntry<"posts">["data"]
 
 const { title, description, pubDate, updatedDate } = Astro.props
 ---

@@ -1,0 +1,67 @@
+---
+import { defaultLanguage } from "~/config"
+import HomeLayout from "~/layouts/home.astro"
+import { formatDate } from "~/utils"
+
+interface Props {
+  posts: any[]
+  tag: string
+  locale?: string
+}
+
+const { posts, tag, locale = "en" } = Astro.props
+
+const filteredPosts = posts.filter((post: any) => post.data.tags?.includes(tag))
+
+const getTagTitle = (tag: string, locale: string) => {
+  const titles = {
+    en: `Tag: ${tag}`,
+    zh: `标签：${tag}`,
+  }
+
+  return titles[locale as keyof typeof titles] || titles["en"]
+}
+---
+
+<HomeLayout>
+  <div class="container mx-auto px-4">
+    <h1 class="mb-6 text-2xl font-bold">
+      {getTagTitle(tag, locale)}
+    </h1>
+    {
+      filteredPosts.length > 0 ? (
+        <ul class="space-y-4">
+          {filteredPosts.map((post: any) => (
+            <li>
+              <a
+                href={
+                  defaultLanguage === "zh"
+                    ? locale === "zh"
+                      ? `/posts/${post.id}/`
+                      : `/en/posts/${post.id}/`
+                    : locale === "en"
+                      ? `/posts/${post.id}/`
+                      : `/zh/posts/${post.id}/`
+                }
+                class="block rounded-lg p-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+              >
+                <div class="flex items-center text-lg">
+                  <p class="mr-4 w-36 flex-shrink-0 truncate text-gray-500 dark:text-gray-400">
+                    <time>{formatDate(post.data.pubDate)}</time>
+                  </p>
+                  <p class="line-clamp-2 flex-grow">{post.data.title}</p>
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="text-gray-500">
+          {locale === "en"
+            ? `No posts found for tag "${tag}"`
+            : `没有找到标签为 "${tag}" 的文章`}
+        </p>
+      )
+    }
+  </div>
+</HomeLayout>

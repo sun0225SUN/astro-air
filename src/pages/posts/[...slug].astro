@@ -1,20 +1,20 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content"
+import { defaultLanguage } from "~/config"
 import PostLayout from "~/layouts/post.astro"
+import { getPostsByLocale } from "~/utils"
 
 export async function getStaticPaths() {
-  const posts = await getCollection("posts")
-  return posts.map((post: { slug: string; [key: string]: any }) => ({
-    params: { slug: post.slug },
-    props: post,
+  const posts = await getPostsByLocale(defaultLanguage)
+
+  return posts.map((post: any) => ({
+    params: { slug: post.id },
+    props: { post },
   }))
 }
-type Props = CollectionEntry<"posts">
 
-const post = Astro.props
-const { Content } = await post.render()
+const { post } = Astro.props
 ---
 
 <PostLayout {...post.data}>
-  <Content />
+  <div set:html={post.rendered.html} />
 </PostLayout>
