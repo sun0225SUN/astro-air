@@ -1,7 +1,7 @@
 ---
 import { Rss } from "lucide-react"
-import ThemeToggle from "~/components/astro/theme-toggle.astro"
 import { LanguageToggle } from "~/components/react/language-toggle"
+import { ThemeToggle } from "~/components/react/theme-toggle"
 import { en, zh } from "~/config"
 import { getLangFromUrl } from "~/i18n/utils"
 
@@ -31,6 +31,6 @@ const config = lang === "zh" ? zh : en
     }
 
     <LanguageToggle client:load />
-    <ThemeToggle />
+    <ThemeToggle client:load />
   </div>
 </header>

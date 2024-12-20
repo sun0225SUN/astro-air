@@ -1,47 +1,44 @@
 ---
 import "~/styles/globals.css"
-import { NoiseBg } from "~/components/react/noise-bg"
-import { en, zh } from "~/config"
+import { NoiseBackground } from "~/components/react/noise-background"
+import { ClientRouter } from "astro:transitions"
 import { getLangFromUrl } from "~/i18n/utils"
+import Head from "~/components/astro/head/root.astro"
 
 const lang = getLangFromUrl(Astro.url)
-const config = lang === "zh" ? zh.meta : en.meta
 ---
 
 <!doctype html>
 <html lang={lang}>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href={config.favicon} />
-    <meta name="generator" content={Astro.generator} />
-    <title>{config.title} - {config.slogan}</title>
-    <meta name="description" content={config.description} />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <Head />
+    <ClientRouter />
     <script is:inline>
-      // set theme before page load
-      const theme = (() => {
-        if (
-          typeof localStorage !== "undefined" &&
-          localStorage.getItem("theme")
-        ) {
-          return localStorage.getItem("theme")
-        }
-        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-          return "dark"
-        }
-        return "light"
-      })()
+      const setTheme = () => {
+        const theme =
+          localStorage.getItem("theme") ??
+          (window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light")
 
-      if (theme === "dark") {
-        document.documentElement.classList.add("dark")
+        if (theme === "dark") {
+          document.documentElement.classList.add("dark")
+        } else {
+          document.documentElement.classList.remove("dark")
+        }
       }
+
+      setTheme()
+
+      document.addEventListener("astro:page-load", () => {
+        setTheme()
+      })
     </script>
   </head>
   <body class="dark:bg-[#121212] dark:text-white">
     <div class="flex min-h-screen w-full justify-center px-6 md:p-0">
       <slot />
-      <NoiseBg />
+      <NoiseBackground />
     </div>
   </body>
 </html>

@@ -12,4 +12,5 @@ export default defineConfig({
     },
   },
   integrations: [react(), tailwind(), mdx()],
+  viewTransitions: true,
 })

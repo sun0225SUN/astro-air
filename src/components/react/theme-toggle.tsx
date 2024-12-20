@@ -1,23 +1,15 @@
----
 import { Moon, Sun } from "lucide-react"
----
 
-<button id="themeToggle">
-  <Sun className="dark:hidden" />
-  <Moon className="hidden dark:block" />
-</button>
-
-<script>
-  // update theme
+export function ThemeToggle() {
   const updateTheme = () => {
     const isDark = document.documentElement.classList.contains("dark")
     localStorage.setItem("theme", isDark ? "dark" : "light")
   }
 
-  // toggle theme
   const handleToggleClick = () => {
     const element = document.documentElement
 
+    // if not supported, just toggle the theme
     if (!document.startViewTransition) {
       element.classList.toggle("dark")
       updateTheme()
@@ -30,7 +22,10 @@ import { Moon, Sun } from "lucide-react"
     })
   }
 
-  document
-    .getElementById("themeToggle")!
-    .addEventListener("click", handleToggleClick)
-</script>
+  return (
+    <button onClick={handleToggleClick}>
+      <Sun className="dark:hidden" />
+      <Moon className="hidden dark:block" />
+    </button>
+  )
+}
