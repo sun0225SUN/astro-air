@@ -1,7 +1,7 @@
 import { glob } from "astro/loaders"
 import { defineCollection, z } from "astro:content"
 
-const schema = z.object({
+const postSchema = z.object({
   title: z.string(),
   description: z.string(),
   pubDate: z.coerce.date(),
@@ -10,14 +10,17 @@ const schema = z.object({
   tags: z.array(z.string()).optional(),
 })
 
-const posts_zh = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "src/content/zh/posts" }),
-  schema,
+const enPostsCollection = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "src/content/posts/en" }),
+  schema: postSchema,
 })
 
-const posts_en = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "src/content/en/posts" }),
-  schema,
+const zhPostsCollection = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "src/content/posts/zh" }),
+  schema: postSchema,
 })
 
-export const collections = { zh: posts_zh, en: posts_en }
+export const collections = {
+  enPosts: enPostsCollection,
+  zhPosts: zhPostsCollection,
+}

@@ -1,0 +1,61 @@
+---
+import { en, zh } from "~/config"
+import { getLangFromUrl, useTranslations } from "~/i18n/utils"
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+
+const { home, archive, tags, custom, about } =
+  lang === "zh" ? zh.navigation : en.navigation
+---
+
+<div class="mb-10 mt-4 flex gap-4 overflow-x-auto whitespace-nowrap text-lg">
+  {
+    home && (
+      <a href={`/${lang}`} class="hover:underline hover:underline-offset-4">
+        <p>{t("nav.home")}</p>
+      </a>
+    )
+  }
+  {
+    archive && (
+      <a
+        href={`/${lang}/archive`}
+        class="hover:underline hover:underline-offset-4"
+      >
+        <p>{t("nav.archive")}</p>
+      </a>
+    )
+  }
+  {
+    tags && (
+      <a
+        href={`/${lang}/tags`}
+        class="hover:underline hover:underline-offset-4"
+      >
+        <p>{t("nav.tags")}</p>
+      </a>
+    )
+  }
+  {
+    custom?.map((tab) => (
+      <a
+        href={tab.link}
+        class="hover:underline hover:underline-offset-4"
+        target="_blank"
+      >
+        <p>{tab.label}</p>
+      </a>
+    ))
+  }
+  {
+    about && (
+      <a
+        href={`/${lang}/about`}
+        class="hover:underline hover:underline-offset-4"
+      >
+        <p>{t("nav.about")}</p>
+      </a>
+    )
+  }
+</div>

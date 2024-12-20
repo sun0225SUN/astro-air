@@ -1,15 +1,15 @@
 ---
 import "~/styles/globals.css"
-import { en, zh } from "~/config"
-import { getLocale } from "astro-i18n-aut"
 import { NoiseBg } from "~/components/react/noise-bg"
+import { en, zh } from "~/config"
+import { getLangFromUrl } from "~/i18n/utils"
 
-const locale = getLocale(Astro.url)
-const config = locale === "zh" ? zh.meta : en.meta
+const lang = getLangFromUrl(Astro.url)
+const config = lang === "zh" ? zh.meta : en.meta
 ---
 
 <!doctype html>
-<html lang="zh-CN">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -39,7 +39,7 @@ const config = locale === "zh" ? zh.meta : en.meta
     </script>
   </head>
   <body class="dark:bg-[#121212] dark:text-white">
-    <div class="flex min-h-screen w-full justify-center px-10 md:p-0">
+    <div class="flex min-h-screen w-full justify-center px-6 md:p-0">
       <slot />
       <NoiseBg />
     </div>

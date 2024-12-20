@@ -1,32 +1,13 @@
 import { Languages } from "lucide-react"
-import { defaultLanguage } from "~/config"
 
-interface LanguageToggleProps {
-  currentLocale: string
-}
-
-export function LanguageToggle({ currentLocale }: LanguageToggleProps) {
-  const getNewPath = (path: string): string => {
-    if (path === "/" || path === "") {
-      return defaultLanguage === "zh" ? "/en" : "/zh"
-    }
-
-    if (path === "/en" || path === "/zh") {
-      return "/"
-    }
-
-    return defaultLanguage === "zh"
-      ? currentLocale === "zh"
-        ? `/en${path}`
-        : path.replace("/en", "")
-      : currentLocale === "en"
-        ? `/zh${path}`
-        : path.replace("/zh", "")
-  }
-
+export function LanguageToggle() {
   const handleLanguageToggle = () => {
     const currentPath = window.location.pathname
-    const newPath = getNewPath(currentPath)
+
+    const newPath = currentPath.includes("/en")
+      ? currentPath.replace("/en", "/zh")
+      : currentPath.replace("/zh", "/en")
+
     window.location.href = newPath
   }
 

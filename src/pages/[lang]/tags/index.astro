@@ -1,0 +1,26 @@
+---
+import { getLangFromUrl } from "~/i18n/utils"
+import HomeLayout from "~/layouts/home.astro"
+import { getPostsByLocale } from "~/utils"
+import { getLanguagePaths } from "~/utils/langs"
+
+export function getStaticPaths() {
+  return getLanguagePaths()
+}
+
+const lang = getLangFromUrl(Astro.url)
+const posts = await getPostsByLocale(lang)
+const tags = [...new Set(posts.map((post: any) => post.data.tags).flat())]
+---
+
+<HomeLayout>
+  <div>
+    {
+      tags.map((tag) => (
+        <span class="mx-4">
+          <a href={`/${lang}/tags/${tag}`}>{tag}</a>
+        </span>
+      ))
+    }
+  </div>
+</HomeLayout>

@@ -1,11 +1,10 @@
 ---
-import { getLocale } from "astro-i18n-aut"
-import IntroContentEn from "~/content/en/intro.mdx"
-import IntroContentZh from "~/content/zh/intro.mdx"
+import IntroContentEn from "~/config/en/intro.mdx"
+import IntroContentZh from "~/config/zh/intro.mdx"
+import { getLangFromUrl } from "~/i18n/utils"
 
-const locale = getLocale(Astro.url)
-
-const IntroContent = locale === "zh" ? IntroContentZh : IntroContentEn
+const lang = getLangFromUrl(Astro.url)
+const IntroContent = lang === "zh" ? IntroContentZh : IntroContentEn
 ---
 
 <div class="my-10">

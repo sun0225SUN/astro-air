@@ -1,12 +1,5 @@
 ---
-import Blog from "~/components/astro/blog.astro"
-import Footer from "~/components/astro/footer.astro"
-import Intro from "~/components/astro/intro.astro"
-import HomeLayout from "~/layouts/home.astro"
+import { defaultLanguage } from "~/config"
 ---
 
-<HomeLayout>
-  <Intro />
-  <Blog />
-  <Footer />
-</HomeLayout>
+<meta http-equiv="refresh" content={`0;url=/${defaultLanguage}/`} />

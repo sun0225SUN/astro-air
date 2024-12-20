@@ -1,18 +1,29 @@
+---
+const currentYear = new Date().getFullYear()
+---
+
 <footer class="my-10 flex flex-wrap items-center gap-1">
-  <p>
-    &copy; {new Date().getFullYear()}
-  </p>
-  <p class="mx-1">|</p>
-  <p>Designed By</p>
-  <a href="https://sunguoqi.com" class="text-blue-500 hover:underline">
-    Guoqi Sun
-  </a>
-  <p class="mx-1">|</p>
-  <p>Powered By</p>
-  <a
-    href="https://github.com/sun0225SUN/astro-air"
-    class="text-blue-500 hover:underline"
-  >
-    Astro Air
-  </a>
+  <p>&copy; {currentYear}</p>
+
+  {
+    [
+      { text: "Designed By", link: "https://sunguoqi.com", label: "Guoqi Sun" },
+      {
+        text: "Powered By",
+        link: "https://github.com/sun0225SUN/astro-air",
+        label: "Astro Air",
+      },
+    ].map((item, index) => (
+      <>
+        {index > 0 && <p class="mx-1">|</p>}
+        <p>{item.text}</p>
+        <a
+          href={item.link}
+          class="text-blue-500 transition-colors duration-200 hover:text-blue-700"
+        >
+          {item.label}
+        </a>
+      </>
+    ))
+  }
 </footer>

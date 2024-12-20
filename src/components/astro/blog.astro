@@ -1,30 +1,19 @@
 ---
-import { getLocale } from "astro-i18n-aut"
-import { defaultLanguage, en, zh } from "~/config"
+import { latestPosts } from "~/config"
+import { getLangFromUrl, useTranslations } from "~/i18n/utils"
 import { formatDate, getPostsByLocale } from "~/utils"
 
-const locale = getLocale(Astro.url)
-const config = locale === "zh" ? zh : en
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
 
-const posts = (await getPostsByLocale(locale)).slice(0, config.latestPosts ?? 8)
-const recentPosts = locale === "zh" ? "近期文章" : "Recent Posts"
+const allPosts = await getPostsByLocale(lang)
+const posts = allPosts.slice(0, latestPosts)
 ---
 
-<div class="my-8 text-xl font-medium md:my-8">{recentPosts}</div>
+<div class="my-8 text-xl font-medium md:my-8">{t("blog.latest")}</div>
 {
   posts.map((post: any) => (
-    <a
-      href={
-        defaultLanguage === "zh"
-          ? locale === "zh"
-            ? `/posts/${post.id}/`
-            : `/en/posts/${post.id}/`
-          : locale === "en"
-            ? `/posts/${post.id}/`
-            : `/zn/posts/${post.id}/`
-      }
-      class="visited:text-purple-500/90"
-    >
+    <a href={`/${lang}/posts/${post.id}/`} class="visited:text-purple-500/90">
       <div class="my-2 flex text-lg">
         <p class="flex w-36 flex-shrink-0 truncate text-gray-500 dark:text-gray-400">
           <time>{formatDate(post.data.pubDate)}</time>

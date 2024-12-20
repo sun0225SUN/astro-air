@@ -1,0 +1,20 @@
+---
+import AboutContentEn from "~/config/en/about.mdx"
+import AboutContentZh from "~/config/zh/about.mdx"
+import { getLangFromUrl } from "~/i18n/utils"
+import HomeLayout from "~/layouts/home.astro"
+import { getLanguagePaths } from "~/utils/langs"
+
+export function getStaticPaths() {
+  return getLanguagePaths()
+}
+
+const lang = getLangFromUrl(Astro.url)
+const AboutContent = lang === "zh" ? AboutContentZh : AboutContentEn
+---
+
+<HomeLayout>
+  <div class="prose dark:prose-invert">
+    <AboutContent />
+  </div>
+</HomeLayout>

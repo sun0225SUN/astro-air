@@ -1,0 +1,26 @@
+---
+import { langs } from "~/i18n/ui"
+import PostLayout from "~/layouts/post.astro"
+import { getPostsByLocale } from "~/utils"
+
+export async function getStaticPaths() {
+  const allPaths = []
+
+  for (const lang of langs) {
+    const posts = await getPostsByLocale(lang)
+    const paths = posts.map((post: any) => ({
+      params: { lang, slug: post.id },
+      props: { post },
+    }))
+    allPaths.push(...paths)
+  }
+
+  return allPaths
+}
+
+const { post } = Astro.props
+---
+
+<PostLayout {...post.data}>
+  <div set:html={post.rendered.html} />
+</PostLayout>

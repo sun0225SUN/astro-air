@@ -1,26 +1,19 @@
 ---
-import { getLocale } from "astro-i18n-aut"
 import { Rss } from "lucide-react"
 import ThemeToggle from "~/components/astro/theme-toggle.astro"
 import { LanguageToggle } from "~/components/react/language-toggle"
-import { defaultLanguage, en, zh } from "~/config"
+import { en, zh } from "~/config"
+import { getLangFromUrl } from "~/i18n/utils"
 
-const locale = getLocale(Astro.url)
-const config = locale === "zh" ? zh : en
+const lang = getLangFromUrl(Astro.url)
+const config = lang === "zh" ? zh : en
 ---
 
 <header class="flex h-24 w-full items-center justify-between">
-  <a
-    href={defaultLanguage === "zh"
-      ? locale === "zh"
-        ? "/"
-        : "/en"
-      : locale === "en"
-        ? "/"
-        : "/zh"}
-  >
+  <a href="/">
     <div class="text-2xl font-semibold">{config.siteName}</div>
   </a>
+
   <div class="flex items-center gap-6">
     {
       config.rss && (
@@ -37,7 +30,7 @@ const config = locale === "zh" ? zh : en
       ))
     }
 
-    <LanguageToggle currentLocale={locale} client:load />
+    <LanguageToggle client:load />
     <ThemeToggle />
   </div>
 </header>
