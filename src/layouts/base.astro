@@ -1,6 +1,7 @@
 ---
 import "~/styles/globals.css"
 import { NoiseBackground } from "~/components/react/noise-background"
+import { CodeBackground } from "~/components/react/code-background"
 import { ClientRouter } from "astro:transitions"
 import { getLangFromUrl } from "~/i18n/utils"
 import { en, zh } from "~/config"
@@ -71,10 +72,11 @@ const config = lang === "zh" ? zh.meta : en.meta
       })
     </script>
   </head>
-  <body class="dark:bg-[#121212] dark:text-white">
-    <div class="flex min-h-screen w-full justify-center px-6 md:p-0">
-      <slot />
-      <NoiseBackground />
-    </div>
+  <body
+    class="flex min-h-screen w-full justify-center px-6 dark:bg-[#121212] dark:text-white md:px-0"
+  >
+    <slot />
+    <NoiseBackground />
+    <CodeBackground client:load />
   </body>
 </html>

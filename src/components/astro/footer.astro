@@ -2,12 +2,16 @@
 const currentYear = new Date().getFullYear()
 ---
 
-<footer class="my-10 flex flex-wrap items-center gap-1">
+<footer class="relative z-10 my-10 flex flex-wrap items-center gap-1">
   <p>&copy; {currentYear}</p>
 
   {
     [
-      { text: "Designed By", link: "https://sunguoqi.com", label: "Guoqi Sun" },
+      {
+        text: "Designed By",
+        link: "https://sunguoqi.com",
+        label: "Guoqi Sun",
+      },
       {
         text: "Powered By",
         link: "https://github.com/sun0225SUN/astro-air",

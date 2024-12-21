@@ -10,8 +10,10 @@ const openGraphImage = !ogImage ? `/og/${filename}.png` : ogImage
 
 <BaseLayout title={title} description={description} ogImage={openGraphImage}>
   <main class="max-auto mb-10 w-full max-w-3xl">
-    <Header />
-    <Navigation />
-    <slot />
+    <div class="relative z-10">
+      <Header />
+      <Navigation />
+      <slot />
+    </div>
   </main>
 </BaseLayout>

@@ -25,14 +25,13 @@ const common = {
   navigation: {
     home: true,
     archive: true,
-    tags: true,
-    about: true,
     custom: [
       {
         label: "CamLife",
         link: "https://camlife.cn",
       },
     ],
+    about: true,
   },
 }
 

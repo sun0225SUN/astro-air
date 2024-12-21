@@ -1,8 +1,10 @@
 ---
 import { langs } from "~/i18n/ui"
+import { getLangFromUrl } from "~/i18n/utils"
 import MainLayout from "~/layouts/main.astro"
 import "~/styles/post.css"
-import { getPostsByLocale } from "~/utils"
+import "~/styles/post.scss"
+import { formatDate, getPostsByLocale } from "~/utils"
 
 export async function getStaticPaths() {
   const allPaths = []
@@ -19,11 +21,30 @@ export async function getStaticPaths() {
   return allPaths
 }
 
+const lang = getLangFromUrl(Astro.url)
+
 const { post } = Astro.props
 ---
 
 <MainLayout {...post.data}>
-  <article class="prose dark:prose-invert">
-    <div set:html={post.rendered.html} />
+  <article class="prose relative z-10 w-full max-w-full dark:prose-invert">
+    <div class="flex flex-col gap-2">
+      <h2 class="!my-0 text-3xl font-semibold">{post.data.title}</h2>
+      <div class="my-3 text-gray-500 dark:text-white/80">
+        {formatDate(post.data.pubDate)}
+      </div>
+    </div>
+
+    <div class="my-6" set:html={post.rendered.html} />
+
+    <div class="space-x-3 pb-10 text-sm text-gray-500">
+      {
+        post.data.tags.map((tag: string) => (
+          <a href={`/${lang}/tags/${tag}`} class="no-underline">
+            <p class="inline-block hover:scale-105">#{tag}</p>
+          </a>
+        ))
+      }
+    </div>
   </article>
 </MainLayout>

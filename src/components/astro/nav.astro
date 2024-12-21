@@ -5,7 +5,7 @@ import { getLangFromUrl, useTranslations } from "~/i18n/utils"
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
 
-const { home, archive, tags, custom, about } =
+const { home, archive, custom, about } =
   lang === "zh" ? zh.navigation : en.navigation
 ---
 
@@ -24,16 +24,6 @@ const { home, archive, tags, custom, about } =
         class="hover:underline hover:underline-offset-4"
       >
         <p>{t("nav.archive")}</p>
-      </a>
-    )
-  }
-  {
-    tags && (
-      <a
-        href={`/${lang}/tags`}
-        class="hover:underline hover:underline-offset-4"
-      >
-        <p>{t("nav.tags")}</p>
       </a>
     )
   }

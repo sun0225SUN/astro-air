@@ -1,7 +1,7 @@
 ---
 import { getLangFromUrl, useTranslations } from "~/i18n/utils"
 import MainLayout from "~/layouts/main.astro"
-import { formatDate } from "~/utils"
+import PostList from "./post-list.astro"
 
 interface Props {
   posts: any[]
@@ -17,30 +17,24 @@ const filteredPosts = posts.filter((post: any) => post.data.tags?.includes(tag))
 ---
 
 <MainLayout>
-  <div class="mb-4 mt-2 text-2xl">
-    {tag}
+  <div class="relative z-10">
+    <div class="my-9 mt-2 text-2xl font-semibold">#{tag}</div>
+
+    {
+      filteredPosts.length > 0 ? (
+        <ul class="space-y-4">
+          {filteredPosts.map((post: any) => (
+            <PostList
+              post={post}
+              lang={lang}
+              dateFormat="YYYY-MM-DD"
+              dateWidth="w-32"
+            />
+          ))}
+        </ul>
+      ) : (
+        <p class="text-gray-500">{t("tag.no_posts")}</p>
+      )
+    }
   </div>
-  {
-    filteredPosts.length > 0 ? (
-      <ul class="space-y-4">
-        {filteredPosts.map((post: any) => (
-          <li>
-            <a
-              href={`/${lang}/posts/${post.id}/`}
-              class="block rounded-lg p-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
-            >
-              <div class="flex items-center text-lg">
-                <p class="mr-4 w-36 flex-shrink-0 truncate text-gray-500 dark:text-gray-400">
-                  <time>{formatDate(post.data.pubDate)}</time>
-                </p>
-                <p class="line-clamp-2 flex-grow">{post.data.title}</p>
-              </div>
-            </a>
-          </li>
-        ))}
-      </ul>
-    ) : (
-      <p class="text-gray-500">{t("tag.no_posts")}</p>
-    )
-  }
 </MainLayout>

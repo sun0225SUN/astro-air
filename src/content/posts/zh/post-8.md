@@ -5,7 +5,7 @@ description: "全面指南，帮助您将 Astro 网站部署到各种平台"
 image:
   url: "https://docs.astro.build/assets/arc.webp"
   alt: "Astro 部署插图"
-pubDate: 2024-08-19
+pubDate: 2024-08-26
 tags: ["astro", "i18n", "本地化", "网页开发"]
 ---
 

@@ -1,7 +1,8 @@
 ---
 import { latestPosts } from "~/config"
 import { getLangFromUrl, useTranslations } from "~/i18n/utils"
-import { formatDate, getPostsByLocale } from "~/utils"
+import { getPostsByLocale } from "~/utils"
+import PostList from "./post-list.astro"
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
@@ -13,13 +14,11 @@ const posts = allPosts.slice(0, latestPosts)
 <div class="my-8 text-xl font-medium md:my-8">{t("blog.latest")}</div>
 {
   posts.map((post: any) => (
-    <a href={`/${lang}/posts/${post.id}/`} class="visited:text-purple-500/90">
-      <div class="my-2 flex text-lg">
-        <p class="flex w-36 flex-shrink-0 truncate text-gray-500 dark:text-gray-400">
-          <time>{formatDate(post.data.pubDate)}</time>
-        </p>
-        <p class="line-clamp-2">{post.data.title}</p>
-      </div>
-    </a>
+    <PostList
+      post={post}
+      lang={lang}
+      dateFormat="YYYY-MM-DD"
+      dateWidth="w-32"
+    />
   ))
 }

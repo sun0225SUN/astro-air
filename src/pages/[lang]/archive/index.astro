@@ -1,14 +1,15 @@
 ---
+import PostList from "~/components/astro/post-list.astro"
 import { getLangFromUrl } from "~/i18n/utils"
 import MainLayout from "~/layouts/main.astro"
-import { formatDate, getPostsByLocale } from "~/utils"
+import { getPostsByLocale } from "~/utils"
 import { getLanguagePaths } from "~/utils/langs"
+
+const lang = getLangFromUrl(Astro.url)
 
 export function getStaticPaths() {
   return getLanguagePaths()
 }
-
-const lang = getLangFromUrl(Astro.url)
 
 const posts = await getPostsByLocale(lang)
 
@@ -28,23 +29,19 @@ const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a))
 ---
 
 <MainLayout>
-  <div class="space-y-8">
+  <div class="relative z-10">
     {
       years.map((year) => (
-        <div class="year-group">
-          <h2 class="mb-4 text-2xl font-bold">{year}</h2>
-          <div class="space-y-2">
-            {postsByYear[year].map((post: any) => (
-              <a href={`/${lang}/posts/${post.id}/`}>
-                <div class="my-2 flex text-lg">
-                  <p class="flex w-36 flex-shrink-0 truncate text-gray-500 dark:text-gray-400">
-                    <time>{formatDate(post.data.pubDate)}</time>
-                  </p>
-                  <p class="line-clamp-2">{post.data.title}</p>
-                </div>
-              </a>
-            ))}
-          </div>
+        <div class="year-group my-8">
+          <h2 class="my-4 text-2xl font-bold">{year}</h2>
+          {postsByYear[year].map((post: any) => (
+            <PostList
+              post={post}
+              lang={lang}
+              dateFormat="MM-DD"
+              dateWidth="w-20"
+            />
+          ))}
         </div>
       ))
     }

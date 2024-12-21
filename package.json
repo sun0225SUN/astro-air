@@ -42,7 +42,8 @@
     "lint-staged": "^15.2.11",
     "prettier": "^3.4.2",
     "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-tailwindcss": "^0.6.9"
+    "prettier-plugin-tailwindcss": "^0.6.9",
+    "sass": "^1.83.0"
   },
   "lint-staged": {
     "*/**/*.{js,jsx,ts,tsx,astro}": [
