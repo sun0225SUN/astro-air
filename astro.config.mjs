@@ -5,6 +5,7 @@ import { defineConfig } from "astro/config"
 
 // https://astro.build/config
 export default defineConfig({
+  output: "static",
   site: "https://astro-air.netlify.app",
   vite: {
     worker: {
@@ -12,5 +13,4 @@ export default defineConfig({
     },
   },
   integrations: [react(), tailwind(), mdx()],
-  viewTransitions: true,
 })

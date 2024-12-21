@@ -49,7 +49,8 @@ const config = lang === "zh" ? zh.meta : en.meta
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={ogImageURL} />
 
-    <ClientRouter />
+    <ClientRouter fallback="swap" />
+
     <script is:inline>
       const setTheme = () => {
         const theme =
@@ -67,9 +68,8 @@ const config = lang === "zh" ? zh.meta : en.meta
 
       setTheme()
 
-      document.addEventListener("astro:page-load", () => {
-        setTheme()
-      })
+      document.addEventListener("astro:after-swap", setTheme)
+      document.addEventListener("astro:page-load", setTheme)
     </script>
 
     <script
