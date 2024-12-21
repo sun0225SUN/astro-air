@@ -1,6 +1,6 @@
 ---
 import { getLangFromUrl } from "~/i18n/utils"
-import HomeLayout from "~/layouts/home.astro"
+import MainLayout from "~/layouts/main.astro"
 import { formatDate, getPostsByLocale } from "~/utils"
 import { getLanguagePaths } from "~/utils/langs"
 
@@ -27,7 +27,7 @@ const postsByYear = posts.reduce(
 const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a))
 ---
 
-<HomeLayout>
+<MainLayout>
   <div class="space-y-8">
     {
       years.map((year) => (
@@ -49,4 +49,4 @@ const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a))
       ))
     }
   </div>
-</HomeLayout>
+</MainLayout>

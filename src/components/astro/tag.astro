@@ -1,6 +1,6 @@
 ---
 import { getLangFromUrl, useTranslations } from "~/i18n/utils"
-import HomeLayout from "~/layouts/home.astro"
+import MainLayout from "~/layouts/main.astro"
 import { formatDate } from "~/utils"
 
 interface Props {
@@ -16,7 +16,7 @@ const t = useTranslations(lang)
 const filteredPosts = posts.filter((post: any) => post.data.tags?.includes(tag))
 ---
 
-<HomeLayout>
+<MainLayout>
   <div class="mb-4 mt-2 text-2xl">
     {tag}
   </div>
@@ -43,4 +43,4 @@ const filteredPosts = posts.filter((post: any) => post.data.tags?.includes(tag))
       <p class="text-gray-500">{t("tag.no_posts")}</p>
     )
   }
-</HomeLayout>
+</MainLayout>

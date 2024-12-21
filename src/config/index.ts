@@ -6,7 +6,7 @@ export const latestPosts = 8
 
 const common = {
   meta: {
-    favicon: "/favicon.svg",
+    favicon: "/avatar.png",
     url: "https://blog.sunguoqi.com",
   },
   social: [

@@ -2,6 +2,7 @@
 title: "My First Blog Post"
 pubDate: 2020-07-01
 description: "This is the first post of my new Astro blog."
+ogImage: "https://sunguoqi.com/me.png"
 author: "Astro Learner"
 image:
   url: "https://docs.astro.build/assets/rose.webp"

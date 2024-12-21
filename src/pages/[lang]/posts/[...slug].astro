@@ -1,6 +1,7 @@
 ---
 import { langs } from "~/i18n/ui"
-import PostLayout from "~/layouts/post.astro"
+import MainLayout from "~/layouts/main.astro"
+import "~/styles/post.css"
 import { getPostsByLocale } from "~/utils"
 
 export async function getStaticPaths() {
@@ -21,6 +22,8 @@ export async function getStaticPaths() {
 const { post } = Astro.props
 ---
 
-<PostLayout {...post.data}>
-  <div set:html={post.rendered.html} />
-</PostLayout>
+<MainLayout {...post.data}>
+  <article class="prose dark:prose-invert">
+    <div set:html={post.rendered.html} />
+  </article>
+</MainLayout>

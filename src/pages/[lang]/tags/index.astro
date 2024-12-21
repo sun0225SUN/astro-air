@@ -1,6 +1,6 @@
 ---
 import { getLangFromUrl } from "~/i18n/utils"
-import HomeLayout from "~/layouts/home.astro"
+import MainLayout from "~/layouts/main.astro"
 import { getPostsByLocale } from "~/utils"
 import { getLanguagePaths } from "~/utils/langs"
 
@@ -13,7 +13,7 @@ const posts = await getPostsByLocale(lang)
 const tags = [...new Set(posts.map((post: any) => post.data.tags).flat())]
 ---
 
-<HomeLayout>
+<MainLayout>
   <div>
     {
       tags.map((tag) => (
@@ -23,4 +23,4 @@ const tags = [...new Set(posts.map((post: any) => post.data.tags).flat())]
       ))
     }
   </div>
-</HomeLayout>
+</MainLayout>

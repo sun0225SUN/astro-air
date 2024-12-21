@@ -3,15 +3,51 @@ import "~/styles/globals.css"
 import { NoiseBackground } from "~/components/react/noise-background"
 import { ClientRouter } from "astro:transitions"
 import { getLangFromUrl } from "~/i18n/utils"
-import Head from "~/components/astro/head/root.astro"
+import { en, zh } from "~/config"
 
 const lang = getLangFromUrl(Astro.url)
+
+const { title, description, ogImage } = Astro.props
+
+const ogImageURL = new URL(ogImage, Astro.site).href
+const permalink = new URL(Astro.url.pathname, Astro.site).href
+
+const config = lang === "zh" ? zh.meta : en.meta
 ---
 
 <!doctype html>
 <html lang={lang}>
   <head>
-    <Head />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href={config.favicon} />
+    <title>
+      {
+        !title
+          ? `${config.title} - ${config.slogan}`
+          : `${config.title} - ${title}`
+      }
+    </title>
+    <meta name="generator" content={Astro.generator} />
+    <meta
+      name="description"
+      content={!description ? config.description : description}
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={permalink} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageURL} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={permalink} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={ogImageURL} />
+
     <ClientRouter />
     <script is:inline>
       const setTheme = () => {
