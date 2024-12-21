@@ -10,21 +10,26 @@ const config = lang === "zh" ? zh : en
 ---
 
 <header class="flex h-24 w-full items-center justify-between">
-  <a href="/">
+  <a href="/" data-umami-event="site-name">
     <div class="text-2xl font-semibold">{config.siteName}</div>
   </a>
 
   <div class="flex items-center gap-6">
     {
       config.rss && (
-        <a href="/atom.xml" target="_blank">
+        <a href="/atom.xml" target="_blank" data-umami-event="rss">
           <Rss />
         </a>
       )
     }
     {
       config.social.map((social) => (
-        <a href={social.link} target="_blank" class="hidden md:block">
+        <a
+          href={social.link}
+          target="_blank"
+          class="hidden md:block"
+          data-umami-event={social.label}
+        >
           <social.icon />
         </a>
       ))

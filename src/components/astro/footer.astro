@@ -2,7 +2,7 @@
 const currentYear = new Date().getFullYear()
 ---
 
-<footer class="relative z-10 my-10 flex flex-wrap items-center gap-1">
+<footer class="relative z-10 flex flex-wrap items-center gap-1 py-10">
   <p>&copy; {currentYear}</p>
 
   {
@@ -24,6 +24,7 @@ const currentYear = new Date().getFullYear()
         <a
           href={item.link}
           class="text-blue-500 transition-colors duration-200 hover:text-blue-700"
+          data-umami-event={`footer-${item.label}`}
         >
           {item.label}
         </a>

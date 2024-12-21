@@ -23,7 +23,7 @@ export function ThemeToggle() {
   }
 
   return (
-    <button onClick={handleToggleClick}>
+    <button onClick={handleToggleClick} data-umami-event="theme-toggle">
       <Sun className="dark:hidden" />
       <Moon className="hidden dark:block" />
     </button>

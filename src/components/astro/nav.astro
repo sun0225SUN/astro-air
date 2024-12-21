@@ -12,7 +12,11 @@ const { home, archive, custom, about } =
 <div class="mb-10 mt-4 flex gap-4 overflow-x-auto whitespace-nowrap text-lg">
   {
     home && (
-      <a href={`/${lang}`} class="hover:underline hover:underline-offset-4">
+      <a
+        href={`/${lang}`}
+        class="hover:underline hover:underline-offset-4"
+        data-umami-event="nav-home"
+      >
         <p>{t("nav.home")}</p>
       </a>
     )
@@ -22,6 +26,7 @@ const { home, archive, custom, about } =
       <a
         href={`/${lang}/archive`}
         class="hover:underline hover:underline-offset-4"
+        data-umami-event="nav-archive"
       >
         <p>{t("nav.archive")}</p>
       </a>
@@ -33,6 +38,7 @@ const { home, archive, custom, about } =
         href={tab.link}
         class="hover:underline hover:underline-offset-4"
         target="_blank"
+        data-umami-event={`nav-${tab.label}`}
       >
         <p>{tab.label}</p>
       </a>
@@ -43,6 +49,7 @@ const { home, archive, custom, about } =
       <a
         href={`/${lang}/about`}
         class="hover:underline hover:underline-offset-4"
+        data-umami-event="nav-about"
       >
         <p>{t("nav.about")}</p>
       </a>
