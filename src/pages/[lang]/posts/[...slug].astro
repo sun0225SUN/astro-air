@@ -30,7 +30,9 @@ const { Content } = await render(post)
 ---
 
 <MainLayout {...post.data}>
-  <article class="prose relative z-10 w-full max-w-full dark:prose-invert">
+  <article
+    class="prose relative z-10 w-full max-w-3xl overflow-hidden dark:prose-invert"
+  >
     <div class="flex flex-col gap-2">
       <h2 class="!my-0 text-3xl font-semibold">{post.data.title}</h2>
       <div class="my-3 text-gray-500 dark:text-white/80">
