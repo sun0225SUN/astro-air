@@ -1,0 +1,32 @@
+---
+interface Props {
+  name: string
+  link: string
+  description: string
+  avatar: string
+}
+
+const { name, link, description, avatar } = Astro.props
+---
+
+<a
+  href={link}
+  target="_blank"
+  class="flex items-center gap-4 rounded-lg border border-neutral-200 p-4 hover:scale-[1.02] hover:bg-neutral-100 hover:shadow-lg dark:border-neutral-800 dark:hover:bg-neutral-900"
+>
+  <img
+    src={avatar}
+    alt={name}
+    class="h-12 w-12 rounded-full object-cover transition-transform duration-300 hover:scale-110"
+  />
+  <div class="flex h-full flex-col">
+    <span class="text-lg font-medium transition-colors">
+      {name}
+    </span>
+    <span
+      class="line-clamp-2 flex-1 text-sm text-neutral-600 dark:text-neutral-400"
+    >
+      {description}
+    </span>
+  </div>
+</a>

@@ -5,11 +5,13 @@ import { getLangFromUrl, useTranslations } from "~/i18n/utils"
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
 
-const { home, archive, custom, about } =
+const { home, archive, custom, links, about } =
   lang === "zh" ? zh.navigation : en.navigation
 ---
 
-<div class="mb-10 mt-4 flex gap-4 overflow-x-auto whitespace-nowrap text-lg">
+<div
+  class="mb-10 mt-4 flex gap-4 overflow-x-auto whitespace-nowrap text-lg [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+>
   {
     home && (
       <a
@@ -43,6 +45,17 @@ const { home, archive, custom, about } =
         <p>{tab.label}</p>
       </a>
     ))
+  }
+  {
+    links && (
+      <a
+        href={`/${lang}/links`}
+        class="hover:underline hover:underline-offset-4"
+        data-umami-event="nav-links"
+      >
+        <p>{t("nav.links")}</p>
+      </a>
+    )
   }
   {
     about && (

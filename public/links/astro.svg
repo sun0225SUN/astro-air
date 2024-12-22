@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="logosandtypes_com" data-name="logosandtypes com" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 150 150">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: url(#linear-gradient);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="75.54" y1="113" x2="75.54" y2="143.15" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ee46e0"/>
+      <stop offset="1" stop-color="#da3737"/>
+    </linearGradient>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <path id="Layer_3" data-name="Layer 3" class="cls-1" d="M0,0H150V150H0V0Z"/>
+  </g>
+  <path class="cls-2" d="M57.53,128.19c-5.86-5.34-7.57-16.57-5.13-24.7,4.23,5.13,10.1,6.75,16.17,7.67,10.41,1.56,21.21,.76,30.3-5.19,2.64,7.89-1.02,16.49-7.6,21.14-8.36,5.63-14.92,8.86-10.92,20.26-6.02-2.64-9.6-8.59-9.64-15-.02-1.6-.02-3.21-.24-4.79-.53-3.84-2.33-5.56-5.74-5.66-3.89-.16-6.6,2.57-7.21,6.27h0Z"/>
+  <path d="M24.1,102.13s17.35-8.43,34.74-8.43l13.12-40.49c.49-1.96,1.92-3.29,3.54-3.29s3.05,1.33,3.54,3.29l13.12,40.49c20.6,0,34.74,8.43,34.74,8.43,0,0-29.47-80.07-29.52-80.23-.85-2.37-2.27-3.89-4.2-3.89H57.82c-1.92,0-3.29,1.52-4.2,3.89-.06,.16-29.53,80.23-29.53,80.23Z"/>
+</svg>

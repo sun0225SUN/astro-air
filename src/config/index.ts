@@ -3,6 +3,7 @@ import { Github, Twitter } from "lucide-react"
 export const defaultLanguage: string = "en"
 
 export const common = {
+  domain: "https://astro-air.guoqi.dev",
   meta: {
     favicon: "/avatar.png",
     url: "https://blog.sunguoqi.com",
@@ -30,6 +31,7 @@ export const common = {
         link: "https://camlife.cn",
       },
     ],
+    links: true,
     about: true,
   },
   latestPosts: 8,
@@ -60,6 +62,28 @@ export const zh = {
       },
     ],
   },
+  pageMeta: {
+    home: {
+      title: "小孙同学",
+      description: "读书、摄影、编程、旅行，热爱可抵岁月漫长～",
+      ogImage: "/preview.png",
+    },
+    archive: {
+      title: "归档",
+      description: "小孙同学的所有文章",
+      ogImage: "/images/page-meta/zh/archive.png",
+    },
+    links: {
+      title: "朋友们",
+      description: "小孙同学的和他朋友们",
+      ogImage: "/images/page-meta/zh/links.png",
+    },
+    about: {
+      title: "关于我",
+      description: "小孙同学的自我介绍",
+      ogImage: "/images/page-meta/zh/about.png",
+    },
+  },
 }
 
 export const en = {
@@ -79,5 +103,27 @@ export const en = {
         link: "https://camlife.cn",
       },
     ],
+  },
+  pageMeta: {
+    home: {
+      title: "Guoqi Sun",
+      description: "Reading, Photography, Programming, Traveling",
+      ogImage: "/preview.png",
+    },
+    archive: {
+      title: "All Posts",
+      description: "Here are Guoqi Sun's all posts",
+      ogImage: "/images/page-meta/en/archive.png",
+    },
+    links: {
+      title: "My Friends",
+      description: "Here are Guoqi Sun's friends",
+      ogImage: "/images/page-meta/en/links.png",
+    },
+    about: {
+      title: "About Me",
+      description: "Here is Guoqi Sun's self-introduction",
+      ogImage: "/images/page-meta/en/about.png",
+    },
   },
 }

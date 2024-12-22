@@ -1,4 +1,5 @@
 ---
+import { en, zh } from "~/config"
 import AboutContentEn from "~/config/en/about.mdx"
 import AboutContentZh from "~/config/zh/about.mdx"
 import { getLangFromUrl } from "~/i18n/utils"
@@ -10,18 +11,17 @@ export function getStaticPaths() {
 }
 
 const lang = getLangFromUrl(Astro.url)
+const pageMeta = lang === "zh" ? zh.pageMeta : en.pageMeta
 const AboutContent = lang === "zh" ? AboutContentZh : AboutContentEn
-
-const ogImage = "https://sunguoqi.com/me.png"
 ---
 
 <MainLayout
-  title="about"
-  description="test"
-  ogImage={ogImage}
+  title={pageMeta.about.title}
+  description={pageMeta.about.description}
+  ogImage={pageMeta.about.ogImage}
   needComment={true}
 >
-  <div class="prose dark:prose-invert">
+  <div class="prose max-w-3xl dark:prose-invert">
     <AboutContent />
   </div>
 </MainLayout>
