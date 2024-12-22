@@ -1,4 +1,5 @@
 ---
+import { render } from "astro:content"
 import { langs } from "~/i18n/ui"
 import { getLangFromUrl } from "~/i18n/utils"
 import MainLayout from "~/layouts/main.astro"
@@ -24,6 +25,8 @@ export async function getStaticPaths() {
 const lang = getLangFromUrl(Astro.url)
 
 const { post } = Astro.props
+
+const { Content } = await render(post)
 ---
 
 <MainLayout {...post.data}>
@@ -35,7 +38,9 @@ const { post } = Astro.props
       </div>
     </div>
 
-    <div class="my-6" set:html={post.rendered.html} />
+    <div class="my-6">
+      <Content />
+    </div>
 
     <div class="space-x-3 pb-10 text-sm text-gray-500">
       {
