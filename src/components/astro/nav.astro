@@ -18,6 +18,8 @@ const { home, archive, custom, links, about } =
         href={`/${lang}`}
         class="hover:underline hover:underline-offset-4"
         data-umami-event="nav-home"
+        aria-label={t("nav.home")}
+        title={t("nav.home")}
       >
         <p>{t("nav.home")}</p>
       </a>
@@ -29,6 +31,8 @@ const { home, archive, custom, links, about } =
         href={`/${lang}/archive`}
         class="hover:underline hover:underline-offset-4"
         data-umami-event="nav-archive"
+        aria-label={t("nav.archive")}
+        title={t("nav.archive")}
       >
         <p>{t("nav.archive")}</p>
       </a>
@@ -41,6 +45,8 @@ const { home, archive, custom, links, about } =
         class="hover:underline hover:underline-offset-4"
         target="_blank"
         data-umami-event={`nav-${tab.label}`}
+        aria-label={tab.label}
+        title={tab.label}
       >
         <p>{tab.label}</p>
       </a>
@@ -52,6 +58,8 @@ const { home, archive, custom, links, about } =
         href={`/${lang}/links`}
         class="hover:underline hover:underline-offset-4"
         data-umami-event="nav-links"
+        aria-label={t("nav.links")}
+        title={t("nav.links")}
       >
         <p>{t("nav.links")}</p>
       </a>
@@ -63,6 +71,8 @@ const { home, archive, custom, links, about } =
         href={`/${lang}/about`}
         class="hover:underline hover:underline-offset-4"
         data-umami-event="nav-about"
+        aria-label={t("nav.about")}
+        title={t("nav.about")}
       >
         <p>{t("nav.about")}</p>
       </a>

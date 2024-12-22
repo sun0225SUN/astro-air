@@ -23,7 +23,12 @@ export function ThemeToggle() {
   }
 
   return (
-    <button onClick={handleToggleClick} data-umami-event="theme-toggle">
+    <button
+      onClick={handleToggleClick}
+      data-umami-event="theme-toggle"
+      aria-label="Toggle theme"
+      title="Toggle theme"
+    >
       <Sun className="dark:hidden" />
       <Moon className="hidden dark:block" />
     </button>

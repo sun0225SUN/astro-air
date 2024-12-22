@@ -10,14 +10,24 @@ const config = lang === "zh" ? zh : en
 ---
 
 <header class="flex h-24 w-full items-center justify-between">
-  <a href="/" data-umami-event="site-name">
+  <a
+    href="/"
+    data-umami-event="site-name"
+    aria-label={`${config.siteName} - 首页`}
+  >
     <div class="text-2xl font-semibold">{config.siteName}</div>
   </a>
 
   <div class="flex items-center gap-6">
     {
       config.rss && (
-        <a href="/atom.xml" target="_blank" data-umami-event="rss">
+        <a
+          href="/atom.xml"
+          target="_blank"
+          data-umami-event="rss"
+          aria-label="RSS"
+          title="RSS"
+        >
           <Rss />
         </a>
       )
@@ -29,6 +39,8 @@ const config = lang === "zh" ? zh : en
           target="_blank"
           class="hidden md:block"
           data-umami-event={social.label}
+          aria-label={social.label}
+          title={social.label}
         >
           <social.icon />
         </a>
