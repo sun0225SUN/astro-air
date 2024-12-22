@@ -1,5 +1,4 @@
 import rss from "@astrojs/rss"
-import sanitizeHtml from "sanitize-html"
 import { zh as config } from "~/config"
 import { getPostsByLocale } from "~/utils"
 
@@ -18,7 +17,7 @@ export async function GET() {
       description: post.data.description,
       pubDate: post.data.pubDate,
       link: `/posts/${post.id}/`,
-      content: sanitizeHtml(post.body),
+      content: post.rendered ? post.rendered.html : post.data.description,
     })),
     customData: "",
   })
