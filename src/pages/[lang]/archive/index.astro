@@ -29,21 +29,19 @@ const years = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a))
 ---
 
 <MainLayout>
-  <div class="relative z-10">
-    {
-      years.map((year) => (
-        <div class="year-group my-8">
-          <h2 class="my-4 text-2xl font-bold">{year}</h2>
-          {postsByYear[year].map((post: any) => (
-            <PostList
-              post={post}
-              lang={lang}
-              dateFormat="MM-DD"
-              dateWidth="w-20"
-            />
-          ))}
-        </div>
-      ))
-    }
-  </div>
+  {
+    years.map((year) => (
+      <div class="year-group my-8">
+        <h2 class="my-4 text-2xl font-bold">{year}</h2>
+        {postsByYear[year].map((post: any) => (
+          <PostList
+            post={post}
+            lang={lang}
+            dateFormat="MM-DD"
+            dateWidth="w-20"
+          />
+        ))}
+      </div>
+    ))
+  }
 </MainLayout>

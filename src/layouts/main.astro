@@ -16,11 +16,11 @@ const openGraphImage = !ogImage ? `/og/${filename}.png` : ogImage
   needComment={needComment}
 >
   <main class="max-auto mb-10 w-full max-w-3xl">
-    <div class="relative z-10">
-      <Header />
-      <Navigation />
-      <slot />
+    <Header />
+    <Navigation />
+    <slot />
+    <div class="my-10">
+      {needComment && <Comments />}
     </div>
-    {needComment && <Comments />}
   </main>
 </BaseLayout>

@@ -4,10 +4,8 @@ import { common } from "~/config"
 import "~/styles/comment.css"
 ---
 
-<div class="relative z-10 my-10">
-  {
-    common.comments.enabled && common.comments.twikoo.enabled && (
-      <Twikoo client:only="react" />
-    )
-  }
-</div>
+{
+  common.comments.enabled && common.comments.twikoo.enabled && (
+    <Twikoo client:only="react" />
+  )
+}

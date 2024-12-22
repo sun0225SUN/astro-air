@@ -1,7 +1,6 @@
 ---
 import "~/styles/globals.css"
 import { NoiseBackground } from "~/components/react/noise-background"
-import { CodeBackground } from "~/components/react/code-background"
 import { getLangFromUrl } from "~/i18n/utils"
 import { GoogleAnalytics } from "astro-google-analytics"
 import { en, zh } from "~/config"
@@ -85,6 +84,5 @@ const config = lang === "zh" ? zh : en
   >
     <slot />
     <NoiseBackground />
-    <CodeBackground client:load />
   </body>
 </html>
