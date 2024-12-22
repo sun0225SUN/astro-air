@@ -2,7 +2,6 @@
 import "~/styles/globals.css"
 import { NoiseBackground } from "~/components/react/noise-background"
 import { CodeBackground } from "~/components/react/code-background"
-import { ClientRouter } from "astro:transitions"
 import { getLangFromUrl } from "~/i18n/utils"
 import { en, zh } from "~/config"
 
@@ -49,8 +48,6 @@ const config = lang === "zh" ? zh.meta : en.meta
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={ogImageURL} />
 
-    <ClientRouter fallback="swap" />
-
     <script is:inline>
       const setTheme = () => {
         const theme =
@@ -61,8 +58,6 @@ const config = lang === "zh" ? zh.meta : en.meta
 
         if (theme === "dark") {
           document.documentElement.classList.add("dark")
-        } else {
-          document.documentElement.classList.remove("dark")
         }
       }
 
