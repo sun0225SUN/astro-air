@@ -1,7 +1,56 @@
+/* loading spinner */
 .el-loading-spinner {
   left: 50% !important;
 }
 
+/* admin container  height */
 .tk-admin-container {
   height: 150% !important;
+}
+
+/* avatar*/
+.tk-avatar {
+  background-color: transparent !important;
+}
+
+.tk-avatar-img {
+  border-radius: 50% !important;
+}
+
+/* comment margin */
+.tk-comment {
+  margin-top: 36px !important;
+}
+
+/* comment content */
+.tk-main .tk-content {
+  border-radius: 10px !important;
+  padding: 10px !important;
+  background-color: rgba(144, 147, 153, 0.1) !important;
+  width: auto !important;
+  max-width: 60% !important;
+}
+
+/* comment content image */
+
+.tk-main .tk-content > span > p {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.tk-main .tk-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.tk-main .tk-content > span > p > img {
+  border-radius: 20px !important;
+}
+
+.tk-extras {
+  margin-top: 5px !important;
 }
