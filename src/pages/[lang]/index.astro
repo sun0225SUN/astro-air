@@ -2,24 +2,15 @@
 import Footer from "~/components/astro/footer.astro"
 import Intro from "~/components/astro/intro.astro"
 import RecentBlogs from "~/components/astro/recent-blogs.astro"
-import { en, zh } from "~/config"
-import { getLangFromUrl } from "~/i18n/utils"
 import MainLayout from "~/layouts/main.astro"
 import { getLanguagePaths } from "~/utils/langs"
 
 export function getStaticPaths() {
   return getLanguagePaths()
 }
-
-const lang = getLangFromUrl(Astro.url)
-const pageMeta = lang === "zh" ? zh.pageMeta : en.pageMeta
 ---
 
-<MainLayout
-  title={pageMeta.home.title}
-  description={pageMeta.home.description}
-  ogImage={pageMeta.home.ogImage}
->
+<MainLayout ogImage="/preview.png">
   <Intro />
   <RecentBlogs />
   <Footer />

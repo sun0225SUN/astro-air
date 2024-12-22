@@ -23,15 +23,15 @@ const config = lang === "zh" ? zh : en
     <link rel="icon" type="image/svg+xml" href={config.meta.favicon} />
     <title>
       {
-        !title
-          ? `${config.meta.title} - ${config.meta.slogan}`
-          : `${config.meta.title} - ${title}`
+        title
+          ? `${config.meta.title} - ${title}`
+          : `${config.meta.title} - ${config.meta.slogan}`
       }
     </title>
     <meta name="generator" content={Astro.generator} />
     <meta
       name="description"
-      content={!description ? config.meta.description : description}
+      content={description ? description : config.meta.description}
     />
 
     <!-- Open Graph / Facebook -->

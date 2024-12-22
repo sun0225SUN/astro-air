@@ -63,11 +63,6 @@ export const zh = {
     ],
   },
   pageMeta: {
-    home: {
-      title: "小孙同学",
-      description: "读书、摄影、编程、旅行，热爱可抵岁月漫长～",
-      ogImage: "/preview.png",
-    },
     archive: {
       title: "归档",
       description: "小孙同学的所有文章",
@@ -105,11 +100,6 @@ export const en = {
     ],
   },
   pageMeta: {
-    home: {
-      title: "Guoqi Sun",
-      description: "Reading, Photography, Programming, Traveling",
-      ogImage: "/preview.png",
-    },
     archive: {
       title: "All Posts",
       description: "Here are Guoqi Sun's all posts",
