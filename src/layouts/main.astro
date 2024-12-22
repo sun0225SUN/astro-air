@@ -1,19 +1,26 @@
 ---
+import Comments from "~/components/astro/comments.astro"
 import Header from "~/components/astro/header.astro"
 import Navigation from "~/components/astro/nav.astro"
 import BaseLayout from "~/layouts/base.astro"
 
-const { title, description, ogImage } = Astro.props
+const { title, description, ogImage, needComment } = Astro.props
 const filename = Astro.url.pathname.split("/").filter(Boolean).pop() ?? ""
 const openGraphImage = !ogImage ? `/og/${filename}.png` : ogImage
 ---
 
-<BaseLayout title={title} description={description} ogImage={openGraphImage}>
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage={openGraphImage}
+  needComment={needComment}
+>
   <main class="max-auto mb-10 w-full max-w-3xl">
     <div class="relative z-10">
       <Header />
       <Navigation />
       <slot />
     </div>
+    {needComment && <Comments />}
   </main>
 </BaseLayout>

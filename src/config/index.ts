@@ -33,6 +33,13 @@ export const common = {
     about: true,
   },
   latestPosts: 8,
+  comments: {
+    enabled: true,
+    twikoo: {
+      enabled: true,
+      envId: "https://astro-air-twikoo.netlify.app/.netlify/functions/twikoo",
+    },
+  },
 }
 
 export const zh = {

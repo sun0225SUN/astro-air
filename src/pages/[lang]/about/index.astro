@@ -15,7 +15,12 @@ const AboutContent = lang === "zh" ? AboutContentZh : AboutContentEn
 const ogImage = "https://sunguoqi.com/me.png"
 ---
 
-<MainLayout title="about" description="test" ogImage={ogImage}>
+<MainLayout
+  title="about"
+  description="test"
+  ogImage={ogImage}
+  needComment={true}
+>
   <div class="prose relative z-10 dark:prose-invert">
     <AboutContent />
   </div>

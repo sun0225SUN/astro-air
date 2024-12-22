@@ -26,8 +26,8 @@ A minimalism, personal blog theme for Astro
 - [x] 🔗 Social media integration
 - [x] 📰 RSS feed & sitemap support
 - [x] 🛠️ Google analysis integration
+- [x] 💬 Commenting Integration (Twikoo)
 - [ ] 🔍 Local search functionality
-- [ ] 💬 Commenting Integration
 - [ ] 🎨 Enhance Transition and Animation
 - [ ] ...and more
 

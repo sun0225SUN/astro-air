@@ -59,6 +59,9 @@ importers:
       tailwindcss:
         specifier: ^3.4.16
         version: 3.4.16
+      twikoo:
+        specifier: ^1.6.40
+        version: 1.6.40
       typescript:
         specifier: ^5.7.2
         version: 5.7.2
@@ -3321,6 +3324,9 @@ packages:
 
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
+
+  twikoo@1.6.40:
+    resolution: {integrity: sha512-Rl1OZAij95/czD1oiwmTi4Om5yZeKNENqIR7Kq0SygEztV6w2423ac9PHbOXDZPYnvTJB9wqBapS2+AlKFWcfg==}
 
   type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
@@ -7612,6 +7618,8 @@ snapshots:
       typescript: 5.7.2
 
   tslib@2.8.1: {}
+
+  twikoo@1.6.40: {}
 
   type-check@0.4.0:
     dependencies:
