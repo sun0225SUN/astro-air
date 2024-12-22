@@ -39,7 +39,8 @@ export const common = {
     enabled: true,
     twikoo: {
       enabled: true,
-      envId: "https://astro-air-twikoo.netlify.app/.netlify/functions/twikoo",
+      // replace with your own envId
+      envId: import.meta.env.PUBLIC_TWIKOO_ENV_ID ?? "",
     },
   },
 }

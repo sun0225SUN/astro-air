@@ -1,11 +1,11 @@
-/* loading spinner */
-.el-loading-spinner {
-  left: 50% !important;
-}
-
 /* admin container  height */
 .tk-admin-container {
   height: 150% !important;
+}
+
+/* comments container */
+.tk-comments-container {
+  margin-top: 50px !important;
 }
 
 /* avatar*/
@@ -27,8 +27,13 @@
   border-radius: 10px !important;
   padding: 10px !important;
   background-color: rgba(144, 147, 153, 0.1) !important;
-  width: auto !important;
-  max-width: 60% !important;
+}
+
+/* PC 端宽度调整 */
+@media screen and (min-width: 768px) {
+  .tk-main .tk-content {
+    max-width: 60% !important;
+  }
 }
 
 /* comment content image */
