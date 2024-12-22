@@ -3,6 +3,7 @@ import "~/styles/globals.css"
 import { NoiseBackground } from "~/components/react/noise-background"
 import { CodeBackground } from "~/components/react/code-background"
 import { getLangFromUrl } from "~/i18n/utils"
+import { GoogleAnalytics } from "astro-google-analytics"
 import { en, zh } from "~/config"
 
 const lang = getLangFromUrl(Astro.url)
@@ -12,7 +13,7 @@ const { title, description, ogImage } = Astro.props
 const ogImageURL = new URL(ogImage, Astro.site).href
 const permalink = new URL(Astro.url.pathname, Astro.site).href
 
-const config = lang === "zh" ? zh.meta : en.meta
+const config = lang === "zh" ? zh : en
 ---
 
 <!doctype html>
@@ -20,18 +21,18 @@ const config = lang === "zh" ? zh.meta : en.meta
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href={config.favicon} />
+    <link rel="icon" type="image/svg+xml" href={config.meta.favicon} />
     <title>
       {
         !title
-          ? `${config.title} - ${config.slogan}`
-          : `${config.title} - ${title}`
+          ? `${config.meta.title} - ${config.meta.slogan}`
+          : `${config.meta.title} - ${title}`
       }
     </title>
     <meta name="generator" content={Astro.generator} />
     <meta
       name="description"
-      content={!description ? config.description : description}
+      content={!description ? config.meta.description : description}
     />
 
     <!-- Open Graph / Facebook -->
@@ -71,7 +72,13 @@ const config = lang === "zh" ? zh.meta : en.meta
       defer
       src="https://umami.guoqi.dev/script.js"
       data-website-id="3cd55e92-cb53-4254-a97d-24441b08d7c3"
-      data-domains="astro-air.netlify.app"></script>
+      data-domains="astro-air.guoqi.dev"></script>
+
+    {
+      config.googleAnalyticsId && (
+        <GoogleAnalytics id={config.googleAnalyticsId} />
+      )
+    }
   </head>
   <body
     class="flex min-h-screen w-full justify-center px-6 dark:bg-[#121212] dark:text-white md:px-0"

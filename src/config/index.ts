@@ -2,13 +2,12 @@ import { Github, Twitter } from "lucide-react"
 
 export const defaultLanguage: string = "en"
 
-export const latestPosts = 8
-
-const common = {
+export const common = {
   meta: {
     favicon: "/avatar.png",
     url: "https://blog.sunguoqi.com",
   },
+  googleAnalyticsId: "",
   social: [
     {
       icon: Twitter,
@@ -33,6 +32,7 @@ const common = {
     ],
     about: true,
   },
+  latestPosts: 8,
 }
 
 export const zh = {

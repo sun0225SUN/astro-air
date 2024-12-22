@@ -35,6 +35,9 @@ importers:
       astro:
         specifier: ^5.1.0
         version: 5.1.0(@types/node@22.10.2)(jiti@2.4.2)(rollup@4.27.4)(sass@1.83.0)(typescript@5.7.2)(yaml@2.6.1)
+      astro-google-analytics:
+        specifier: ^1.0.3
+        version: 1.0.3
       astro-og-canvas:
         specifier: ^0.5.5
         version: 0.5.5(astro@5.1.0(@types/node@22.10.2)(jiti@2.4.2)(rollup@4.27.4)(sass@1.83.0)(typescript@5.7.2)(yaml@2.6.1))
@@ -1259,6 +1262,9 @@ packages:
   astro-eslint-parser@1.1.0:
     resolution: {integrity: sha512-F6NW1RJo5pp2kPnnM97M5Ohw8zAGjv83MpxHqfAochH68n/kiXN57+hYaNUCA7XkScoVNr6yzvly3hsY34TGfQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  astro-google-analytics@1.0.3:
+    resolution: {integrity: sha512-5bD7jA15yxVaUFVVEFG6KKMphYJ4AKP4+HSqCVBpTBnqh8LL0giTdAHpG9KJs3JaFbGQUTWP5Pqt8+twz7f55Q==}
 
   astro-og-canvas@0.5.5:
     resolution: {integrity: sha512-dbZ7voJAmvy8Zyv5zFsgENs9G4uhcCJ4nVuUPb7ymu8+Vp/jr/fdQDKPrLYUG2TSi/1HejYRnzkXcSv6ntlDTA==}
@@ -4894,6 +4900,8 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
       - typescript
+
+  astro-google-analytics@1.0.3: {}
 
   astro-og-canvas@0.5.5(astro@5.1.0(@types/node@22.10.2)(jiti@2.4.2)(rollup@4.27.4)(sass@1.83.0)(typescript@5.7.2)(yaml@2.6.1)):
     dependencies:
