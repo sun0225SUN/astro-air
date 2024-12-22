@@ -4,6 +4,10 @@ export function ThemeToggle() {
   const updateTheme = () => {
     const isDark = document.documentElement.classList.contains("dark")
     localStorage.setItem("theme", isDark ? "dark" : "light")
+    document.documentElement.setAttribute(
+      "data-theme",
+      isDark ? "material-theme-darker" : "material-theme-lighter",
+    )
   }
 
   const handleToggleClick = () => {

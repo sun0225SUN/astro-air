@@ -58,6 +58,16 @@ const config = lang === "zh" ? zh : en
 
         if (theme === "dark") {
           document.documentElement.classList.add("dark")
+          document.documentElement.setAttribute(
+            "data-theme",
+            "material-theme-darker",
+          )
+        } else {
+          document.documentElement.classList.remove("dark")
+          document.documentElement.setAttribute(
+            "data-theme",
+            "material-theme-lighter",
+          )
         }
       }
 

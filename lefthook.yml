@@ -2,13 +2,13 @@ pre-commit:
   commands:
     prettier-js:
       glob: "*.{js,jsx,ts,tsx,astro}"
-      run: prettier --write {staged_files}
+      run: npx prettier --write {staged_files}
     eslint-fix:
       glob: "*.{js,jsx,ts,tsx,astro}"
-      run: eslint --fix {staged_files}
+      run: npx eslint --fix {staged_files}
     eslint:
       glob: "*.{js,jsx,ts,tsx,astro}"
-      run: eslint {staged_files}
+      run: npx eslint {staged_files}
     prettier-other:
       glob: "*.{json,css,md}"
-      run: prettier --write {staged_files}
+      run: npx prettier --write {staged_files}
