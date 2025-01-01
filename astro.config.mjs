@@ -12,6 +12,7 @@ import robotsTxt from "astro-robots-txt"
 // https://astro.build/config
 export default defineConfig({
   output: "static",
+  prefetch: true,
   site: "https://astro-air.netlify.app",
   vite: {
     worker: {
