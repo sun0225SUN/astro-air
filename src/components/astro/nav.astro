@@ -20,6 +20,7 @@ const { home, archive, custom, links, about } =
         data-umami-event="nav-home"
         aria-label={t("nav.home")}
         title={t("nav.home")}
+        data-astro-prefetch="instant"
       >
         <p>{t("nav.home")}</p>
       </a>
@@ -33,6 +34,7 @@ const { home, archive, custom, links, about } =
         data-umami-event="nav-archive"
         aria-label={t("nav.archive")}
         title={t("nav.archive")}
+        data-astro-prefetch="instant"
       >
         <p>{t("nav.archive")}</p>
       </a>
@@ -47,6 +49,7 @@ const { home, archive, custom, links, about } =
         data-umami-event={`nav-${tab.label}`}
         aria-label={tab.label}
         title={tab.label}
+        data-astro-prefetch="instant"
       >
         <p>{tab.label}</p>
       </a>
@@ -60,6 +63,7 @@ const { home, archive, custom, links, about } =
         data-umami-event="nav-links"
         aria-label={t("nav.links")}
         title={t("nav.links")}
+        data-astro-prefetch="instant"
       >
         <p>{t("nav.links")}</p>
       </a>
@@ -73,6 +77,7 @@ const { home, archive, custom, links, about } =
         data-umami-event="nav-about"
         aria-label={t("nav.about")}
         title={t("nav.about")}
+        data-astro-prefetch="instant"
       >
         <p>{t("nav.about")}</p>
       </a>
