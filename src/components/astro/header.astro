@@ -10,14 +10,19 @@ const config = lang === "zh" ? zh : en
 ---
 
 <header class="flex h-24 w-full items-center justify-between">
-  <a href="/" aria-label={`${config.siteName} - 首页`}>
+  <a href="/" aria-label={`${config.siteName}`}>
     <div class="text-2xl font-semibold">{config.siteName}</div>
   </a>
 
   <div class="flex items-center gap-6">
     {
       config.rss && (
-        <a href="/atom.xml" target="_blank" aria-label="RSS" title="RSS">
+        <a
+          href={"/" + lang + "/rss.xml"}
+          target="_blank"
+          aria-label="RSS"
+          title="RSS"
+        >
           <Rss />
         </a>
       )

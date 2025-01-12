@@ -1,9 +1,19 @@
 import rss from "@astrojs/rss"
-import { zh as config } from "~/config"
+import { en, zh } from "~/config"
 import { getPostsByLocale } from "~/utils"
+import { getLanguagePaths } from "~/utils/langs"
 
-export async function GET() {
-  const posts = await getPostsByLocale("zh")
+export function getStaticPaths() {
+  return getLanguagePaths()
+}
+
+export async function GET(request: { url: URL }) {
+  const isEn = request.url.pathname.includes("en")
+
+  const lang = isEn ? "en" : "zh"
+  const config = isEn ? en : zh
+
+  const posts = await getPostsByLocale(lang)
 
   return rss({
     title: config.meta.title,
