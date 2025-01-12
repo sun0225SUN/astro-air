@@ -4,7 +4,7 @@ A minimalism, personal blog theme for Astro.
 
 > If you find this project helpful, please consider giving it a star ⭐️
 
-[![Built with Astro](https://astro.badg.es/v1/built-with-astro/tiny.svg)](https://astro.build) [![Netlify Status](https://api.netlify.com/api/v1/badges/a4eb6e88-606d-4ea6-9a53-179e03a7e2ef/deploy-status)](https://app.netlify.com/sites/astro-air/deploys)
+[![Built with Astro](https://astro.badg.es/v1/built-with-astro/tiny.svg)](https://astro.build) [![Netlify Status](https://api.netlify.com/api/v1/badges/3e2c71b9-071f-4846-9321-41c949134ebf/deploy-status)](https://app.netlify.com/sites/astro-air/deploys)
 
 <img style="border-radius: 10px;" src="https://cdn.jsdelivr.net/gh/sun0225SUN/astro-air/public/preview.png" alt="Astro Air">
 

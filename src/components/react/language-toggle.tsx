@@ -11,11 +11,5 @@ export function LanguageToggle() {
     window.location.href = newPath
   }
 
-  return (
-    <Languages
-      className="cursor-pointer"
-      data-umami-event="language-toggle"
-      onClick={handleLanguageToggle}
-    />
-  )
+  return <Languages className="cursor-pointer" onClick={handleLanguageToggle} />
 }

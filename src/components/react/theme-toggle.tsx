@@ -29,7 +29,6 @@ export function ThemeToggle() {
   return (
     <button
       onClick={handleToggleClick}
-      data-umami-event="theme-toggle"
       aria-label="Toggle theme"
       title="Toggle theme"
     >

@@ -17,7 +17,6 @@ const { home, archive, custom, links, about } =
       <a
         href={`/${lang}`}
         class="hover:underline hover:underline-offset-4"
-        data-umami-event="nav-home"
         aria-label={t("nav.home")}
         title={t("nav.home")}
         data-astro-prefetch="viewport"
@@ -31,7 +30,6 @@ const { home, archive, custom, links, about } =
       <a
         href={`/${lang}/archive`}
         class="hover:underline hover:underline-offset-4"
-        data-umami-event="nav-archive"
         aria-label={t("nav.archive")}
         title={t("nav.archive")}
         data-astro-prefetch="viewport"
@@ -46,7 +44,6 @@ const { home, archive, custom, links, about } =
         href={tab.link}
         class="hover:underline hover:underline-offset-4"
         target="_blank"
-        data-umami-event={`nav-${tab.label}`}
         aria-label={tab.label}
         title={tab.label}
         data-astro-prefetch="viewport"
@@ -60,7 +57,6 @@ const { home, archive, custom, links, about } =
       <a
         href={`/${lang}/links`}
         class="hover:underline hover:underline-offset-4"
-        data-umami-event="nav-links"
         aria-label={t("nav.links")}
         title={t("nav.links")}
         data-astro-prefetch="viewport"
@@ -74,7 +70,6 @@ const { home, archive, custom, links, about } =
       <a
         href={`/${lang}/about`}
         class="hover:underline hover:underline-offset-4"
-        data-umami-event="nav-about"
         aria-label={t("nav.about")}
         title={t("nav.about")}
         data-astro-prefetch="viewport"
