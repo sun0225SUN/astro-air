@@ -1,0 +1,23 @@
+<div id="tcomment"></div>
+
+<script>
+  import twikoo from "twikoo"
+  import { common, defaultLanguage } from "~/config"
+  import "~/styles/twikoo.css"
+
+  function initTwikoo() {
+    twikoo({
+      envId: common.comments.twikoo.envId,
+      el: "#tcomment",
+      lang: defaultLanguage === "zh" ? "zh-CN" : "en-GB",
+    }).then(() => {
+      console.log("comment loading success")
+    })
+  }
+
+  initTwikoo()
+
+  document.addEventListener("astro:page-load", () => {
+    initTwikoo()
+  })
+</script>

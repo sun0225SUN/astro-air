@@ -28,8 +28,8 @@ A minimalism, personal blog theme for Astro.
 - [x] 📰 RSS feed & sitemap support
 - [x] 🛠️ Google analysis integration
 - [x] 💬 Commenting Integration (Twikoo)
+- [x] 🎨 Enhance Transition and Animation
 - [ ] 🔍 Local search functionality
-- [ ] 🎨 Enhance Transition and Animation
 - [ ] ...and more
 
 ## Quick Start
