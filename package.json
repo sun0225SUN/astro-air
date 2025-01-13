@@ -21,7 +21,7 @@
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
     "astro": "^5.1.1",
-    "astro-expressive-code": "^0.38.3",
+    "astro-expressive-code": "^0.40.0",
     "astro-google-analytics": "^1.0.3",
     "astro-og-canvas": "^0.5.5",
     "astro-robots-txt": "^1.0.0",
