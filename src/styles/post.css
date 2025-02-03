@@ -1,5 +1,12 @@
 article code {
-  @apply rounded bg-orange-500/50 px-1 dark:bg-orange-500/80;
+  border-radius: 0.25rem;
+  background-color: rgba(249, 115, 22, 0.5);
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+
+.dark article code {
+  background-color: rgba(249, 115, 22, 0.8);
 }
 
 article code::before,
