@@ -25,7 +25,7 @@
     "astro-google-analytics": "^1.0.3",
     "astro-og-canvas": "^0.7.0",
     "astro-robots-txt": "^1.0.0",
-    "canvaskit-wasm": "^0.39.1",
+    "canvaskit-wasm": "^0.40.0",
     "lefthook": "^1.10.10",
     "lucide-react": "^0.525.0",
     "react": "^19.0.0",
