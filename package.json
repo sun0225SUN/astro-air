@@ -27,7 +27,7 @@
     "astro-robots-txt": "^1.0.0",
     "canvaskit-wasm": "^0.39.1",
     "lefthook": "^1.10.10",
-    "lucide-react": "^0.479.0",
+    "lucide-react": "^0.511.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwindcss": "^4.0.3",
