@@ -1,7 +1,7 @@
 pre-commit:
   commands:
     format-staged:
-      glob: "*.{js,cjs,mjs,jsx,ts,cts,mts,tsx,json,jsonc,css}"
+      glob: "*.{js,cjs,mjs,jsx,ts,cts,mts,tsx,json,jsonc,css,astro}"
       run: bunx biome format --write {staged_files}
       stage_fixed: true
 
