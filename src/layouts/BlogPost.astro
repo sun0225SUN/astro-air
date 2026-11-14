@@ -1,15 +1,31 @@
 ---
 import type { CollectionEntry } from 'astro:content'
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
 import FormattedDate from '../components/FormattedDate.astro'
 import { useTranslations } from '../i18n/ui'
 import { localeFromParam } from '../lib/content'
 import Layout from './Layout.astro'
+import 'dayjs/locale/ja'
+import 'dayjs/locale/ko'
+import 'dayjs/locale/zh-cn'
 
-type Props = CollectionEntry<'blog'>['data']
+dayjs.extend(utc)
 
-const { title, description, pubDate, updatedDate } = Astro.props
+type Props = CollectionEntry<'blog'>['data'] & {
+  lastModified?: string
+}
+
+const { title, description, pubDate, updatedDate, lastModified } = Astro.props
 const lang = localeFromParam(Astro.currentLocale)
 const t = useTranslations(lang)
+const modified = lastModified ? dayjs(lastModified) : undefined
+const modifiedLabel = modified?.isValid()
+  ? modified
+      .utc()
+      .locale(lang === 'zh' ? 'zh-cn' : lang)
+      .format('HH:mm:ss DD MMMM YYYY UTC')
+  : undefined
 ---
 
 <Layout title={title} description={description}>
@@ -21,6 +37,12 @@ const t = useTranslations(lang)
       {updatedDate && (
         <p class='meta'>
           {t('post.updated')} <FormattedDate date={updatedDate} />
+        </p>
+      )}
+      {modifiedLabel && lastModified && (
+        <p class='meta'>
+          {t('post.lastModified')}{' '}
+          <time datetime={lastModified}>{modifiedLabel}</time>
         </p>
       )}
       <h1 id="content" tabindex="-1">{title}</h1>

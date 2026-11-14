@@ -18,7 +18,8 @@
     "description": "Astro Air の記事。"
   },
   "post": {
-    "updated": "更新"
+    "updated": "更新",
+    "lastModified": "最終更新"
   },
   "skip": "本文へ移動",
   "notFound": {

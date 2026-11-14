@@ -21,9 +21,13 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<'blog'>
 
 const post = Astro.props
-const { Content } = await render(post)
+const { Content, remarkPluginFrontmatter } = await render(post)
+const lastModified =
+  typeof remarkPluginFrontmatter.lastModified === 'string'
+    ? remarkPluginFrontmatter.lastModified
+    : undefined
 ---
 
-<BlogPost {...post.data}>
+<BlogPost {...post.data} lastModified={lastModified}>
   <Content />
 </BlogPost>

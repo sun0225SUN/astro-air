@@ -18,7 +18,8 @@
     "description": "Astro Air 的文章。"
   },
   "post": {
-    "updated": "更新于"
+    "updated": "更新于",
+    "lastModified": "最后修改于"
   },
   "skip": "跳到内容",
   "notFound": {

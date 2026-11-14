@@ -15,8 +15,11 @@
     "format": "biome check --write"
   },
   "dependencies": {
+    "@astrojs/markdown-satteri": "^0.4.10",
     "@astrojs/mdx": "^8.1.6",
-    "astro": "^7.4.12"
+    "astro": "^7.4.12",
+    "dayjs": "^1.11.23",
+    "satteri": "^0.11.7"
   },
   "config": {
     "commitizen": {

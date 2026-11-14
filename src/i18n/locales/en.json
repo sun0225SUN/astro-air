@@ -18,7 +18,8 @@
     "description": "Posts from Astro Air."
   },
   "post": {
-    "updated": "Updated"
+    "updated": "Updated",
+    "lastModified": "Last modified"
   },
   "skip": "Skip to content",
   "notFound": {
