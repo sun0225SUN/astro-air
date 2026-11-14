@@ -1,0 +1,32 @@
+---
+import { languages, locales, useTranslations } from '../i18n/ui'
+import { contentPath, localeFromParam, localeHref } from '../lib/content'
+
+const lang = localeFromParam(Astro.currentLocale)
+const path = contentPath(Astro.url.pathname, lang)
+const t = useTranslations(lang)
+const languageLinks = await Promise.all(
+  locales.map(async (locale) => ({
+    locale,
+    label: languages[locale],
+    href: await localeHref(locale, path),
+  })),
+)
+---
+
+<nav aria-label={t('nav.languages')}>
+  <ul class="languages">
+    {languageLinks.map((link) => (
+      <li>
+        <a
+          href={link.href}
+          hrefLang={link.locale}
+          lang={link.locale}
+          aria-current={link.locale === lang ? 'true' : undefined}
+        >
+          {link.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>

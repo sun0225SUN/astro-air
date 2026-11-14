@@ -1,16 +1,12 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n'
 import { useTranslations } from '../i18n/ui'
-import { type BlogPost, entrySlug, localeFromParam } from '../lib/content'
+import { entrySlug, getBlogPosts, localeFromParam } from '../lib/content'
 import FormattedDate from './FormattedDate.astro'
 
-interface Props {
-  posts: BlogPost[]
-}
-
-const { posts } = Astro.props
 const lang = localeFromParam(Astro.currentLocale)
 const t = useTranslations(lang)
+const posts = await getBlogPosts(lang)
 ---
 
 {posts.length === 0 ? (

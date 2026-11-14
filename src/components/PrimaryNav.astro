@@ -1,0 +1,36 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n'
+import { useTranslations } from '../i18n/ui'
+import { entrySlug, getCustomPages, localeFromParam } from '../lib/content'
+
+const lang = localeFromParam(Astro.currentLocale)
+const t = useTranslations(lang)
+const pages = await getCustomPages(lang)
+const current = Astro.url.pathname.replace(/\/$/, '') || '/'
+
+function currentPage(href: string) {
+  const normalized = href.replace(/\/$/, '') || '/'
+  return normalized === current ? 'page' : undefined
+}
+
+const links = [
+  { href: getRelativeLocaleUrl(lang), label: t('nav.home') },
+  { href: getRelativeLocaleUrl(lang, 'blog'), label: t('nav.blog') },
+  ...pages.map((page) => ({
+    href: getRelativeLocaleUrl(lang, entrySlug(page.id)),
+    label: page.data.title,
+  })),
+]
+---
+
+<nav aria-label={t('nav.primary')}>
+  <ul>
+    {links.map((link) => (
+      <li>
+        <a href={link.href} aria-current={currentPage(link.href)}>
+          {link.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>

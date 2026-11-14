@@ -1,10 +1,9 @@
 ---
-import { getAbsoluteLocaleUrl } from 'astro:i18n'
+import LocaleAlternates from '../components/LocaleAlternates.astro'
 import SiteFooter from '../components/SiteFooter.astro'
 import SiteHeader from '../components/SiteHeader.astro'
 import { SITE_TITLE } from '../consts'
-import { defaultLang, locales } from '../i18n/ui'
-import { contentPath, hasLocalePath, localeFromParam } from '../lib/content'
+import { localeFromParam } from '../lib/content'
 import '../styles/a11y.css'
 import '../styles/global.css'
 
@@ -15,17 +14,10 @@ interface Props {
 
 const { title, description } = Astro.props
 const lang = localeFromParam(Astro.currentLocale)
-const path = contentPath(Astro.url.pathname, lang)
 const pageTitle = title === SITE_TITLE ? title : `${title} | ${SITE_TITLE}`
 const canonical = Astro.site
   ? new URL(Astro.url.pathname, Astro.site)
   : undefined
-const alternates = []
-for (const locale of locales) {
-  if (await hasLocalePath(locale, path)) {
-    alternates.push({ locale, href: getAbsoluteLocaleUrl(locale, path) })
-  }
-}
 ---
 
 <!doctype html>
@@ -55,17 +47,8 @@ for (const locale of locales) {
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     {canonical && <link rel='canonical' href={canonical} />}
-    {alternates.map((item) => (
-      <link rel='alternate' hreflang={item.locale} href={item.href} />
-    ))}
-    {(await hasLocalePath(defaultLang, path)) && (
-      <link
-        rel='alternate'
-        hreflang='x-default'
-        href={getAbsoluteLocaleUrl(defaultLang, path)}
-      />
-    )}
     <title>{pageTitle}</title>
+    <LocaleAlternates />
   </head>
   <body>
     <SiteHeader />

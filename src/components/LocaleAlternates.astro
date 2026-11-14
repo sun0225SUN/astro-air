@@ -1,0 +1,27 @@
+---
+import { getAbsoluteLocaleUrl } from 'astro:i18n'
+import { defaultLang, locales } from '../i18n/ui'
+import { contentPath, hasLocalePath, localeFromParam } from '../lib/content'
+
+const lang = localeFromParam(Astro.currentLocale)
+const path = contentPath(Astro.url.pathname, lang)
+const alternates = (
+  await Promise.all(
+    locales.map(async (locale) => {
+      if (!(await hasLocalePath(locale, path))) return undefined
+      return { locale, href: getAbsoluteLocaleUrl(locale, path) }
+    }),
+  )
+).filter((item) => item !== undefined)
+---
+
+{alternates.map((item) => (
+  <link rel='alternate' hreflang={item.locale} href={item.href} />
+))}
+{alternates.some((item) => item.locale === defaultLang) && (
+  <link
+    rel='alternate'
+    hreflang='x-default'
+    href={getAbsoluteLocaleUrl(defaultLang, path)}
+  />
+)}

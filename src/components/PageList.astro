@@ -1,0 +1,18 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n'
+import { entrySlug, getCustomPages, localeFromParam } from '../lib/content'
+
+const lang = localeFromParam(Astro.currentLocale)
+const pages = await getCustomPages(lang)
+---
+
+<ul class="page-list" role="list">
+  {pages.map((page) => (
+    <li>
+      <a href={getRelativeLocaleUrl(lang, entrySlug(page.id))}>
+        {page.data.title}
+      </a>
+      <p>{page.data.description}</p>
+    </li>
+  ))}
+</ul>
