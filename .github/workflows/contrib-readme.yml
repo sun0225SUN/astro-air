@@ -1,0 +1,23 @@
+name: Contribute List
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  contrib-readme-job:
+    runs-on: ubuntu-latest
+    name: A job to automate contrib in readme
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Contribute List
+        uses: akhilmhdh/contributors-readme-action@v2.3.11
+        with:
+          commit_message: ':memo: docs(contributor): update the contributor list'
+          pr_title_on_protected: ':memo: docs(contributor): update the contributor list'
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACTION_TOKEN }}

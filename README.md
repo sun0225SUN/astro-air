@@ -97,6 +97,10 @@ bun dev
 
 This project is licensed under the GPL-3.0 License - see the LICENSE file for details.
 
+## 贡献者
+
+<!-- readme: collaborators,contributors -start -->
+<!-- readme: collaborators,contributors -end -->
 
 # Astro Starter Kit: Basics
 
