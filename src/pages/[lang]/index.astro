@@ -2,27 +2,20 @@
 import { getRelativeLocaleUrl } from 'astro:i18n'
 import PostList from '../../components/blog/PostList.astro'
 import PageList from '../../components/content/PageList.astro'
+import PageShell from '../../components/content/PageShell.astro'
 import { config } from '../../config'
-import { locales, useTranslations } from '../../i18n'
-import Layout from '../../layouts/Layout.astro'
-import { localeFromParam } from '../../lib/content'
+import { localePaths, useTranslations } from '../../i18n'
+import { pageLocale } from '../../lib/content'
 
 export function getStaticPaths() {
-  return locales.map((lang) => ({ params: { lang } }))
+  return localePaths()
 }
 
-const lang = localeFromParam(Astro.currentLocale ?? Astro.params.lang)
+const lang = pageLocale(Astro.currentLocale, Astro.params.lang)
 const t = useTranslations(lang)
 ---
 
-<Layout title={config.title} description={t('site.description')}>
-  <h1
-    id="content"
-    class="mb-2 text-3xl leading-tight font-semibold"
-    tabindex="-1"
-  >
-    {config.title}
-  </h1>
+<PageShell title={config.title} description={t('site.description')}>
   <p class="text-muted">{t('site.description')}</p>
 
   <section aria-labelledby="posts-heading">
@@ -39,4 +32,4 @@ const t = useTranslations(lang)
     </h2>
     <PageList />
   </section>
-</Layout>
+</PageShell>

@@ -1,12 +1,12 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n'
 import PostList from '../../../../components/blog/PostList.astro'
+import PageShell from '../../../../components/content/PageShell.astro'
 import { locales, useTranslations } from '../../../../i18n'
-import Layout from '../../../../layouts/Layout.astro'
 import {
   getCategories,
   getPostsByCategory,
-  localeFromParam,
+  pageLocale,
 } from '../../../../lib/content'
 
 export async function getStaticPaths() {
@@ -14,7 +14,10 @@ export async function getStaticPaths() {
   for (const lang of locales) {
     const categories = await getCategories(lang)
     for (const category of categories) {
-      paths.push({ params: { lang, slug: category.slug }, props: { category } })
+      paths.push({
+        params: { lang, slug: category.slug },
+        props: { category },
+      })
     }
   }
   return paths
@@ -24,27 +27,20 @@ interface Props {
   category: { name: string }
 }
 
-const lang = localeFromParam(Astro.currentLocale ?? Astro.params.lang)
+const lang = pageLocale(Astro.currentLocale, Astro.params.lang)
 const { category } = Astro.props
 const t = useTranslations(lang)
 const posts = await getPostsByCategory(lang, Astro.params.slug ?? '')
 ---
 
-<Layout
+<PageShell
   title={category.name}
-  description={t('blog.categoryDescription').replace('{name}', category.name)}
+  description={t('blog.categoryDescription', { name: category.name })}
 >
-  <h1
-    id="content"
-    class="mb-2 text-3xl leading-tight font-semibold"
-    tabindex="-1"
-  >
-    {category.name}
-  </h1>
   <p class="text-muted">
     <a href={getRelativeLocaleUrl(lang, 'blog/category')}
       >{t('blog.categories')}</a
     >
   </p>
   <PostList posts={posts} />
-</Layout>
+</PageShell>

@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content'
+import PageHeading from '../components/content/PageHeading.astro'
 import Prose from '../components/content/Prose.astro'
 import Layout from './Layout.astro'
 
@@ -11,13 +12,7 @@ const { title, description } = Astro.props
 <Layout title={title} description={description}>
   <article>
     <header>
-      <h1
-        id="content"
-        class="mb-2 text-3xl leading-tight font-semibold"
-        tabindex="-1"
-      >
-        {title}
-      </h1>
+      <PageHeading>{title}</PageHeading>
       <p class="text-muted">{description}</p>
     </header>
     <Prose>

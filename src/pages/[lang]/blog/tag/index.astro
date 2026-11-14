@@ -1,26 +1,19 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n'
-import { locales, useTranslations } from '../../../../i18n'
-import Layout from '../../../../layouts/Layout.astro'
-import { getTags, localeFromParam } from '../../../../lib/content'
+import PageShell from '../../../../components/content/PageShell.astro'
+import { localePaths, useTranslations } from '../../../../i18n'
+import { getTags, pageLocale } from '../../../../lib/content'
 
 export function getStaticPaths() {
-  return locales.map((lang) => ({ params: { lang } }))
+  return localePaths()
 }
 
-const lang = localeFromParam(Astro.currentLocale ?? Astro.params.lang)
+const lang = pageLocale(Astro.currentLocale, Astro.params.lang)
 const t = useTranslations(lang)
 const tags = await getTags(lang)
 ---
 
-<Layout title={t('blog.tags')} description={t('blog.tagsDescription')}>
-  <h1
-    id="content"
-    class="mb-2 text-3xl leading-tight font-semibold"
-    tabindex="-1"
-  >
-    {t('blog.tags')}
-  </h1>
+<PageShell title={t('blog.tags')} description={t('blog.tagsDescription')}>
   {tags.length === 0 ? (
     <p>{t('home.empty')}</p>
   ) : (
@@ -37,10 +30,10 @@ const tags = await getTags(lang)
             {tag.name}
           </a>
           <span class='text-muted'>
-            {t('blog.count').replace('{count}', String(tag.count))}
+            {t('blog.count', { count: tag.count })}
           </span>
         </li>
       ))}
     </ul>
   )}
-</Layout>
+</PageShell>

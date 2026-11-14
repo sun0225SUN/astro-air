@@ -37,6 +37,19 @@ export const modifiedTimePlugin = defineMdastPlugin({
   },
 })
 
+export function renderedPostMeta(frontmatter: Record<string, unknown>) {
+  return {
+    lastModified:
+      typeof frontmatter.lastModified === 'string'
+        ? frontmatter.lastModified
+        : undefined,
+    readingMinutes:
+      typeof frontmatter.readingMinutes === 'number'
+        ? frontmatter.readingMinutes
+        : undefined,
+  }
+}
+
 export const readingTimePlugin = defineMdastPlugin({
   name: 'reading-time',
   after(root, context) {

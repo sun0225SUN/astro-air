@@ -4,6 +4,7 @@ import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import FormattedDate from '../components/blog/FormattedDate.astro'
 import PostTerms from '../components/blog/PostTerms.astro'
+import PageHeading from '../components/content/PageHeading.astro'
 import Prose from '../components/content/Prose.astro'
 import { useTranslations } from '../i18n'
 import { localeFromParam } from '../lib/content'
@@ -48,7 +49,7 @@ const modifiedLabel = modified?.isValid()
         {readingMinutes && (
           <>
             {' · '}
-            {t('post.readingTime').replace('{minutes}', String(readingMinutes))}
+            {t('post.readingTime', { minutes: readingMinutes })}
           </>
         )}
       </p>
@@ -63,13 +64,7 @@ const modifiedLabel = modified?.isValid()
           <time datetime={lastModified}>{modifiedLabel}</time>
         </p>
       )}
-      <h1
-        id="content"
-        class="mb-2 text-3xl leading-tight font-semibold"
-        tabindex="-1"
-      >
-        {title}
-      </h1>
+      <PageHeading>{title}</PageHeading>
       <p class="text-muted">{description}</p>
       <PostTerms category={category} tags={tags} />
     </header>

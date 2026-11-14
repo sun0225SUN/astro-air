@@ -53,9 +53,21 @@ export function isLocale(value: string | undefined): value is Locale {
   return locales.some((locale) => locale === value)
 }
 
+export function localePaths() {
+  return locales.map((lang) => ({ params: { lang } }))
+}
+
 export function useTranslations(lang: string) {
   const locale = isLocale(lang) ? lang : defaultLang
-  return function t(key: UiKey): string {
-    return lookup(ui[locale], key) ?? lookup(ui[defaultLang], key) ?? key
+  return function t(
+    key: UiKey,
+    values?: Record<string, string | number>,
+  ): string {
+    let message = lookup(ui[locale], key) ?? lookup(ui[defaultLang], key) ?? key
+    if (!values) return message
+    for (const [name, value] of Object.entries(values)) {
+      message = message.replaceAll(`{${name}}`, String(value))
+    }
+    return message
   }
 }

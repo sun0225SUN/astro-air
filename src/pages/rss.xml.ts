@@ -1,21 +1,28 @@
-import { getCollection } from 'astro:content'
 import rss from '@astrojs/rss'
 import type { APIContext } from 'astro'
 import { config } from '../config'
-import en from '../../messages/en.json'
-import { entrySlug } from '../lib/content'
+import { locales, useTranslations } from '../i18n'
+import { entrySlug, getBlogPosts } from '../lib/content'
 
 export async function GET(context: APIContext) {
   if (!context.site) {
     throw new Error(
-      'Set `site` in astro.config.ts before generating the RSS feed.',
+      'Set `url` in src/config.yml before generating the RSS feed.',
     )
   }
 
-  const posts = await getCollection('blog', ({ data }) => data.draft !== true)
-  const items = posts
+  const posts = (
+    await Promise.all(locales.map((locale) => getBlogPosts(locale)))
+  )
+    .flat()
+    .filter((post) => post.data.draft !== true)
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-    .map((post) => {
+
+  return rss({
+    title: config.title,
+    description: useTranslations('en')('site.description'),
+    site: context.site,
+    items: posts.map((post) => {
       const locale = post.id.slice(0, post.id.indexOf('/'))
       return {
         title: post.data.title,
@@ -23,13 +30,7 @@ export async function GET(context: APIContext) {
         description: post.data.description,
         link: `/${locale}/blog/${entrySlug(post.id)}`,
       }
-    })
-
-  return rss({
-    title: config.title,
-    description: en.site.description,
-    site: context.site,
-    items,
+    }),
     customData: '<language>en</language>',
   })
 }

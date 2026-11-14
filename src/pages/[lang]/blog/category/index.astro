@@ -1,29 +1,22 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n'
-import { locales, useTranslations } from '../../../../i18n'
-import Layout from '../../../../layouts/Layout.astro'
-import { getCategories, localeFromParam } from '../../../../lib/content'
+import PageShell from '../../../../components/content/PageShell.astro'
+import { localePaths, useTranslations } from '../../../../i18n'
+import { getCategories, pageLocale } from '../../../../lib/content'
 
 export function getStaticPaths() {
-  return locales.map((lang) => ({ params: { lang } }))
+  return localePaths()
 }
 
-const lang = localeFromParam(Astro.currentLocale ?? Astro.params.lang)
+const lang = pageLocale(Astro.currentLocale, Astro.params.lang)
 const t = useTranslations(lang)
 const categories = await getCategories(lang)
 ---
 
-<Layout
+<PageShell
   title={t('blog.categories')}
   description={t('blog.categoriesDescription')}
 >
-  <h1
-    id="content"
-    class="mb-2 text-3xl leading-tight font-semibold"
-    tabindex="-1"
-  >
-    {t('blog.categories')}
-  </h1>
   {categories.length === 0 ? (
     <p>{t('home.empty')}</p>
   ) : (
@@ -36,11 +29,9 @@ const categories = await getCategories(lang)
           >
             {category.name}
           </a>
-          <p class='text-muted'>
-            {t('blog.count').replace('{count}', String(category.count))}
-          </p>
+          <p class='text-muted'>{t('blog.count', { count: category.count })}</p>
         </li>
       ))}
     </ul>
   )}
-</Layout>
+</PageShell>

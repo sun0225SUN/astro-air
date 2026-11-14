@@ -112,19 +112,23 @@ export async function hasLocalePath(locale: Locale, path: string) {
   ) {
     return true
   }
-  if (path.startsWith('blog/category/')) {
-    const slug = path.slice('blog/category/'.length)
-    const categories = await getCategories(locale)
-    return categories.some((category) => category.slug === slug)
-  }
-  if (path.startsWith('blog/tag/')) {
-    const slug = path.slice('blog/tag/'.length)
-    const tags = await getTags(locale)
-    return tags.some((tag) => tag.slug === slug)
-  }
   if (path.startsWith('blog/')) {
-    const slug = path.slice('blog/'.length)
     const posts = await getBlogPosts(locale)
+    if (path.startsWith('blog/category/')) {
+      const slug = path.slice('blog/category/'.length)
+      return posts.some(
+        (post) =>
+          post.data.category !== undefined &&
+          taxonomySlug(post.data.category) === slug,
+      )
+    }
+    if (path.startsWith('blog/tag/')) {
+      const slug = path.slice('blog/tag/'.length)
+      return posts.some((post) =>
+        post.data.tags.some((tag) => taxonomySlug(tag) === slug),
+      )
+    }
+    const slug = path.slice('blog/'.length)
     return posts.some((post) => entrySlug(post.id) === slug)
   }
   const pages = await getCustomPages(locale)
@@ -153,6 +157,13 @@ export async function localeHref(locale: Locale, path: string) {
 export function localeFromParam(lang: string | undefined): Locale {
   if (isLocale(lang)) return lang
   throw new Error(`Unknown locale: ${lang}`)
+}
+
+export function pageLocale(
+  currentLocale: string | undefined,
+  param?: string,
+): Locale {
+  return localeFromParam(currentLocale ?? param)
 }
 
 export type BlogPost = CollectionEntry<'blog'>

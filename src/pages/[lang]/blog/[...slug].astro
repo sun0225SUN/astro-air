@@ -3,6 +3,7 @@ import { type CollectionEntry, render } from 'astro:content'
 import { locales } from '../../../i18n'
 import BlogPost from '../../../layouts/BlogPost.astro'
 import { entrySlug, getBlogPosts } from '../../../lib/content'
+import { renderedPostMeta } from '../../../lib/markdown'
 
 export async function getStaticPaths() {
   const paths = []
@@ -22,20 +23,9 @@ type Props = CollectionEntry<'blog'>
 
 const post = Astro.props
 const { Content, remarkPluginFrontmatter } = await render(post)
-const lastModified =
-  typeof remarkPluginFrontmatter.lastModified === 'string'
-    ? remarkPluginFrontmatter.lastModified
-    : undefined
-const readingMinutes =
-  typeof remarkPluginFrontmatter.readingMinutes === 'number'
-    ? remarkPluginFrontmatter.readingMinutes
-    : undefined
+const meta = renderedPostMeta(remarkPluginFrontmatter)
 ---
 
-<BlogPost
-  {...post.data}
-  lastModified={lastModified}
-  readingMinutes={readingMinutes}
->
+<BlogPost {...post.data} {...meta}>
   <Content />
 </BlogPost>
