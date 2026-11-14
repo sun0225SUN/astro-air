@@ -1,0 +1,28 @@
+---
+title: 使用 MDX
+description: 在文章裡把 Markdown 和 Astro 組件寫在一起。
+pubDate: 2024-06-01
+updatedDate: 2024-11-02
+category: 指南
+tags:
+  - MDX
+  - Markdown
+---
+
+import Callout from '../../../components/content/Callout.astro'
+
+MDX 是可以包含組件的 Markdown。`astro.config.mjs` 裡啟用了 `@astrojs/mdx`，博客集合會同時加載 `.md` 和 `.mdx`。
+
+<Callout title="組件默認是靜態的">
+  MDX 裡的組件在構建時渲染成 HTML。只有需要在瀏覽器裡運行時，才加上 client 指令。
+</Callout>
+
+## 寫一篇文章
+
+1. 在 `src/content/blog/<語言>` 下新增文件。
+2. 填好 `title`、`description` 和 `pubDate`。
+3. 文章需要 Markdown 以外的東西時，再導入組件。
+
+在這一段多停一會兒，找出比其他句子更沉的那一句。值得留下的通常就是它。其餘的可以等你弄清自己為什麼停在這一頁。
+
+寫到明天的自己不用重讀整章也能找回位置。一個名字、一個頁碼，加上當時還沒回答的問題，通常就夠了。

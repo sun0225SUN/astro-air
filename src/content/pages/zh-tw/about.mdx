@@ -1,0 +1,15 @@
+---
+title: 關於
+description: 和文章分開存放的自定義頁面。
+order: 1
+---
+
+import Callout from '../../../components/content/Callout.astro'
+
+自定義頁面不是文章，比如關於、鏈接、版權說明。它們共用一套 schema 和一條路由，新增一個文件就會發佈一個頁面。
+
+<Callout title="放在哪裡">
+  把文件放進 `src/content/pages/<語言>`。去掉擴展名之後的文件名就是地址。這一頁是 `/zh-tw/about`。
+</Callout>
+
+用 `order` 決定導航裡的順序。還沒準備好公開時，寫上 `draft: true`。同名文件放到每個語言目錄，就是這一頁的翻譯。

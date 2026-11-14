@@ -1,0 +1,46 @@
+{
+  "nav": {
+    "primary": "主導航",
+    "home": "首頁",
+    "blog": "歸檔",
+    "archive": "歸檔",
+    "tags": "標籤"
+  },
+  "home": {
+    "empty": "還沒有文章。"
+  },
+  "site": {
+    "description": "一個極簡的個人部落格。"
+  },
+  "blog": {
+    "description": "Astro Air 的文章。",
+    "latest": "近期文章",
+    "categories": "分類",
+    "categoriesDescription": "全部分類。",
+    "categoryDescription": "歸入「{name}」的文章。",
+    "tags": "標籤",
+    "tagsDescription": "全部標籤。",
+    "tagDescription": "帶有「{name}」標籤的文章。"
+  },
+  "post": {
+    "updated": "更新於",
+    "lastModified": "最後修改於",
+    "readingTime": "閱讀約 {minutes} 分鐘",
+    "toc": "目錄",
+    "backToTop": "回到頂部"
+  },
+  "skip": "跳到內容",
+  "notFound": {
+    "title": "頁面不存在",
+    "body": "你造訪的頁面不在這裡。",
+    "home": "返回首頁"
+  },
+  "pager": {
+    "label": "分頁",
+    "prev": "上一頁",
+    "next": "下一頁"
+  },
+  "footer": {
+    "rss": "透過 {rss} 訂閱"
+  }
+}

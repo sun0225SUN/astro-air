@@ -8,7 +8,7 @@
 
 ## 功能
 
-- 英文、简体中文、日文、韩文
+- 英文、简体中文、繁体中文、日文、韩文
 - 首页、归档、标签、分类，以及独立页面
 - 阅读时间，以及从 Git 读取的最后修改时间
 - 宽屏目录，点击后平滑滚到对应标题
@@ -63,7 +63,7 @@ export const config = {
   title: 'Air',
   url: 'https://astro-air.guoqi.dev',
   defaultLocale: 'en',
-  locales: ['en', 'zh', 'ja', 'ko'],
+  locales: ['en', 'zh', 'zh-tw', 'ja', 'ko'],
   blog: {
     // 正整数，或者 'all' 表示一页显示全部文章。
     perPage: 10,
@@ -142,7 +142,7 @@ MDX 可以引入 `src/components/` 里的组件。
 
 ## 界面文案
 
-改 `messages/en.json`、`messages/zh.json`、`messages/ja.json`、`messages/ko.json`。键是嵌套的。组件里 `t('post.readingTime', { minutes })` 会把字符串中的 `{minutes}` 换掉。
+改 `messages/en.json`、`messages/zh.json`、`messages/zh-tw.json`、`messages/ja.json`、`messages/ko.json`。键是嵌套的。组件里 `t('post.readingTime', { minutes })` 会把字符串中的 `{minutes}` 换掉。
 
 增加一种语言：
 

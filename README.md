@@ -8,7 +8,7 @@ Live site: [astro-air.guoqi.dev](https://astro-air.guoqi.dev)
 
 ## Features
 
-- English, Simplified Chinese, Japanese, and Korean
+- English, Simplified Chinese, Traditional Chinese, Japanese, and Korean
 - Home, archive, tags, categories, and custom pages
 - Reading time, and a last-modified time taken from Git
 - A table of contents that smooth-scrolls to the heading
@@ -63,7 +63,7 @@ export const config = {
   title: 'Air',
   url: 'https://astro-air.guoqi.dev',
   defaultLocale: 'en',
-  locales: ['en', 'zh', 'ja', 'ko'],
+  locales: ['en', 'zh', 'zh-tw', 'ja', 'ko'],
   blog: {
     // A positive integer, or 'all' to show every post.
     perPage: 10,
@@ -142,7 +142,7 @@ MDX files can import components from `src/components/`.
 
 ## Interface copy
 
-Edit `messages/en.json`, `messages/zh.json`, `messages/ja.json`, and `messages/ko.json`. Keys are nested. In a component, `t('post.readingTime', { minutes })` replaces `{minutes}` in the string.
+Edit `messages/en.json`, `messages/zh.json`, `messages/zh-tw.json`, `messages/ja.json`, and `messages/ko.json`. Keys are nested. In a component, `t('post.readingTime', { minutes })` replaces `{minutes}` in the string.
 
 To add a language:
 
