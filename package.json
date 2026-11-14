@@ -35,6 +35,7 @@
     "@commitlint/config-conventional": "21.2.4",
     "@tailwindcss/typography": "^0.5.20",
     "@tailwindcss/vite": "^4.3.5",
+    "@types/bun": "1.4.4",
     "commitizen": "4.3.2",
     "cz-git": "1.14.0",
     "lefthook": "2.2.2",

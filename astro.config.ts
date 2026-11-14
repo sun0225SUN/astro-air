@@ -4,8 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'astro/config'
 import { config } from './src/config'
 import { defaultLang, locales } from './src/i18n'
-import { mdastModifiedTimePlugin } from './src/mdast/mdast-modified-time'
-import { mdastReadingTimePlugin } from './src/mdast/mdast-reading-time'
+import { modifiedTimePlugin, readingTimePlugin } from './src/lib/markdown'
 
 // https://astro.build/config
 export default defineConfig({
@@ -16,7 +15,7 @@ export default defineConfig({
   },
   markdown: {
     processor: satteri({
-      mdastPlugins: [mdastModifiedTimePlugin, mdastReadingTimePlugin],
+      mdastPlugins: [modifiedTimePlugin, readingTimePlugin],
     }),
   },
   i18n: {

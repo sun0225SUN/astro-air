@@ -1,0 +1,3 @@
+[run]
+# Astro's CLI has a Node shebang. Run package scripts with Bun instead.
+bun = true
