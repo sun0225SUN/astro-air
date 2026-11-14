@@ -46,7 +46,7 @@ const modifiedLabel = modified?.isValid()
 ---
 
 <Layout title={title} description={description}>
-  <article class="prose w-full max-w-3xl overflow-hidden dark:prose-invert">
+  <article class="prose dark:prose-invert w-full max-w-3xl overflow-hidden">
     <div class="flex flex-col gap-2">
       <h2 class="my-0! text-3xl font-semibold">
         <span transition:name={`post-${lang}-${slug}`}>
@@ -54,7 +54,7 @@ const modifiedLabel = modified?.isValid()
         </span>
       </h2>
       <div
-        class="not-prose text-muted dark:text-muted-soft my-3 flex flex-wrap items-center gap-x-2 text-sm"
+        class="not-prose my-3 flex flex-wrap items-center gap-x-2 text-sm text-muted dark:text-muted-soft"
       >
         {category && (
           <a
@@ -62,7 +62,7 @@ const modifiedLabel = modified?.isValid()
               lang,
               `blog/category/${taxonomySlug(category)}`,
             )}
-            class='text-accent hover:text-accent-hover dark:text-accent-dark dark:hover:text-accent-dark-hover no-underline'
+            class='text-accent no-underline hover:text-accent-hover dark:text-accent-dark dark:hover:text-accent-dark-hover'
             data-umami-event='category'
             data-umami-event-name={category}
           >
@@ -78,12 +78,12 @@ const modifiedLabel = modified?.isValid()
         )}
       </div>
       {updatedDate && (
-        <p class='text-muted dark:text-muted-soft my-0 text-sm'>
+        <p class='my-0 text-sm text-muted dark:text-muted-soft'>
           {t('post.updated')} <FormattedDate date={updatedDate} />
         </p>
       )}
       {modifiedLabel && lastModified && (
-        <p class='text-muted dark:text-muted-soft my-0 text-sm'>
+        <p class='my-0 text-sm text-muted dark:text-muted-soft'>
           {t('post.lastModified')}{' '}
           <time datetime={lastModified}>{modifiedLabel}</time>
         </p>

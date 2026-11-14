@@ -31,13 +31,13 @@ const dateLabel = dateFormat.replace(
 
 <a
   href={href}
-  class="visited:text-visited my-3 flex md:my-2"
+  class="flex visited:text-visited"
   data-umami-event="post"
   data-umami-event-slug={entrySlug(post.id)}
 >
   <p
     class:list={[
-      'text-muted dark:text-faint flex shrink-0 truncate',
+      'flex shrink-0 truncate text-muted dark:text-faint',
       dateWidth,
     ]}
   >

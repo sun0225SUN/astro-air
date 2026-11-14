@@ -14,9 +14,7 @@ const t = useTranslations(lang)
 ---
 
 <Layout title={config.title} description={t('site.description')}>
-  <div class="my-10">
-    <p>{t('site.description')}</p>
-  </div>
+  <p>{t('site.description')}</p>
   <div class="my-8 text-xl font-medium">{t('blog.latest')}</div>
   <PostList variant="latest" limit={8} />
 </Layout>

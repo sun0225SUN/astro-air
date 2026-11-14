@@ -11,15 +11,15 @@ const t = useTranslations(lang)
 ---
 
 <a
-  class="focus:bg-page dark:focus:bg-page-dark sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-2 focus:py-1"
+  class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:bg-page focus:px-2 focus:py-1 dark:focus:bg-page-dark"
   href="#content"
   >{t('skip')}</a
 >
-<header class="flex h-24 w-full items-center justify-between">
+<header class="flex w-full items-center justify-between pt-8">
   <a
     href={getRelativeLocaleUrl(lang)}
     aria-label={config.title}
-    class="inline-flex h-12 items-center"
+    class="inline-flex items-center"
   >
     <span
       class="font-title text-3xl leading-none"

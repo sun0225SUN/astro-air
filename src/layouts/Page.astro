@@ -9,7 +9,7 @@ const { title, description } = Astro.props
 ---
 
 <Layout title={title} description={description}>
-  <article class="prose w-full max-w-3xl dark:prose-invert">
+  <article class="prose dark:prose-invert w-full max-w-3xl">
     <h2 class="my-0! text-3xl font-semibold">{title}</h2>
     <Prose>
       <slot />

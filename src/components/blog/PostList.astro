@@ -28,18 +28,34 @@ if (grouped) {
 ---
 
 {posts.length === 0 ? (
-  <p class='text-muted dark:text-muted-dark py-2'>{t('home.empty')}</p>
+  <p class='text-muted dark:text-muted-dark'>{t('home.empty')}</p>
 ) : grouped ? (
-  groups.map((group) => (
-    <div class='year-group my-8'>
-      <h2 class='my-4 text-2xl font-bold'>{group.year}</h2>
-      {group.posts.map((post) => (
-        <PostRow post={post} lang={lang} dateFormat='MM-DD' dateWidth='w-20' />
-      ))}
-    </div>
-  ))
+  <div class='flex flex-col gap-8'>
+    {groups.map((group) => (
+      <div class='year-group'>
+        <h2 class='mb-8 text-2xl font-bold'>{group.year}</h2>
+        <div class='flex flex-col gap-3'>
+          {group.posts.map((post) => (
+            <PostRow
+              post={post}
+              lang={lang}
+              dateFormat='MM-DD'
+              dateWidth='w-20'
+            />
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
 ) : (
-  posts.map((post) => (
-    <PostRow post={post} lang={lang} dateFormat='YYYY-MM-DD' dateWidth='w-32' />
-  ))
+  <div class='flex flex-col gap-3'>
+    {posts.map((post) => (
+      <PostRow
+        post={post}
+        lang={lang}
+        dateFormat='YYYY-MM-DD'
+        dateWidth='w-32'
+      />
+    ))}
+  </div>
 )}

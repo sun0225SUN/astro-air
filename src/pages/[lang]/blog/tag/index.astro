@@ -14,19 +14,19 @@ const tags = await getTags(lang)
 ---
 
 <Layout title={t('nav.tags')} description={t('blog.tagsDescription')}>
-  <h1 class="mt-8 text-2xl font-semibold">{t('nav.tags')}</h1>
+  <h1 class="mb-8 text-2xl font-semibold">{t('nav.tags')}</h1>
   {tags.length === 0 ? (
-    <p class='text-muted dark:text-muted-dark mt-6'>{t('home.empty')}</p>
+    <p class='text-muted dark:text-muted-dark'>{t('home.empty')}</p>
   ) : (
-    <ul class='mt-8 flex flex-wrap gap-3'>
+    <ul class='flex flex-wrap gap-3'>
       {tags.map((tag) => (
         <li>
           <a
             href={getRelativeLocaleUrl(lang, `blog/tag/${tag.slug}`)}
-            class='border-line hover:border-accent hover:text-accent dark:border-line-dark dark:hover:border-accent-dark dark:hover:text-accent-dark inline-flex items-baseline gap-2 rounded-full border px-3 py-1 text-sm'
+            class='inline-flex items-baseline gap-2 rounded-full border border-line px-3 py-1 text-sm hover:border-accent hover:text-accent dark:border-line-dark dark:hover:border-accent-dark dark:hover:text-accent-dark'
           >
             {tag.name}
-            <span class='text-faint text-xs'>{tag.count}</span>
+            <span class='text-xs text-faint'>{tag.count}</span>
           </a>
         </li>
       ))}

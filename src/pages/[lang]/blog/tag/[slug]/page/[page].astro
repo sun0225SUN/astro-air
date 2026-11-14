@@ -48,7 +48,7 @@ const posts = await getPostsByTag(lang, Astro.params.slug ?? '')
   title={tag.name}
   description={t('blog.tagDescription', { name: tag.name })}
 >
-  <h1 class="mt-2 mb-9 text-2xl font-semibold">#{tag.name}</h1>
+  <h1 class="mb-8 text-2xl font-semibold">#{tag.name}</h1>
   <PostList posts={pageItems(posts, page)} variant="dated" />
   <Pager
     page={page}

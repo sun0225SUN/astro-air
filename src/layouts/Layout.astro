@@ -97,13 +97,13 @@ const canonical = Astro.site ? new URL(publicPath, Astro.site) : undefined
     <Umami />
   </head>
   <body
-    class="text-ink dark:text-ink-dark flex min-h-dvh w-full flex-col items-center bg-transparent px-6 md:px-0"
+    class="flex w-full flex-col items-center bg-transparent px-6 text-ink md:px-0 dark:text-ink-dark"
   >
     <div
-      class="pointer-events-none fixed inset-0 z-[1] h-full w-full bg-[url('/noise.png')] bg-[length:128px_128px] bg-repeat opacity-[0.06]"
+      class="pointer-events-none fixed inset-0 z-1 size-full bg-[length:128px_128px] bg-[url('/noise.png')] bg-repeat opacity-6"
     ></div>
-    <div class="relative z-[2] flex w-full max-w-3xl flex-1 flex-col">
-      <main id="content" tabindex="-1" class="flex-1">
+    <div class="relative z-2 flex w-full max-w-3xl flex-col">
+      <main id="content" tabindex="-1">
         <SiteHeader />
         <PrimaryNav />
         <slot />

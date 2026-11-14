@@ -41,6 +41,22 @@
     "enabled": true,
     "rules": {
       "preset": "recommended",
+      "nursery": {
+        "noTailwindArbitraryValue": {
+          "level": "error",
+          "options": {
+            "allowedClasses": [
+              "bg-[url('/noise.png')]",
+              "bg-[length:128px_128px]",
+              "min-h-[60vh]",
+              "aria-[current=page]:underline"
+            ]
+          }
+        },
+        "noTailwindLegacyUtilities": "error",
+        "useTailwindShorthandClasses": "error",
+        "useTailwindSortedClasses": "error"
+      },
       "suspicious": {
         "noUnknownAtRules": {
           "level": "error",
@@ -60,7 +76,8 @@
       }
     },
     "domains": {
-      "astro": "recommended"
+      "astro": "recommended",
+      "tailwind": "recommended"
     }
   },
   "assist": {
