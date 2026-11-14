@@ -19,6 +19,9 @@
       "tailwindDirectives": true
     }
   },
+  "tailwind": {
+    "stylesheet": "./src/styles/global.css"
+  },
   "javascript": {
     "formatter": {
       "semicolons": "asNeeded",
@@ -37,7 +40,24 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "preset": "recommended"
+      "preset": "recommended",
+      "suspicious": {
+        "noUnknownAtRules": {
+          "level": "error",
+          "options": {
+            "ignore": [
+              "plugin",
+              "config",
+              "theme",
+              "source",
+              "utility",
+              "variant",
+              "custom-variant",
+              "apply"
+            ]
+          }
+        }
+      }
     },
     "domains": {
       "astro": "recommended"
