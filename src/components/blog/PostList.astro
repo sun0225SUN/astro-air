@@ -1,13 +1,7 @@
 ---
-import { getRelativeLocaleUrl } from 'astro:i18n'
 import { useTranslations } from '../../i18n'
-import {
-  type BlogPost,
-  entrySlug,
-  getBlogPosts,
-  localeFromParam,
-} from '../../lib/content'
-import FormattedDate from './FormattedDate.astro'
+import { type BlogPost, getBlogPosts, localeFromParam } from '../../lib/content'
+import PostRow from './PostRow.astro'
 
 interface Props {
   posts?: BlogPost[]
@@ -20,78 +14,32 @@ const t = useTranslations(lang)
 const variant = Astro.props.variant ?? 'dated'
 const source = Astro.props.posts ?? (await getBlogPosts(lang))
 const posts = Astro.props.limit ? source.slice(0, Astro.props.limit) : source
-const dateFormat = variant === 'archive' ? 'MM-DD' : 'YYYY-MM-DD'
-const dateWidth = variant === 'archive' ? 'w-20' : 'w-32'
+const grouped = variant === 'archive'
 
-const groups = new Map<number, BlogPost[]>()
-if (variant === 'archive') {
+const groups: { year: number; posts: BlogPost[] }[] = []
+if (grouped) {
   for (const post of posts) {
     const year = post.data.pubDate.getUTCFullYear()
-    const group = groups.get(year) ?? []
-    group.push(post)
-    groups.set(year, group)
+    const last = groups.at(-1)
+    if (!last || last.year !== year) groups.push({ year, posts: [post] })
+    else last.posts.push(post)
   }
 }
 ---
 
-{variant === 'archive'
-  ? [...groups.keys()].map((year) => (
-      <div class='my-8'>
-        <h2 class='my-4 text-2xl font-bold'>{year}</h2>
-        {groups.get(year)?.map((post) => {
-          const slug = entrySlug(post.id).replaceAll('/', '-')
-          return (
-            <a
-              href={getRelativeLocaleUrl(lang, `blog/${slug}`)}
-              class='my-3 flex visited:text-[VisitedText] md:my-2'
-            >
-              <p
-                class:list={[
-                  'flex shrink-0 truncate text-gray-500 dark:text-gray-400',
-                  dateWidth,
-                ]}
-                transition:name={`time-${lang}-${slug}`}
-                data-disable-theme-toggle-transition
-              >
-                <FormattedDate date={post.data.pubDate} format={dateFormat} />
-              </p>
-              <p
-                class='line-clamp-2 text-lg hover:underline'
-                transition:name={`post-${lang}-${slug}`}
-                data-disable-theme-toggle-transition
-              >
-                {post.data.title}
-              </p>
-            </a>
-          )
-        })}
-      </div>
-    ))
-  : posts.map((post) => {
-      const slug = entrySlug(post.id).replaceAll('/', '-')
-      return (
-        <a
-          href={getRelativeLocaleUrl(lang, `blog/${slug}`)}
-          class='my-3 flex visited:text-[VisitedText] md:my-2'
-        >
-          <p
-            class:list={[
-              'flex shrink-0 truncate text-gray-500 dark:text-gray-400',
-              dateWidth,
-            ]}
-            transition:name={`time-${lang}-${slug}`}
-            data-disable-theme-toggle-transition
-          >
-            <FormattedDate date={post.data.pubDate} format={dateFormat} />
-          </p>
-          <p
-            class='line-clamp-2 text-lg hover:underline'
-            transition:name={`post-${lang}-${slug}`}
-            data-disable-theme-toggle-transition
-          >
-            {post.data.title}
-          </p>
-        </a>
-      )
-    })}
-{posts.length === 0 && <p class='text-gray-500'>{t('home.empty')}</p>}
+{posts.length === 0 ? (
+  <p class='py-2 text-gray-500'>{t('home.empty')}</p>
+) : grouped ? (
+  groups.map((group) => (
+    <div class='year-group my-8'>
+      <h2 class='my-4 text-2xl font-bold'>{group.year}</h2>
+      {group.posts.map((post) => (
+        <PostRow post={post} lang={lang} dateFormat='MM-DD' dateWidth='w-20' />
+      ))}
+    </div>
+  ))
+) : (
+  posts.map((post) => (
+    <PostRow post={post} lang={lang} dateFormat='YYYY-MM-DD' dateWidth='w-32' />
+  ))
+)}

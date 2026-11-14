@@ -1,0 +1,55 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n'
+import { type BlogPost, entrySlug } from '../../lib/content'
+
+interface Props {
+  post: BlogPost
+  lang: string
+  dateFormat?: string
+  dateWidth?: string
+}
+
+const {
+  post,
+  lang,
+  dateFormat = 'YYYY-MM-DD',
+  dateWidth = 'w-32',
+} = Astro.props
+const slug = entrySlug(post.id).replaceAll('/', '-')
+const href = getRelativeLocaleUrl(lang, `blog/${entrySlug(post.id)}`)
+const date = post.data.pubDate
+const tokens: Record<string, string> = {
+  YYYY: String(date.getUTCFullYear()),
+  MM: String(date.getUTCMonth() + 1).padStart(2, '0'),
+  DD: String(date.getUTCDate()).padStart(2, '0'),
+}
+const dateLabel = dateFormat.replace(
+  /YYYY|MM|DD/g,
+  (match) => tokens[match] ?? match,
+)
+---
+
+<a href={href} class="my-3 flex visited:text-purple-500/90 md:my-2">
+  <p
+    class:list={[
+      'flex shrink-0 truncate text-gray-500 dark:text-gray-400',
+      dateWidth,
+    ]}
+  >
+    <time
+      datetime={date.toISOString().slice(0, 10)}
+      class="vt-time"
+      transition:name={`time-${lang}-${slug}`}
+      data-disable-theme-toggle-transition
+    >
+      {dateLabel}
+    </time>
+  </p>
+  <p
+    class="line-clamp-2 text-lg hover:underline"
+    transition:name={`post-${lang}-${slug}`}
+    data-disable-theme-toggle-transition
+  >
+    {post.data.title}
+  </p>
+</a>
