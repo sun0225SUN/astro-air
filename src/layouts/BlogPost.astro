@@ -56,26 +56,30 @@ const modifiedLabel = modified?.isValid()
         </span>
       </h2>
       <div
-        class="my-3 text-gray-500 dark:text-white/80"
-        transition:name={`time-${lang}-${slug}`}
-        data-disable-theme-toggle-transition
+        class="not-prose my-3 flex flex-wrap items-center gap-x-2 text-sm text-gray-500 dark:text-white/70"
       >
         {category && (
-          <a
-            href={getRelativeLocaleUrl(
-              lang,
-              `blog/category/${taxonomySlug(category)}`,
-            )}
-            class='text-accent no-underline hover:text-accent-hover'
-          >
-            {category}
-          </a>
-        )}
-        {category && <span> · </span>}
-        <FormattedDate date={pubDate} />
+            <a
+              href={getRelativeLocaleUrl(
+                lang,
+                `blog/category/${taxonomySlug(category)}`,
+              )}
+              class="text-accent no-underline hover:text-accent-hover"
+            >
+              {category}
+            </a>
+          )}
+        {category && <span aria-hidden='true'>·</span>}
+        <span
+          class="vt-time"
+          transition:name={`time-${lang}-${slug}`}
+          data-disable-theme-toggle-transition
+        >
+          <FormattedDate date={pubDate} />
+        </span>
         {readingMinutes && (
-          <span> · {t('post.readingTime', { minutes: readingMinutes })}</span>
-        )}
+            <span>· {t('post.readingTime', { minutes: readingMinutes })}</span>
+          )}
       </div>
       {updatedDate && (
         <p class='my-0 text-sm text-gray-500 dark:text-white/70'>

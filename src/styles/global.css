@@ -93,6 +93,41 @@ html[data-theme-changing] [data-disable-theme-toggle-transition] {
   view-transition-name: none !important;
 }
 
+.vt-time {
+  view-transition-class: post-time;
+}
+
+::view-transition-group(*.post-time) {
+  animation-duration: 0.55s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+::view-transition-image-pair(*.post-time) {
+  isolation: auto;
+}
+
+::view-transition-old(*.post-time) {
+  animation: vt-fade 0.28s ease both;
+  mix-blend-mode: normal;
+  object-fit: none;
+  object-position: left center;
+  overflow: clip;
+}
+
+::view-transition-new(*.post-time) {
+  animation: vt-fade 0.4s ease 0.12s both reverse;
+  mix-blend-mode: normal;
+  object-fit: none;
+  object-position: left center;
+  overflow: clip;
+}
+
+@keyframes vt-fade {
+  to {
+    opacity: 0;
+  }
+}
+
 @keyframes fade-in-up {
   from {
     opacity: 0;
