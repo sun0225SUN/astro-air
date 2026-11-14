@@ -1,6 +1,13 @@
 {
-  "prompt": {
-    "useEmoji": true,
-    "emojiAlign": "left"
-  }
+	"extends": ["@commitlint/config-conventional"],
+	"parserPreset": {
+		"parserOpts": {
+			"headerPattern": "^:[a-z0-9_+-]+:\\s+(\\w+)(?:\\(([^)]+)\\))?!?:\\s+(.+)$",
+			"headerCorrespondence": ["type", "scope", "subject"]
+		}
+	},
+	"prompt": {
+		"useEmoji": true,
+		"emojiAlign": "left"
+	}
 }

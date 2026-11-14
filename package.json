@@ -1,27 +1,33 @@
 {
-  "name": "hilarious-hubble",
-  "type": "module",
-  "version": "0.0.1",
-  "engines": {
-    "node": ">=22.23.4"
-  },
-  "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro",
-    "commit": "cz"
-  },
-  "dependencies": {
-    "astro": "^7.4.12"
-  },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-git"
-    }
-  },
-  "devDependencies": {
-    "commitizen": "4.3.2",
-    "cz-git": "1.14.0"
-  }
+	"name": "hilarious-hubble",
+	"type": "module",
+	"version": "0.0.1",
+	"engines": {
+		"node": ">=22.23.4"
+	},
+	"scripts": {
+		"dev": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"astro": "astro"
+	},
+	"dependencies": {
+		"astro": "^7.4.12"
+	},
+	"config": {
+		"commitizen": {
+			"path": "node_modules/cz-git"
+		}
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.6.2",
+		"@commitlint/cli": "21.2.4",
+		"@commitlint/config-conventional": "21.2.4",
+		"commitizen": "4.3.2",
+		"cz-git": "1.14.0",
+		"lefthook": "2.2.2"
+	},
+	"trustedDependencies": [
+		"lefthook"
+	]
 }
