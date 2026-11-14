@@ -26,7 +26,13 @@ const canonical = Astro.site ? new URL(publicPath, Astro.site) : undefined
 ---
 
 <!doctype html>
-<html lang={lang} class:list={[config.handwriting && 'handwriting']}>
+<html
+  lang={lang}
+  class:list={[
+    'bg-page dark:bg-page-dark',
+    config.handwriting && 'handwriting',
+  ]}
+>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -91,12 +97,12 @@ const canonical = Astro.site ? new URL(publicPath, Astro.site) : undefined
     <Umami />
   </head>
   <body
-    class="flex min-h-dvh w-full flex-col items-center px-6 md:px-0 dark:bg-[#121212] dark:text-white"
+    class="text-ink dark:text-ink-dark flex min-h-dvh w-full flex-col items-center bg-transparent px-6 md:px-0"
   >
     <div
-      class="pointer-events-none fixed inset-0 -z-10 h-full w-full bg-[url('/noise.png')] bg-[length:128px_128px] bg-repeat opacity-[0.06]"
+      class="pointer-events-none fixed inset-0 z-[1] h-full w-full bg-[url('/noise.png')] bg-[length:128px_128px] bg-repeat opacity-[0.06]"
     ></div>
-    <div class="flex w-full max-w-3xl flex-1 flex-col">
+    <div class="relative z-[2] flex w-full max-w-3xl flex-1 flex-col">
       <main id="content" tabindex="-1" class="flex-1">
         <SiteHeader />
         <PrimaryNav />

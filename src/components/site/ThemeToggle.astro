@@ -30,16 +30,8 @@ import Sun from '@lucide/astro/icons/sun'
     storeTheme(theme)
   }
 
-  function clearThemeTransition() {
-    const root = document.documentElement
-    root.style.removeProperty('view-transition-name')
-    root.removeAttribute('data-theme-changing')
-  }
-
   if (!window.__themeToggleBound) {
     window.__themeToggleBound = true
-    let themeTransition = null
-    let generation = 0
 
     document.addEventListener('click', (event) => {
       const button = event.target.closest('#theme-toggle')
@@ -48,49 +40,7 @@ import Sun from '@lucide/astro/icons/sun'
         ? 'light'
         : 'dark'
       button.setAttribute('data-umami-event-theme', next)
-      const gen = ++generation
-      const reduceMotion = matchMedia(
-        '(prefers-reduced-motion: reduce)',
-      ).matches
-      const canAnimate =
-        !reduceMotion &&
-        !themeTransition &&
-        typeof document.startViewTransition === 'function'
-      if (!canAnimate) {
-        themeTransition?.skipTransition?.()
-        themeTransition = null
-        clearThemeTransition()
-        applyTheme(next)
-        return
-      }
-
-      const root = document.documentElement
-      root.style.setProperty('view-transition-name', 'theme-toggle-transition')
-      root.setAttribute('data-theme-changing', '')
-      const done = () => {
-        if (gen !== generation) return
-        themeTransition = null
-        clearThemeTransition()
-      }
-      try {
-        themeTransition = document.startViewTransition(() => {
-          if (gen !== generation) return
-          applyTheme(next)
-        })
-      } catch {
-        themeTransition = null
-        clearThemeTransition()
-        applyTheme(next)
-        return
-      }
-      themeTransition.finished.then(done, done)
-    })
-
-    document.addEventListener('astro:before-preparation', () => {
-      generation += 1
-      themeTransition?.skipTransition?.()
-      themeTransition = null
-      clearThemeTransition()
+      applyTheme(next)
     })
 
     window.addEventListener('storage', (event) => {

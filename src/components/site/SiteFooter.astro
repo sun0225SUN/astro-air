@@ -9,7 +9,7 @@ const [rssBefore, rssAfter] = t('footer.rss').split('{rss}')
 ---
 
 <footer
-  class="mt-10 flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-t border-black/10 py-8 text-sm text-gray-500 dark:border-white/15 dark:text-white/60"
+  class="text-muted dark:text-muted-dark mt-10 flex flex-wrap items-center justify-between gap-x-6 gap-y-3 py-8 text-sm"
 >
   <p class="flex flex-wrap items-center gap-x-2">
     <span>&copy; {year}</span>
@@ -18,7 +18,7 @@ const [rssBefore, rssAfter] = t('footer.rss').split('{rss}')
       Designed By
       <a
         href="https://sunguoqi.com"
-        class="text-accent transition-colors duration-200 hover:text-accent-hover"
+        class="text-accent hover:text-accent-hover dark:text-accent-dark dark:hover:text-accent-dark-hover"
         data-umami-event="footer"
         data-umami-event-name="author"
         >Guoqi Sun</a
@@ -29,7 +29,7 @@ const [rssBefore, rssAfter] = t('footer.rss').split('{rss}')
       Powered By
       <a
         href="https://github.com/sun0225SUN/astro-air"
-        class="text-accent transition-colors duration-200 hover:text-accent-hover"
+        class="text-accent hover:text-accent-hover dark:text-accent-dark dark:hover:text-accent-dark-hover"
         data-umami-event="footer"
         data-umami-event-name="theme"
         >Astro Air</a
@@ -40,7 +40,7 @@ const [rssBefore, rssAfter] = t('footer.rss').split('{rss}')
     {rssBefore}
     <a
       href="/rss.xml"
-      class="inline-flex items-center gap-1 text-accent transition-colors duration-200 hover:text-accent-hover"
+      class="text-accent hover:text-accent-hover dark:text-accent-dark dark:hover:text-accent-dark-hover inline-flex items-center gap-1"
       data-umami-event="footer"
       data-umami-event-name="rss"
     >

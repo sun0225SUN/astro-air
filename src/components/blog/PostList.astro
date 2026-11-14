@@ -28,7 +28,7 @@ if (grouped) {
 ---
 
 {posts.length === 0 ? (
-  <p class='py-2 text-gray-500'>{t('home.empty')}</p>
+  <p class='text-muted dark:text-muted-dark py-2'>{t('home.empty')}</p>
 ) : grouped ? (
   groups.map((group) => (
     <div class='year-group my-8'>

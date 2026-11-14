@@ -6,7 +6,7 @@ interface Props {
 const { title } = Astro.props
 ---
 
-<aside class="my-6 border-s-4 border-accent/70 px-4">
+<aside class="border-accent/70 dark:border-accent-dark/70 my-6 border-s-4 px-4">
   {title && <p class='font-semibold'>{title}</p>}
   <slot />
 </aside>

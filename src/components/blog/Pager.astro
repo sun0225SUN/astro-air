@@ -29,7 +29,7 @@ const pages = Array.from({ length: lastPage }, (_, index) => index + 1)
         {t('pager.prev')}
       </a>
     ) : (
-      <span class='text-gray-400'>{t('pager.prev')}</span>
+      <span class='text-faint'>{t('pager.prev')}</span>
     )}
     <ol class='m-0 flex list-none flex-wrap gap-3 p-0'>
       {pages.map((number) =>
@@ -59,7 +59,7 @@ const pages = Array.from({ length: lastPage }, (_, index) => index + 1)
         {t('pager.next')}
       </a>
     ) : (
-      <span class='text-gray-400'>{t('pager.next')}</span>
+      <span class='text-faint'>{t('pager.next')}</span>
     )}
   </nav>
 )}

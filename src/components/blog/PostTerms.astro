@@ -11,7 +11,7 @@ const lang = localeFromParam(Astro.currentLocale)
 ---
 
 {tags.length > 0 && (
-  <div class='space-x-3 pb-10 text-sm text-gray-500'>
+  <div class='text-muted dark:text-muted-dark space-x-3 pb-10 text-sm'>
     {tags.map((tag) => (
       <a
         href={getRelativeLocaleUrl(lang, `blog/tag/${taxonomySlug(tag)}`)}

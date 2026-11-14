@@ -11,7 +11,7 @@ const t = useTranslations(lang)
 ---
 
 <a
-  class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:bg-white focus:px-2 focus:py-1 dark:focus:bg-[#121212]"
+  class="focus:bg-page dark:focus:bg-page-dark sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:px-2 focus:py-1"
   href="#content"
   >{t('skip')}</a
 >
@@ -24,7 +24,6 @@ const t = useTranslations(lang)
     <span
       class="font-title text-3xl leading-none"
       transition:name={`site-title-${lang}`}
-      data-disable-theme-toggle-transition
     >
       {config.title}
     </span>

@@ -49,15 +49,12 @@ const modifiedLabel = modified?.isValid()
   <article class="prose w-full max-w-3xl overflow-hidden dark:prose-invert">
     <div class="flex flex-col gap-2">
       <h2 class="my-0! text-3xl font-semibold">
-        <span
-          transition:name={`post-${lang}-${slug}`}
-          data-disable-theme-toggle-transition
-        >
+        <span transition:name={`post-${lang}-${slug}`}>
           {title}
         </span>
       </h2>
       <div
-        class="not-prose my-3 flex flex-wrap items-center gap-x-2 text-sm text-gray-500 dark:text-white/70"
+        class="not-prose text-muted dark:text-muted-soft my-3 flex flex-wrap items-center gap-x-2 text-sm"
       >
         {category && (
           <a
@@ -65,7 +62,7 @@ const modifiedLabel = modified?.isValid()
               lang,
               `blog/category/${taxonomySlug(category)}`,
             )}
-            class='text-accent no-underline hover:text-accent-hover'
+            class='text-accent hover:text-accent-hover dark:text-accent-dark dark:hover:text-accent-dark-hover no-underline'
             data-umami-event='category'
             data-umami-event-name={category}
           >
@@ -73,11 +70,7 @@ const modifiedLabel = modified?.isValid()
           </a>
         )}
         {category && <span aria-hidden='true'>·</span>}
-        <span
-          class="vt-time"
-          transition:name={`time-${lang}-${slug}`}
-          data-disable-theme-toggle-transition
-        >
+        <span class="vt-time" transition:name={`time-${lang}-${slug}`}>
           <FormattedDate date={pubDate} />
         </span>
         {readingMinutes && (
@@ -85,12 +78,12 @@ const modifiedLabel = modified?.isValid()
         )}
       </div>
       {updatedDate && (
-        <p class='my-0 text-sm text-gray-500 dark:text-white/70'>
+        <p class='text-muted dark:text-muted-soft my-0 text-sm'>
           {t('post.updated')} <FormattedDate date={updatedDate} />
         </p>
       )}
       {modifiedLabel && lastModified && (
-        <p class='my-0 text-sm text-gray-500 dark:text-white/70'>
+        <p class='text-muted dark:text-muted-soft my-0 text-sm'>
           {t('post.lastModified')}{' '}
           <time datetime={lastModified}>{modifiedLabel}</time>
         </p>

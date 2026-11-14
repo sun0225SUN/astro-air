@@ -4,39 +4,21 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
+  --color-page: #fff;
+  --color-page-dark: #121212;
+  --color-ink: #171717;
+  --color-ink-dark: #fff;
+  --color-muted: #6b7280;
+  --color-muted-dark: rgb(255 255 255 / 0.6);
+  --color-muted-soft: rgb(255 255 255 / 0.7);
+  --color-faint: #9ca3af;
+  --color-line: rgb(0 0 0 / 0.1);
+  --color-line-dark: rgb(255 255 255 / 0.15);
   --color-accent: #2563eb;
   --color-accent-hover: #1d4ed8;
-}
-
-@keyframes theme-reveal {
-  from {
-    clip-path: inset(var(--from));
-  }
-}
-
-::view-transition-group(theme-toggle-transition),
-::view-transition-new(theme-toggle-transition),
-::view-transition-old(theme-toggle-transition) {
-  pointer-events: none;
-}
-
-::view-transition-new(theme-toggle-transition) {
-  z-index: 99;
-  clip-path: inset(0 0 0 0);
-  animation: theme-reveal 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-::view-transition-old(theme-toggle-transition) {
-  z-index: -1;
-  animation: none;
-}
-
-html.dark {
-  --from: 0 0 100% 0;
-}
-
-html:not(.dark) {
-  --from: 100% 0 0 0;
+  --color-accent-dark: #f97316;
+  --color-accent-dark-hover: #fb923c;
+  --color-visited: rgb(168 85 247 / 0.9);
 }
 
 :root {
@@ -46,13 +28,15 @@ html:not(.dark) {
 
 :root.dark {
   color-scheme: dark;
-  --color-accent: #f97316;
-  --color-accent-hover: #fb923c;
+  accent-color: var(--color-accent-dark);
 }
 
-.prose {
-  --tw-prose-links: var(--color-accent);
-  --tw-prose-invert-links: var(--color-accent);
+.prose :where(a):not(:where(.not-prose, .not-prose *)) {
+  color: var(--color-accent);
+}
+
+.dark .prose :where(a):not(:where(.not-prose, .not-prose *)) {
+  color: var(--color-accent-dark);
 }
 
 ::selection {
@@ -66,17 +50,16 @@ article :not(pre) > code {
 }
 
 .dark article :not(pre) > code {
-  background-color: color-mix(in srgb, var(--color-accent) 42%, transparent);
+  background-color: color-mix(
+    in srgb,
+    var(--color-accent-dark) 42%,
+    transparent
+  );
 }
 
 article code::before,
 article code::after {
   content: none;
-}
-
-html[data-theme-changing] [data-astro-transition-scope],
-html[data-theme-changing] [data-disable-theme-toggle-transition] {
-  view-transition-name: none !important;
 }
 
 .vt-time {
