@@ -2,7 +2,9 @@
   "nav": {
     "primary": "기본",
     "home": "홈",
-    "blog": "블로그"
+    "blog": "아카이브",
+    "archive": "아카이브",
+    "tags": "태그"
   },
   "home": {
     "empty": "아직 글이 없습니다."
@@ -24,7 +26,8 @@
     "updated": "업데이트",
     "lastModified": "마지막 수정",
     "readingTime": "약 {minutes}분 소요",
-    "toc": "목차"
+    "toc": "목차",
+    "backToTop": "맨 위로"
   },
   "skip": "본문으로 건너뛰기",
   "notFound": {

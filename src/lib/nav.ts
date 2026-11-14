@@ -24,9 +24,17 @@ export async function navLinks(locale: Locale) {
     if (item === 'home') {
       return [{ href: getRelativeLocaleUrl(locale), label: t('nav.home') }]
     }
-    if (item === 'blog') {
+    if (item === 'blog' || item === 'archive') {
       return [
-        { href: getRelativeLocaleUrl(locale, 'blog'), label: t('nav.blog') },
+        { href: getRelativeLocaleUrl(locale, 'blog'), label: t('nav.archive') },
+      ]
+    }
+    if (item === 'tags') {
+      return [
+        {
+          href: getRelativeLocaleUrl(locale, 'blog/tag'),
+          label: t('nav.tags'),
+        },
       ]
     }
     if (typeof item === 'string') {

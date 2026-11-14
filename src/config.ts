@@ -9,7 +9,8 @@ export const config = {
   } satisfies { perPage: number | 'all' },
   nav: [
     'home',
-    'blog',
+    'archive',
+    'tags',
     {
       link: 'https://camlife.app',
       label: {

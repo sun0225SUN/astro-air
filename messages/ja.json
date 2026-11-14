@@ -2,7 +2,9 @@
   "nav": {
     "primary": "メイン",
     "home": "ホーム",
-    "blog": "ブログ"
+    "blog": "アーカイブ",
+    "archive": "アーカイブ",
+    "tags": "タグ"
   },
   "home": {
     "empty": "記事はまだありません。"
@@ -24,7 +26,8 @@
     "updated": "更新",
     "lastModified": "最終更新",
     "readingTime": "約 {minutes} 分で読めます",
-    "toc": "目次"
+    "toc": "目次",
+    "backToTop": "先頭へ"
   },
   "skip": "本文へ移動",
   "notFound": {

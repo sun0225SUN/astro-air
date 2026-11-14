@@ -15,7 +15,8 @@ const t = useTranslations(lang)
 const posts = await getBlogPosts(lang)
 ---
 
-<Layout title={t('nav.blog')} description={t('blog.description')}>
+<Layout title={t('nav.archive')} description={t('blog.description')}>
+  <h1 class="sr-only">{t('nav.archive')}</h1>
   <PostList posts={pageItems(posts, 1)} variant="archive" />
   <Pager page={1} lastPage={pageCount(posts.length)} base="blog" />
 </Layout>

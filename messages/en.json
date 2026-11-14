@@ -2,7 +2,9 @@
   "nav": {
     "primary": "Primary",
     "home": "Home",
-    "blog": "Blog"
+    "blog": "Archive",
+    "archive": "Archive",
+    "tags": "Tags"
   },
   "home": {
     "empty": "No posts yet."
@@ -24,7 +26,8 @@
     "updated": "Updated",
     "lastModified": "Last modified",
     "readingTime": "{minutes} min read",
-    "toc": "Contents"
+    "toc": "Contents",
+    "backToTop": "Back to top"
   },
   "skip": "Skip to content",
   "notFound": {

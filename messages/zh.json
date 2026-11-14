@@ -2,7 +2,9 @@
   "nav": {
     "primary": "主导航",
     "home": "首页",
-    "blog": "博客"
+    "blog": "归档",
+    "archive": "归档",
+    "tags": "标签"
   },
   "home": {
     "empty": "还没有文章。"
@@ -24,7 +26,8 @@
     "updated": "更新于",
     "lastModified": "最后修改于",
     "readingTime": "阅读约 {minutes} 分钟",
-    "toc": "目录"
+    "toc": "目录",
+    "backToTop": "回到顶部"
   },
   "skip": "跳到内容",
   "notFound": {
