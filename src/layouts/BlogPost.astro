@@ -3,6 +3,7 @@ import type { CollectionEntry } from 'astro:content'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import FormattedDate from '../components/FormattedDate.astro'
+import Prose from '../components/Prose.astro'
 import { useTranslations } from '../i18n/ui'
 import { localeFromParam } from '../lib/content'
 import Layout from './Layout.astro'
@@ -37,7 +38,7 @@ const modifiedLabel = modified?.isValid()
 ---
 
 <Layout title={title} description={description}>
-  <article class="prose">
+  <article>
     <header>
       <p class="meta">
         <FormattedDate date={pubDate} />
@@ -62,6 +63,8 @@ const modifiedLabel = modified?.isValid()
       <h1 id="content" tabindex="-1">{title}</h1>
       <p class="lede">{description}</p>
     </header>
-    <slot />
+    <Prose>
+      <slot />
+    </Prose>
   </article>
 </Layout>
