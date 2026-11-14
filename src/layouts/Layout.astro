@@ -44,6 +44,12 @@ for (const locale of locales) {
         // Follow the system scheme when storage is blocked.
       }
     </script>
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={SITE_TITLE}
+      href={new URL('rss.xml', Astro.site)}
+    />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
