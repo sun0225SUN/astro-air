@@ -18,7 +18,36 @@ export const languages: Record<Locale, string> = {
 
 const ui = { en, zh, ja, ko } satisfies Record<Locale, typeof en>
 
-export type UiKey = keyof typeof en
+type MessageTree = {
+  [key: string]: string | MessageTree
+}
+
+type MessageKey<T> = T extends string
+  ? never
+  : {
+      [K in keyof T & string]: T[K] extends string
+        ? K
+        : T[K] extends MessageTree
+          ? `${K}.${MessageKey<T[K]>}`
+          : never
+    }[keyof T & string]
+
+export type UiKey = MessageKey<typeof en>
+
+function lookup(tree: MessageTree, key: string): string | undefined {
+  let current: string | MessageTree | undefined = tree
+  for (const segment of key.split('.')) {
+    if (
+      typeof current !== 'object' ||
+      current === null ||
+      !(segment in current)
+    ) {
+      return undefined
+    }
+    current = current[segment]
+  }
+  return typeof current === 'string' ? current : undefined
+}
 
 export function isLocale(value: string | undefined): value is Locale {
   return locales.some((locale) => locale === value)
@@ -26,7 +55,7 @@ export function isLocale(value: string | undefined): value is Locale {
 
 export function useTranslations(lang: string) {
   const locale = isLocale(lang) ? lang : defaultLang
-  return function t(key: UiKey) {
-    return ui[locale][key] ?? ui[defaultLang][key]
+  return function t(key: UiKey): string {
+    return lookup(ui[locale], key) ?? lookup(ui[defaultLang], key) ?? key
   }
 }

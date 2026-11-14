@@ -1,17 +1,29 @@
 {
-  "nav.primary": "기본",
-  "nav.languages": "언어",
-  "nav.home": "홈",
-  "nav.blog": "블로그",
-  "home.posts": "글",
-  "home.pages": "페이지",
-  "home.allPosts": "모든 글",
-  "home.empty": "아직 글이 없습니다.",
-  "site.description": "작은 개인 블로그.",
-  "blog.description": "Astro Air의 글.",
-  "post.updated": "업데이트",
+  "nav": {
+    "primary": "기본",
+    "languages": "언어",
+    "home": "홈",
+    "blog": "블로그"
+  },
+  "home": {
+    "posts": "글",
+    "pages": "페이지",
+    "allPosts": "모든 글",
+    "empty": "아직 글이 없습니다."
+  },
+  "site": {
+    "description": "작은 개인 블로그."
+  },
+  "blog": {
+    "description": "Astro Air의 글."
+  },
+  "post": {
+    "updated": "업데이트"
+  },
   "skip": "본문으로 건너뛰기",
-  "notFound.title": "페이지를 찾을 수 없습니다",
-  "notFound.body": "요청한 페이지가 없습니다.",
-  "notFound.home": "홈으로"
+  "notFound": {
+    "title": "페이지를 찾을 수 없습니다",
+    "body": "요청한 페이지가 없습니다.",
+    "home": "홈으로"
+  }
 }

@@ -1,17 +1,29 @@
 {
-  "nav.primary": "主导航",
-  "nav.languages": "语言",
-  "nav.home": "首页",
-  "nav.blog": "博客",
-  "home.posts": "文章",
-  "home.pages": "页面",
-  "home.allPosts": "全部文章",
-  "home.empty": "还没有文章。",
-  "site.description": "一个极简的个人博客。",
-  "blog.description": "Astro Air 的文章。",
-  "post.updated": "更新于",
+  "nav": {
+    "primary": "主导航",
+    "languages": "语言",
+    "home": "首页",
+    "blog": "博客"
+  },
+  "home": {
+    "posts": "文章",
+    "pages": "页面",
+    "allPosts": "全部文章",
+    "empty": "还没有文章。"
+  },
+  "site": {
+    "description": "一个极简的个人博客。"
+  },
+  "blog": {
+    "description": "Astro Air 的文章。"
+  },
+  "post": {
+    "updated": "更新于"
+  },
   "skip": "跳到内容",
-  "notFound.title": "页面不存在",
-  "notFound.body": "你访问的页面不在这里。",
-  "notFound.home": "返回首页"
+  "notFound": {
+    "title": "页面不存在",
+    "body": "你访问的页面不在这里。",
+    "home": "返回首页"
+  }
 }

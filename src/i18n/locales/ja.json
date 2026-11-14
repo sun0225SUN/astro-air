@@ -1,17 +1,29 @@
 {
-  "nav.primary": "メイン",
-  "nav.languages": "言語",
-  "nav.home": "ホーム",
-  "nav.blog": "ブログ",
-  "home.posts": "記事",
-  "home.pages": "ページ",
-  "home.allPosts": "すべての記事",
-  "home.empty": "記事はまだありません。",
-  "site.description": "小さな個人ブログ。",
-  "blog.description": "Astro Air の記事。",
-  "post.updated": "更新",
+  "nav": {
+    "primary": "メイン",
+    "languages": "言語",
+    "home": "ホーム",
+    "blog": "ブログ"
+  },
+  "home": {
+    "posts": "記事",
+    "pages": "ページ",
+    "allPosts": "すべての記事",
+    "empty": "記事はまだありません。"
+  },
+  "site": {
+    "description": "小さな個人ブログ。"
+  },
+  "blog": {
+    "description": "Astro Air の記事。"
+  },
+  "post": {
+    "updated": "更新"
+  },
   "skip": "本文へ移動",
-  "notFound.title": "ページが見つかりません",
-  "notFound.body": "お探しのページはありません。",
-  "notFound.home": "ホームへ戻る"
+  "notFound": {
+    "title": "ページが見つかりません",
+    "body": "お探しのページはありません。",
+    "home": "ホームへ戻る"
+  }
 }
