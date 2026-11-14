@@ -9,9 +9,19 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "commit": "cz"
   },
   "dependencies": {
     "astro": "^7.4.12"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-git"
+    }
+  },
+  "devDependencies": {
+    "commitizen": "4.3.2",
+    "cz-git": "1.14.0"
   }
 }
