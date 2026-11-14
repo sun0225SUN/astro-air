@@ -1,0 +1,6 @@
+[
+  {
+    "label": "Development server",
+    "command": "./node_modules/.bin/astro dev"
+  }
+]
