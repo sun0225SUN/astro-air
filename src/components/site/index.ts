@@ -1,6 +1,0 @@
-export { default as LanguageNav } from './LanguageNav.astro'
-export { default as LocaleAlternates } from './LocaleAlternates.astro'
-export { default as PrimaryNav } from './PrimaryNav.astro'
-export { default as SiteFooter } from './SiteFooter.astro'
-export { default as SiteHeader } from './SiteHeader.astro'
-export { default as ThemeToggle } from './ThemeToggle.astro'
