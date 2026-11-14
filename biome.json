@@ -7,7 +7,14 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": ["**", "!node_modules", "!.astro", "!dist", "!**/*.md"]
+    "includes": [
+      "**",
+      "!node_modules",
+      "!.astro",
+      "!dist",
+      "!**/*.md",
+      "!**/*.{yml,yaml}"
+    ]
   },
   "formatter": {
     "enabled": true,
@@ -21,10 +28,21 @@
       "jsxQuoteStyle": "single"
     }
   },
+  "html": {
+    "experimentalFullSupportEnabled": true,
+    "formatter": {
+      "enabled": true,
+      "indentScriptAndStyle": true,
+      "selfCloseVoidElements": "always"
+    }
+  },
   "linter": {
     "enabled": true,
     "rules": {
       "preset": "recommended"
+    },
+    "domains": {
+      "astro": "recommended"
     }
   },
   "assist": {
@@ -36,13 +54,7 @@
   },
   "overrides": [
     {
-      "includes": ["**/*.astro"],
-      "linter": {
-        "enabled": false
-      }
-    },
-    {
-      "includes": ["**/*.svg"],
+      "includes": ["**/*.svg", "**/*.astro"],
       "linter": {
         "rules": {
           "a11y": {
