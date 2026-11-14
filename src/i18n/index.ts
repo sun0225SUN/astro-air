@@ -1,7 +1,7 @@
-import en from './locales/en.json'
-import ja from './locales/ja.json'
-import ko from './locales/ko.json'
-import zh from './locales/zh.json'
+import en from '../../messages/en.json'
+import ja from '../../messages/ja.json'
+import ko from '../../messages/ko.json'
+import zh from '../../messages/zh.json'
 
 export const locales = ['en', 'zh', 'ja', 'ko'] as const
 

@@ -2,7 +2,7 @@ import { getCollection } from 'astro:content'
 import rss from '@astrojs/rss'
 import type { APIContext } from 'astro'
 import { SITE_TITLE } from '../consts'
-import en from '../i18n/locales/en.json'
+import en from '../../messages/en.json'
 import { entrySlug } from '../lib/content'
 
 export async function GET(context: APIContext) {
