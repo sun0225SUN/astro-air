@@ -30,17 +30,37 @@ import Sun from '@lucide/astro/icons/sun'
     storeTheme(theme)
   }
 
+  let themeTransition = 0
+
+  function toggleTheme(button) {
+    const next = document.documentElement.classList.contains('dark')
+      ? 'light'
+      : 'dark'
+    button.setAttribute('data-umami-event-theme', next)
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (!document.startViewTransition || reduce) {
+      applyTheme(next)
+      return
+    }
+    const root = document.documentElement
+    const id = ++themeTransition
+    root.classList.add('theme-toggle')
+    const transition = document.startViewTransition(() => {
+      applyTheme(next)
+    })
+    const clear = () => {
+      if (id === themeTransition) root.classList.remove('theme-toggle')
+    }
+    transition.finished.then(clear, clear)
+  }
+
   if (!window.__themeToggleBound) {
     window.__themeToggleBound = true
 
     document.addEventListener('click', (event) => {
       const button = event.target.closest('#theme-toggle')
       if (!button) return
-      const next = document.documentElement.classList.contains('dark')
-        ? 'light'
-        : 'dark'
-      button.setAttribute('data-umami-event-theme', next)
-      applyTheme(next)
+      toggleTheme(button)
     })
 
     window.addEventListener('storage', (event) => {
