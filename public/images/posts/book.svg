@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img">
+  <title>摊开的书</title>
+  <rect width="1200" height="800" fill="#efe6d6"/>
+  <path d="M160 180 H560 C590 180 600 220 600 400 C600 220 610 180 640 180 H1040 V640 H640 C610 640 600 600 600 480 C600 600 590 640 560 640 H160 Z" fill="#f7f1e6" stroke="#2b241c" stroke-width="3"/>
+  <path d="M230 260 H500 M230 320 H480 M230 380 H500 M230 440 H420 M700 260 H980 M700 320 H960 M700 380 H980 M700 440 H900" stroke="#c8b8a2" stroke-width="8"/>
+  <ellipse cx="860" cy="560" rx="90" ry="36" fill="#6d8f86"/>
+</svg>

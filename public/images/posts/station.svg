@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img">
+  <title>夜里的车站</title>
+  <rect width="1600" height="900" fill="#14181f"/>
+  <rect x="180" y="260" width="1240" height="360" fill="#2a3038"/>
+  <rect x="220" y="300" width="1160" height="16" fill="#e7d7a8"/>
+  <rect x="260" y="430" width="280" height="70" rx="6" fill="#3d4650"/>
+  <rect x="620" y="430" width="280" height="70" rx="6" fill="#3d4650"/>
+  <rect x="980" y="430" width="280" height="70" rx="6" fill="#3d4650"/>
+  <rect y="700" width="1600" height="200" fill="#1c2128"/>
+</svg>

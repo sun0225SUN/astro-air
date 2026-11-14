@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img">
+  <title>黄昏的公路</title>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1c2433"/>
+      <stop offset="0.55" stop-color="#6d4b45"/>
+      <stop offset="1" stop-color="#e2b07a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <path d="M0 560 C400 500 700 620 1600 480 L1600 900 L0 900 Z" fill="#2a241c"/>
+  <path d="M700 560 L900 900 L560 900 Z" fill="#3a342b"/>
+  <path d="M760 620 L820 900 L740 900 Z" fill="#d7c3a2"/>
+  <circle cx="1180" cy="250" r="8" fill="#f3d7a1"/>
+  <path d="M1180 250 L1180 470" stroke="#2b241c" stroke-width="4"/>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img">
+  <title>窗边的桌子</title>
+  <rect width="1200" height="800" fill="#d9cbb8"/>
+  <rect x="80" y="60" width="420" height="560" fill="#f4efe6"/>
+  <rect x="110" y="90" width="360" height="500" fill="#c5d4dc"/>
+  <rect x="620" y="360" width="460" height="280" fill="#8b5a3c"/>
+  <rect x="680" y="300" width="220" height="280" fill="#f7f3ea"/>
+  <rect x="930" y="390" width="16" height="160" fill="#1c1c1c"/>
+</svg>
