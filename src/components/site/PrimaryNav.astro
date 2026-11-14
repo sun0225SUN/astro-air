@@ -26,7 +26,7 @@ function currentPage(href: string) {
   {links.map((link) => (
     <a
       href={link.href}
-      class='hover:underline hover:underline-offset-4 aria-[current=page]:underline'
+      class='underline-offset-4 hover:underline aria-[current=page]:underline'
       aria-current={currentPage(link.href)}
       data-umami-event='nav'
       data-umami-event-name={link.name}
