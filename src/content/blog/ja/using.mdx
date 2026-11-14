@@ -1,0 +1,49 @@
+---
+title: 使用ガイド
+description: サイト設定、多言語コンテンツ、Markdown と MDX の書き方をまとめます。
+pubDate: 2026-11-14
+updatedDate: 2026-11-14
+pin: 1
+category: ガイド
+tags: [Air, Astro, MDX]
+---
+
+import Callout from '../../../components/content/Callout.astro'
+
+## サイト設定
+
+`src/config.ts` でタイトル、既定の著者、正規 URL、言語、ページ件数、手書きフォント、ナビゲーションを設定します。記事の `author` は既定値より優先されます。ナビゲーションには組み込みページ名や多言語ラベル付き外部リンクを指定できます。
+
+<Callout title="言語ファイルをそろえる">
+  `config.locales` の各言語には対応する `messages/` ファイルと `src/content/` のディレクトリが必要です。
+</Callout>
+
+## コンテンツ追加
+
+記事は `src/content/blog/<言語>/`、固定ページは `src/content/pages/<言語>/` に置き、翻訳には同じファイル名を使います。`draft: true` は開発環境で表示され、本番ビルドでは除外されます。
+
+```yaml
+title: 記事タイトル
+description: 短い概要
+author: 任意の著者
+pubDate: 2026-11-14
+updatedDate: 2026-11-15
+draft: true
+pin: 1
+category: 随筆
+tags: [Astro, 執筆]
+```
+
+`title`、`description`、`pubDate` は必須で、ほかは任意です。`pin` を 1 から 99 にすると、記事はホームの一覧の先頭に固定され、数が大きいほど上に来ます。省略するか 0 にすると日付順のままです。
+
+## Markdown と MDX
+
+通常は `.md`、コンポーネントが必要なら `.mdx` を使います。
+
+```mdx
+import Callout from '../../../components/content/Callout.astro'
+
+<Callout title="補足">MDX では Astro コンポーネントを表示できます。</Callout>
+```
+
+コンポーネントは既定で静的 HTML になります。ブラウザー操作が必要な場合だけ `client:*` を付けます。`astro dev --background` で確認し、問題は `astro dev logs` で調べ、公開前にチェックと本番ビルドを実行します。

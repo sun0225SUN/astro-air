@@ -1,0 +1,49 @@
+---
+title: 사용 안내서
+description: 사이트 설정, 다국어 콘텐츠 구성, Markdown과 MDX 작성법을 설명합니다.
+pubDate: 2026-11-14
+updatedDate: 2026-11-14
+pin: 1
+category: 가이드
+tags: [Air, Astro, MDX]
+---
+
+import Callout from '../../../components/content/Callout.astro'
+
+## 사이트 설정
+
+`src/config.ts`에서 제목, 기본 작성자, 대표 URL, 언어, 페이지당 글 수, 손글씨 글꼴, 탐색 메뉴를 설정합니다. 글의 `author`는 기본값을 덮어씁니다. 탐색 항목에는 기본 페이지 이름이나 다국어 이름을 가진 외부 링크를 쓸 수 있습니다.
+
+<Callout title="언어 파일을 함께 관리하세요">
+  `config.locales`의 각 언어에는 대응하는 `messages/` 파일과 `src/content/` 디렉터리가 필요합니다.
+</Callout>
+
+## 콘텐츠 추가
+
+글은 `src/content/blog/<언어>/`, 고정 페이지는 `src/content/pages/<언어>/`에 두며 번역본은 같은 파일명을 사용합니다. `draft: true` 글은 개발 환경에 보이고 프로덕션 빌드에서는 제외됩니다.
+
+```yaml
+title: 글 제목
+description: 짧은 설명
+author: 선택 작성자
+pubDate: 2026-11-14
+updatedDate: 2026-11-15
+draft: true
+pin: 1
+category: 산문
+tags: [Astro, 글쓰기]
+```
+
+`title`, `description`, `pubDate`는 필수이고 나머지는 선택 사항입니다. `pin`을 1에서 99로 두면 글이 홈 목록 맨 위에 고정되고, 숫자가 클수록 더 위에 옵니다. 생략하거나 0이면 날짜순입니다.
+
+## Markdown과 MDX
+
+일반 글은 `.md`, 컴포넌트가 필요하면 `.mdx`를 사용합니다.
+
+```mdx
+import Callout from '../../../components/content/Callout.astro'
+
+<Callout title="참고">MDX에서는 Astro 컴포넌트를 표시할 수 있습니다.</Callout>
+```
+
+컴포넌트는 기본적으로 정적 HTML이 됩니다. 브라우저 상호작용이 필요할 때만 `client:*`를 사용하세요. `astro dev --background`으로 미리 보고, `astro dev logs`로 오류를 확인한 뒤 게시 전에 검사와 프로덕션 빌드를 실행합니다.

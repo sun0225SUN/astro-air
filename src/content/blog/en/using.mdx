@@ -1,0 +1,49 @@
+---
+title: Guide
+description: Configure the site, organize multilingual content, and write Markdown or MDX posts.
+pubDate: 2026-11-14
+updatedDate: 2026-11-14
+pin: 1
+category: Guides
+tags: [Air, Astro, MDX]
+---
+
+import Callout from '../../../components/content/Callout.astro'
+
+## Configure the site
+
+Edit `src/config.ts` to set the title, default author, canonical URL, locales, page size, handwriting font, and navigation. A post-level `author` overrides the default author. Navigation accepts built-in page names or external links with localized labels.
+
+<Callout title="Keep locale files in sync">
+  Every locale in `config.locales` needs a matching file under `messages/` and content directories under `src/content/`.
+</Callout>
+
+## Add content
+
+Posts live in `src/content/blog/<locale>/`; standalone pages live in `src/content/pages/<locale>/`. Give translations the same filename. Development shows `draft: true` entries for preview, while production excludes them.
+
+```yaml
+title: A post title
+description: A short summary.
+author: Optional author
+pubDate: 2026-11-14
+updatedDate: 2026-11-15
+draft: true
+pin: 1
+category: Notes
+tags: [Astro, Writing]
+```
+
+`title`, `description`, and `pubDate` are required. The other fields are optional. Set `pin` from 1 to 99 to keep a post at the top of the home list; a higher number stays above a lower one. Omit it, or use 0, to leave the post in date order.
+
+## Write Markdown and MDX
+
+Use `.md` for ordinary Markdown and `.mdx` when a post needs components. Import an Astro component, then use it like markup:
+
+```mdx
+import Callout from '../../../components/content/Callout.astro'
+
+<Callout title="A useful aside">MDX can render an Astro component.</Callout>
+```
+
+Components render to static HTML by default. Add `client:*` only when browser-side interaction is required. Preview with `astro dev --background`, inspect failures with `astro dev logs`, and run the project checks plus a production build before publishing.

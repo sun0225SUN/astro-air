@@ -104,6 +104,7 @@ description: How posts in this blog are written and published.
 pubDate: 2024-07-08
 updatedDate: 2024-08-01
 draft: false
+pin: 0
 category: Notes
 tags:
   - writing
@@ -111,7 +112,7 @@ tags:
 ---
 ```
 
-`title`, `description`, and `pubDate` are required. `updatedDate`, `draft`, `category`, and `tags` are optional. Tags default to an empty list.
+`title`, `description`, and `pubDate` are required. `updatedDate`, `draft`, `pin`, `category`, and `tags` are optional. Tags default to an empty list. `pin` from 1 to 99 keeps a post at the top of the home list, and a higher number stays above a lower one. `0` leaves the post in date order.
 
 `draft: true` stays visible while you run `bun dev`, and is left out of `bun run build` and the RSS feed.
 

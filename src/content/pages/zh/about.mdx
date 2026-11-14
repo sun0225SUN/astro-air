@@ -6,10 +6,12 @@ order: 1
 
 import Callout from '../../../components/content/Callout.astro'
 
-自定义页面不是文章，比如关于、链接、版权说明。它们共用一套 schema 和一条路由，新增一个文件就会发布一个页面。
+自定义页面适合承载关于、友链、版权说明等不属于博客文章的内容。页面使用独立的内容集合，并由同一条动态路由生成。
 
 <Callout title="放在哪里">
-  把文件放进 `src/content/pages/<语言>`。去掉扩展名之后的文件名就是地址。这一页是 `/zh/about`。
+  把 `.md` 或 `.mdx` 文件放进 `src/content/pages/<语言>/`。文件相对于语言目录的路径会成为网址：`zh/about.mdx` 对应 `/zh/about`，`zh/projects/index.md` 对应 `/zh/projects/index`。
 </Callout>
 
-用 `order` 决定导航里的顺序。还没准备好公开时，写上 `draft: true`。同名文件放到每个语言目录，就是这一页的翻译。
+每个页面都必须填写 `title` 和 `description`。新增文件会生成可访问的页面，但不会自动出现在顶部导航；需要把页面路径加入 `src/config.ts` 的 `nav`，它在数组中的位置就是导航顺序。
+
+写上 `draft: true` 可以让页面仅在开发环境中预览，并在生产构建中排除。要提供其他语言版本，请在对应语言目录中创建相同相对路径的文件；只有实际存在的语言版本才会生成对应页面。

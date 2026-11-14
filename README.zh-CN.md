@@ -104,6 +104,7 @@ description: 这篇文章讲怎么写、怎么发布。
 pubDate: 2024-07-08
 updatedDate: 2024-08-01
 draft: false
+pin: 0
 category: 笔记
 tags:
   - 写作
@@ -111,7 +112,7 @@ tags:
 ---
 ```
 
-`title`、`description`、`pubDate` 必填。`updatedDate`、`draft`、`category`、`tags` 可选。`tags` 默认是空数组。
+`title`、`description`、`pubDate` 必填。`updatedDate`、`draft`、`pin`、`category`、`tags` 可选。`tags` 默认是空数组。`pin` 取 1 到 99 时，文章固定在首页列表顶部，数字越大越靠前。`0` 按日期排序。
 
 `draft: true` 在 `bun dev` 里仍然看得到，`bun run build` 和 RSS 会把它排除。
 

@@ -1,0 +1,49 @@
+---
+title: 主題使用指南
+description: 設定網站、組織多語內容，並使用 Markdown 或 MDX 撰寫文章。
+pubDate: 2026-11-14
+updatedDate: 2026-11-14
+pin: 1
+category: 指南
+tags: [Air, Astro, MDX]
+---
+
+import Callout from '../../../components/content/Callout.astro'
+
+## 設定網站
+
+在 `src/config.ts` 設定標題、預設作者、標準網址、可用語言、每頁文章數、手寫字型與導覽。文章自己的 `author` 會覆蓋預設作者。導覽項目可使用內建頁面名稱或帶多語名稱的外部連結。
+
+<Callout title="保持語言檔案同步">
+  `config.locales` 中的每種語言都需要對應的 `messages/` 檔案，以及 `src/content/` 下的內容目錄。
+</Callout>
+
+## 新增內容
+
+文章放在 `src/content/blog/<語言>/`，獨立頁面放在 `src/content/pages/<語言>/`。譯文使用相同檔名。開發環境會顯示 `draft: true` 的草稿，正式建置則排除它們。
+
+```yaml
+title: 文章標題
+description: 簡短摘要
+author: 可選作者
+pubDate: 2026-11-14
+updatedDate: 2026-11-15
+draft: true
+pin: 1
+category: 隨筆
+tags: [Astro, 寫作]
+```
+
+`title`、`description`、`pubDate` 必填，其他欄位可選。`pin` 取 1 到 99 時，文章固定在首頁列表頂部，數字越大越靠前。省略或寫成 0 時按日期排序。
+
+## 使用 Markdown 與 MDX
+
+一般文章使用 `.md`，需要元件時使用 `.mdx`。先匯入 Astro 元件，再像標籤一樣使用：
+
+```mdx
+import Callout from '../../../components/content/Callout.astro'
+
+<Callout title="補充說明">MDX 可以直接渲染 Astro 元件。</Callout>
+```
+
+元件預設建置為靜態 HTML。只有確實需要瀏覽器互動時才加入 `client:*`。使用 `astro dev --background` 預覽，出錯時查看 `astro dev logs`；發布前執行專案檢查與正式建置。
