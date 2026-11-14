@@ -47,7 +47,7 @@
           "options": {
             "allowedClasses": [
               "bg-[url('/noise.png')]",
-              "bg-[length:128px_128px]",
+              "bg-size-[128px_128px]",
               "min-h-[60vh]",
               "aria-[current=page]:underline"
             ]
