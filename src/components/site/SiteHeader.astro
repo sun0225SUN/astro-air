@@ -19,9 +19,11 @@ const t = useTranslations(lang)
 <header
   class="mx-auto flex w-[min(42rem,calc(100%-2rem))] flex-wrap items-baseline justify-between gap-x-6 gap-y-3 border-b border-line py-5"
 >
-  <a class="font-semibold no-underline" href={getRelativeLocaleUrl(lang)}
-    >{config.title}</a
-  >
+  <a href={getRelativeLocaleUrl(lang)} aria-label={config.title}>
+    <div class="inline-block pr-1 font-title text-3xl leading-none">
+      {config.title}
+    </div>
+  </a>
   <PrimaryNav />
   <LanguageNav />
   <ThemeToggle />
