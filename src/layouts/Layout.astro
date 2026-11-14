@@ -58,16 +58,18 @@ const canonical = Astro.site
     <LocaleAlternates />
   </head>
   <body
-    class="flex min-h-screen w-full justify-center px-6 md:px-0 dark:bg-[#121212] dark:text-white"
+    class="flex min-h-dvh w-full flex-col items-center px-6 md:px-0 dark:bg-[#121212] dark:text-white"
   >
     <div
       class="pointer-events-none fixed inset-0 -z-10 h-full w-full bg-[url('/noise.png')] bg-[length:128px_128px] bg-repeat opacity-[0.06]"
     ></div>
-    <main id="content" tabindex="-1" class="mb-10 w-full max-w-3xl">
-      <SiteHeader />
-      <PrimaryNav />
-      <slot />
+    <div class="flex w-full max-w-3xl flex-1 flex-col">
+      <main id="content" tabindex="-1" class="flex-1">
+        <SiteHeader />
+        <PrimaryNav />
+        <slot />
+      </main>
       <SiteFooter />
-    </main>
+    </div>
   </body>
 </html>

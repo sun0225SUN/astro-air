@@ -1,21 +1,46 @@
 ---
+import Rss from '@lucide/astro/icons/rss'
+import { useTranslations } from '../../i18n'
+import { localeFromParam } from '../../lib/content'
+
 const year = new Date().getFullYear()
+const t = useTranslations(localeFromParam(Astro.currentLocale))
+const [rssBefore, rssAfter] = t('footer.rss').split('{rss}')
 ---
 
-<footer class="flex flex-wrap items-center gap-1 py-10">
-  <p>&copy; {year}</p>
-  <p class="mx-1">|</p>
-  <p>Designed By</p>
-  <a
-    href="https://sunguoqi.com"
-    class="text-accent transition-colors duration-200 hover:text-accent-hover"
-    >Guoqi Sun</a
-  >
-  <p class="mx-1">|</p>
-  <p>Powered By</p>
-  <a
-    href="https://github.com/sun0225SUN/astro-air"
-    class="text-accent transition-colors duration-200 hover:text-accent-hover"
-    >Astro Air</a
-  >
+<footer
+  class="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 py-10 text-gray-500 dark:text-white/60"
+>
+  <p class="flex flex-wrap items-center gap-x-2">
+    <span>&copy; {year}</span>
+    <span aria-hidden="true">·</span>
+    <span class="inline-flex items-center gap-1">
+      Designed By
+      <a
+        href="https://sunguoqi.com"
+        class="text-accent transition-colors duration-200 hover:text-accent-hover"
+        >Guoqi Sun</a
+      >
+    </span>
+    <span aria-hidden="true">·</span>
+    <span class="inline-flex items-center gap-1">
+      Powered By
+      <a
+        href="https://github.com/sun0225SUN/astro-air"
+        class="text-accent transition-colors duration-200 hover:text-accent-hover"
+        >Astro Air</a
+      >
+    </span>
+  </p>
+  <p class="inline-flex items-center gap-1.5">
+    {rssBefore}
+    <a
+      href="/rss.xml"
+      class="inline-flex items-center gap-1 text-accent transition-colors duration-200 hover:text-accent-hover"
+    >
+      <Rss size={16} aria-hidden="true" />
+      <span>RSS</span>
+    </a>
+    {rssAfter}
+  </p>
 </footer>

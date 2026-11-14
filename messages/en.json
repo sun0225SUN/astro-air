@@ -36,5 +36,8 @@
     "label": "Pagination",
     "prev": "Previous",
     "next": "Next"
+  },
+  "footer": {
+    "rss": "Subscribe via {rss}"
   }
 }

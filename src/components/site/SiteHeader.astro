@@ -1,6 +1,5 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n'
-import Rss from '@lucide/astro/icons/rss'
 import { config } from '../../config'
 import { useTranslations } from '../../i18n'
 import { localeFromParam } from '../../lib/content'
@@ -23,10 +22,6 @@ const t = useTranslations(lang)
     </div>
   </a>
   <div class="flex items-center gap-6">
-    <a href="/rss.xml" aria-label="RSS" title="RSS">
-      <Rss size={22} aria-hidden="true" />
-      <span class="sr-only">RSS</span>
-    </a>
     <LanguageNav />
     <ThemeToggle />
   </div>
