@@ -1,12 +1,15 @@
 ---
 import type { CollectionEntry } from 'astro:content'
+import { getRelativeLocaleUrl } from 'astro:i18n'
+import type { MarkdownHeading } from 'astro'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import FormattedDate from '../components/blog/FormattedDate.astro'
 import PostTerms from '../components/blog/PostTerms.astro'
+import TableOfContents from '../components/blog/TableOfContents.astro'
 import Prose from '../components/content/Prose.astro'
 import { useTranslations } from '../i18n'
-import { localeFromParam } from '../lib/content'
+import { localeFromParam, taxonomySlug } from '../lib/content'
 import Layout from './Layout.astro'
 import 'dayjs/locale/ja'
 import 'dayjs/locale/ko'
@@ -15,6 +18,8 @@ import 'dayjs/locale/zh-cn'
 dayjs.extend(utc)
 
 type Props = CollectionEntry<'blog'>['data'] & {
+  slug: string
+  headings?: MarkdownHeading[]
   lastModified?: string
   readingMinutes?: number
 }
@@ -26,6 +31,8 @@ const {
   updatedDate,
   category,
   tags,
+  slug,
+  headings = [],
   lastModified,
   readingMinutes,
 } = Astro.props
@@ -40,8 +47,31 @@ const modifiedLabel = modified?.isValid()
 <Layout title={title} description={description}>
   <article class="prose w-full max-w-3xl overflow-hidden dark:prose-invert">
     <div class="flex flex-col gap-2">
-      <h2 class="my-0! text-3xl font-semibold">{title}</h2>
-      <div class="my-3 text-gray-500 dark:text-white/80">
+      <h2 class="my-0! text-3xl font-semibold">
+        <span
+          transition:name={`post-${lang}-${slug}`}
+          data-disable-theme-toggle-transition
+        >
+          {title}
+        </span>
+      </h2>
+      <div
+        class="my-3 text-gray-500 dark:text-white/80"
+        transition:name={`time-${lang}-${slug}`}
+        data-disable-theme-toggle-transition
+      >
+        {category && (
+          <a
+            href={getRelativeLocaleUrl(
+              lang,
+              `blog/category/${taxonomySlug(category)}`,
+            )}
+            class='text-accent no-underline hover:text-accent-hover'
+          >
+            {category}
+          </a>
+        )}
+        {category && <span> · </span>}
         <FormattedDate date={pubDate} />
         {readingMinutes && (
           <span> · {t('post.readingTime', { minutes: readingMinutes })}</span>
@@ -60,8 +90,11 @@ const modifiedLabel = modified?.isValid()
       )}
     </div>
     <Prose>
-      <slot />
+      <div id="post-content">
+        <slot />
+      </div>
     </Prose>
-    <PostTerms category={category} tags={tags} />
+    <PostTerms tags={tags} />
   </article>
+  <TableOfContents headings={headings} />
 </Layout>

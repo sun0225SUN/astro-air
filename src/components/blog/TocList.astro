@@ -1,0 +1,40 @@
+---
+import type { MarkdownHeading } from 'astro'
+import TocList from './TocList.astro'
+
+export interface TocNode extends MarkdownHeading {
+  children: TocNode[]
+}
+
+interface Props {
+  items: TocNode[]
+  depth?: number
+}
+
+const { items, depth = 0 } = Astro.props
+const mark =
+  depth === 0
+    ? 'before:mr-3 before:w-4'
+    : depth === 1
+      ? 'before:mr-4 before:w-3'
+      : 'before:mr-5 before:w-2'
+---
+
+<ul>
+  {items.map((item) => (
+    <li class='my-2'>
+      <a
+        href={`#${item.slug}`}
+        class:list={[
+          'block max-w-full truncate px-3 text-left text-sm leading-snug no-underline transition-colors duration-200 before:inline-block before:h-1 before:rounded-full before:bg-gray-400 before:align-middle before:content-[""]',
+          mark,
+        ]}
+      >
+        {item.text}
+      </a>
+      {item.children.length > 0 && (
+        <TocList items={item.children} depth={depth + 1} />
+      )}
+    </li>
+  ))}
+</ul>

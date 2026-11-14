@@ -1,0 +1,157 @@
+---
+import type { MarkdownHeading } from 'astro'
+import { useTranslations } from '../../i18n'
+import { localeFromParam } from '../../lib/content'
+import TocList, { type TocNode } from './TocList.astro'
+
+interface Props {
+  headings: MarkdownHeading[]
+}
+
+const { headings } = Astro.props
+const t = useTranslations(localeFromParam(Astro.currentLocale))
+
+function tocTree(items: MarkdownHeading[]) {
+  const root: TocNode[] = []
+  const stack: { depth: number; children: TocNode[] }[] = [
+    { depth: 1, children: root },
+  ]
+  for (const heading of items) {
+    if (heading.depth < 2 || heading.depth > 4) continue
+    const node: TocNode = { ...heading, children: [] }
+    while (stack.length > 1 && (stack.at(-1)?.depth ?? 0) >= heading.depth) {
+      stack.pop()
+    }
+    stack.at(-1)?.children.push(node)
+    stack.push(node)
+  }
+  return root
+}
+
+const items = tocTree(headings)
+---
+
+{items.length > 0 && (
+  <div class='toc pointer-events-none fixed top-1/2 z-20 hidden max-h-[80vh] w-[calc((90vw-48rem)/2)] -translate-y-1/2 overflow-y-auto [scrollbar-width:none] xl:block [&::-webkit-scrollbar]:hidden left-[calc((100vw+48rem)/2)]'>
+    <nav class='toc-nav pointer-events-auto p-6' aria-label={t('post.toc')}>
+      <TocList items={items} />
+    </nav>
+  </div>
+)}
+
+<style>
+  .toc-nav a {
+    color: transparent;
+  }
+
+  .toc-nav:hover a,
+  .toc-nav a:focus-visible {
+    color: #a3a3a3;
+  }
+
+  .toc-nav a.active,
+  .toc-nav a:hover {
+    color: inherit;
+  }
+
+  .toc-nav a.active::before,
+  .toc-nav a:hover::before {
+    background-color: currentColor;
+  }
+</style>
+
+<script>
+  const tocNav = document.querySelector('.toc-nav')
+  if (tocNav) {
+    const tocLinks = Array.from(tocNav.querySelectorAll('a'))
+    const idToLink = new Map()
+    const headings = []
+    const seen = new Set()
+
+    for (const link of tocLinks) {
+      const hash = link.hash || link.getAttribute('href')
+      if (hash?.charAt(0) !== '#') continue
+      const id = decodeURIComponent(hash.slice(1))
+      idToLink.set(id, link)
+      if (seen.has(id)) continue
+      const heading = document.getElementById(id)
+      if (!heading) continue
+      headings.push(heading)
+      seen.add(id)
+    }
+
+    const offset = 100
+    let currentActive = null
+    let currentChain = []
+
+    function buildChain(link) {
+      const chain = []
+      if (!link) return chain
+      chain.push(link)
+      let item = link.closest('li')
+      while (item) {
+        const parent = item.parentElement
+          ? item.parentElement.closest('li')
+          : null
+        const parentLink = parent?.querySelector('a')
+        if (parentLink) chain.push(parentLink)
+        item = parent
+      }
+      return chain
+    }
+
+    function applyActiveChain(link) {
+      if (link === currentActive) return
+      const nextChain = buildChain(link)
+      for (const item of currentChain) {
+        if (!nextChain.includes(item)) item.classList.remove('active')
+      }
+      for (const item of nextChain) item.classList.add('active')
+      currentActive = link
+      currentChain = nextChain
+    }
+
+    function updateActiveLink() {
+      let link = null
+      for (let index = headings.length - 1; index >= 0; index--) {
+        if (headings[index].getBoundingClientRect().top <= offset) {
+          link = idToLink.get(headings[index].id) ?? null
+          break
+        }
+      }
+      applyActiveChain(link)
+    }
+
+    let ticking = false
+    function onScroll() {
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(() => {
+        updateActiveLink()
+        ticking = false
+      })
+    }
+
+    tocNav.addEventListener('click', (event) => {
+      const link = event.target.closest('a')
+      if (!link || !tocNav.contains(link)) return
+      const hash = link.hash || link.getAttribute('href')
+      if (hash?.charAt(0) !== '#') return
+      const target = document.getElementById(decodeURIComponent(hash.slice(1)))
+      if (!target) return
+      event.preventDefault()
+      const reduceMotion = matchMedia(
+        '(prefers-reduced-motion: reduce)',
+      ).matches
+      target.scrollIntoView({
+        behavior: reduceMotion ? 'auto' : 'smooth',
+        block: 'start',
+      })
+      applyActiveChain(link)
+    })
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll, { passive: true })
+    updateActiveLink()
+  }
+</script>
