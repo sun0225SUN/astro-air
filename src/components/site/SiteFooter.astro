@@ -19,6 +19,8 @@ const [rssBefore, rssAfter] = t('footer.rss').split('{rss}')
       <a
         href="https://sunguoqi.com"
         class="text-accent transition-colors duration-200 hover:text-accent-hover"
+        data-umami-event="footer"
+        data-umami-event-name="author"
         >Guoqi Sun</a
       >
     </span>
@@ -28,6 +30,8 @@ const [rssBefore, rssAfter] = t('footer.rss').split('{rss}')
       <a
         href="https://github.com/sun0225SUN/astro-air"
         class="text-accent transition-colors duration-200 hover:text-accent-hover"
+        data-umami-event="footer"
+        data-umami-event-name="theme"
         >Astro Air</a
       >
     </span>
@@ -37,6 +41,8 @@ const [rssBefore, rssAfter] = t('footer.rss').split('{rss}')
     <a
       href="/rss.xml"
       class="inline-flex items-center gap-1 text-accent transition-colors duration-200 hover:text-accent-hover"
+      data-umami-event="footer"
+      data-umami-event-name="rss"
     >
       <Rss size={16} aria-hidden="true" />
       <span>RSS</span>

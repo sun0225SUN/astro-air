@@ -9,6 +9,7 @@ import Sun from '@lucide/astro/icons/sun'
   class="cursor-pointer"
   aria-label="Toggle theme"
   title="Toggle theme"
+  data-umami-event="theme-toggle"
 >
   <Sun class="dark:hidden" size={22} aria-hidden="true" />
   <Moon class="hidden dark:block" size={22} aria-hidden="true" />
@@ -46,6 +47,7 @@ import Sun from '@lucide/astro/icons/sun'
       const next = document.documentElement.classList.contains('dark')
         ? 'light'
         : 'dark'
+      button.setAttribute('data-umami-event-theme', next)
       const gen = ++generation
       const reduceMotion = matchMedia(
         '(prefers-reduced-motion: reduce)',

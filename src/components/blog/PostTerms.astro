@@ -16,6 +16,8 @@ const lang = localeFromParam(Astro.currentLocale)
       <a
         href={getRelativeLocaleUrl(lang, `blog/tag/${taxonomySlug(tag)}`)}
         class='inline-block no-underline hover:scale-105'
+        data-umami-event='tag'
+        data-umami-event-name={tag}
       >
         #{tag}
       </a>

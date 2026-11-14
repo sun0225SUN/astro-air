@@ -59,16 +59,18 @@ const modifiedLabel = modified?.isValid()
         class="not-prose my-3 flex flex-wrap items-center gap-x-2 text-sm text-gray-500 dark:text-white/70"
       >
         {category && (
-            <a
-              href={getRelativeLocaleUrl(
-                lang,
-                `blog/category/${taxonomySlug(category)}`,
-              )}
-              class="text-accent no-underline hover:text-accent-hover"
-            >
-              {category}
-            </a>
-          )}
+          <a
+            href={getRelativeLocaleUrl(
+              lang,
+              `blog/category/${taxonomySlug(category)}`,
+            )}
+            class='text-accent no-underline hover:text-accent-hover'
+            data-umami-event='category'
+            data-umami-event-name={category}
+          >
+            {category}
+          </a>
+        )}
         {category && <span aria-hidden='true'>·</span>}
         <span
           class="vt-time"
@@ -78,8 +80,8 @@ const modifiedLabel = modified?.isValid()
           <FormattedDate date={pubDate} />
         </span>
         {readingMinutes && (
-            <span>· {t('post.readingTime', { minutes: readingMinutes })}</span>
-          )}
+          <span>· {t('post.readingTime', { minutes: readingMinutes })}</span>
+        )}
       </div>
       {updatedDate && (
         <p class='my-0 text-sm text-gray-500 dark:text-white/70'>

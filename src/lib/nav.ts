@@ -16,17 +16,32 @@ function linkLabel(label: NavLabel, locale: string) {
   )
 }
 
+function defaultLabel(label: NavLabel) {
+  if (typeof label === 'string') return label
+  return label.default ?? label[defaultLang] ?? linkLabel(label, defaultLang)
+}
+
 export async function navLinks(locale: Locale) {
   const t = useTranslations(locale)
   const pages = await getCustomPages(locale)
 
   return config.nav.flatMap((item) => {
     if (item === 'home') {
-      return [{ href: getRelativeLocaleUrl(locale), label: t('nav.home') }]
+      return [
+        {
+          href: getRelativeLocaleUrl(locale),
+          label: t('nav.home'),
+          name: 'home',
+        },
+      ]
     }
     if (item === 'blog' || item === 'archive') {
       return [
-        { href: getRelativeLocaleUrl(locale, 'blog'), label: t('nav.archive') },
+        {
+          href: getRelativeLocaleUrl(locale, 'blog'),
+          label: t('nav.archive'),
+          name: 'archive',
+        },
       ]
     }
     if (item === 'tags') {
@@ -34,6 +49,7 @@ export async function navLinks(locale: Locale) {
         {
           href: getRelativeLocaleUrl(locale, 'blog/tag'),
           label: t('nav.tags'),
+          name: 'tags',
         },
       ]
     }
@@ -44,6 +60,7 @@ export async function navLinks(locale: Locale) {
         {
           href: getRelativeLocaleUrl(locale, item),
           label: page.data.title,
+          name: item,
         },
       ]
     }
@@ -51,6 +68,7 @@ export async function navLinks(locale: Locale) {
       {
         href: item.link,
         label: linkLabel(item.label, locale),
+        name: defaultLabel(item.label),
         external: /^(https?:|mailto:)/.test(item.link),
       },
     ]
