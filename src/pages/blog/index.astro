@@ -1,0 +1,13 @@
+---
+import PostList from '../../components/PostList.astro'
+import { SITE_TITLE } from '../../consts'
+import Layout from '../../layouts/Layout.astro'
+import { getBlogPosts } from '../../lib/content'
+
+const posts = await getBlogPosts()
+---
+
+<Layout title="Blog" description={`Posts from ${SITE_TITLE}.`}>
+  <h1 id="content" tabindex="-1">Blog</h1>
+  <PostList posts={posts} />
+</Layout>

@@ -1,0 +1,149 @@
+:root {
+  color-scheme: light;
+  --ink: #1c1917;
+  --muted: #57534e;
+  --line: #e7e5e4;
+  --paper: #fafaf9;
+  --focus: #1c1917;
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  line-height: 1.6;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-block-size: 100%;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+a {
+  color: inherit;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.skip-link:focus {
+  position: fixed;
+  inset-block-start: 0.75rem;
+  inset-inline-start: 0.75rem;
+  z-index: 1;
+  padding: 0.4rem 0.7rem;
+  background: var(--paper);
+}
+
+.site-header,
+.site-footer,
+.page {
+  width: min(42rem, calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  padding-block: 1.25rem;
+  border-block-end: 1px solid var(--line);
+}
+
+.brand {
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.site-header ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-header a[aria-current="page"] {
+  font-weight: 650;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
+.page {
+  padding-block: 2rem 3rem;
+}
+
+.lede,
+.meta,
+.post-list p,
+.page-list p {
+  color: var(--muted);
+}
+
+.post-list,
+.page-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.post-list li,
+.page-list li {
+  padding-block: 1rem;
+  border-block-end: 1px solid var(--line);
+}
+
+.post-list a,
+.page-list a {
+  font-size: 1.25rem;
+  text-decoration: none;
+}
+
+.prose :where(h2, h3) {
+  line-height: 1.25;
+  margin-block: 1.6em 0.4em;
+}
+
+.prose :where(p, ul, ol) {
+  margin-block: 0.8em;
+}
+
+.prose :where(pre) {
+  overflow: auto;
+  padding: 0.8rem 1rem;
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
+}
+
+.prose :where(code) {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.92em;
+}
+
+.site-footer {
+  padding-block: 1.5rem 2.5rem;
+  border-block-start: 1px solid var(--line);
+  color: var(--muted);
+}
+
+@media (forced-colors: active) {
+  .site-header a[aria-current="page"] {
+    outline: 2px solid CanvasText;
+  }
+}

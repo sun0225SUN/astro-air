@@ -54,11 +54,22 @@
   },
   "overrides": [
     {
+      "includes": ["src/styles/a11y.css"],
+      "linter": {
+        "rules": {
+          "complexity": {
+            "noImportantStyles": "off"
+          }
+        }
+      }
+    },
+    {
       "includes": ["**/*.svg", "**/*.astro"],
       "linter": {
         "rules": {
           "a11y": {
-            "noSvgWithoutTitle": "off"
+            "noSvgWithoutTitle": "off",
+            "noRedundantRoles": "off"
           }
         }
       }

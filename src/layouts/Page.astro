@@ -1,0 +1,18 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import Layout from './Layout.astro'
+
+type Props = CollectionEntry<'pages'>['data']
+
+const { title, description } = Astro.props
+---
+
+<Layout title={title} description={description}>
+  <article class="prose">
+    <header>
+      <h1 id="content" tabindex="-1">{title}</h1>
+      <p class="lede">{description}</p>
+    </header>
+    <slot />
+  </article>
+</Layout>

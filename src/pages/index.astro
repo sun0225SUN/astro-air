@@ -1,11 +1,32 @@
 ---
-import Welcome from '../components/Welcome.astro'
+import PostList from '../components/PostList.astro'
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts'
 import Layout from '../layouts/Layout.astro'
+import { getBlogPosts, getCustomPages } from '../lib/content'
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const posts = await getBlogPosts()
+const pages = await getCustomPages()
 ---
 
-<Layout>
-  <Welcome />
+<Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <h1 id="content" tabindex="-1">{SITE_TITLE}</h1>
+  <p class="lede">{SITE_DESCRIPTION}</p>
+
+  <section aria-labelledby="posts-heading">
+    <h2 id="posts-heading">Posts</h2>
+    <PostList posts={posts} />
+    <p><a href="/blog">All posts</a></p>
+  </section>
+
+  <section aria-labelledby="pages-heading">
+    <h2 id="pages-heading">Pages</h2>
+    <ul class="page-list" role="list">
+      {pages.map((page) => (
+        <li>
+          <a href={`/${page.id}`}>{page.data.title}</a>
+          <p>{page.data.description}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
 </Layout>

@@ -1,0 +1,20 @@
+---
+title: Using MDX
+description: Mix Markdown with Astro components inside a post.
+pubDate: 2024-06-01
+updatedDate: 2024-11-02
+---
+
+import Callout from '../../components/Callout.astro'
+
+MDX is Markdown that can include components. The `@astrojs/mdx` integration is enabled in `astro.config.mjs`, and the blog collection loads both `.md` and `.mdx` files.
+
+<Callout title="Components stay static">
+  A component used in MDX renders to HTML at build time. Add a client directive only when it needs to run in the browser.
+</Callout>
+
+## Write a post
+
+1. Add a file under `src/content/blog`.
+2. Fill in `title`, `description`, and `pubDate`.
+3. Import a component when the post needs more than Markdown.

@@ -1,23 +1,39 @@
+---
+import SiteFooter from '../components/SiteFooter.astro'
+import SiteHeader from '../components/SiteHeader.astro'
+import { SITE_TITLE } from '../consts'
+import '../styles/a11y.css'
+import '../styles/global.css'
+
+interface Props {
+  title: string
+  description: string
+}
+
+const { title, description } = Astro.props
+const pageTitle = title === SITE_TITLE ? title : `${title} | ${SITE_TITLE}`
+const canonical = Astro.site
+  ? new URL(Astro.url.pathname, Astro.site)
+  : undefined
+---
+
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro Basics</title>
+    <meta name="description" content={description} />
+    {canonical && <link rel='canonical' href={canonical} />}
+    <title>{pageTitle}</title>
   </head>
   <body>
-    <slot />
+    <SiteHeader />
+    <div class="page">
+      <slot />
+    </div>
+    <SiteFooter />
   </body>
 </html>
-
-<style>
-  html,
-  body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>
