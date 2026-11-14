@@ -57,6 +57,11 @@ export function localePaths() {
   return locales.map((lang) => ({ params: { lang } }))
 }
 
+export function nextLocale(current: Locale): Locale {
+  const index = locales.indexOf(current)
+  return locales[(index + 1) % locales.length] ?? defaultLang
+}
+
 export function useTranslations(lang: string) {
   const locale = isLocale(lang) ? lang : defaultLang
   return function t(

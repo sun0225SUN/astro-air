@@ -1,7 +1,7 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n'
-import PageShell from '../../../../components/content/PageShell.astro'
 import { localePaths, useTranslations } from '../../../../i18n'
+import Layout from '../../../../layouts/Layout.astro'
 import { getCategories, pageLocale } from '../../../../lib/content'
 
 export function getStaticPaths() {
@@ -13,25 +13,19 @@ const t = useTranslations(lang)
 const categories = await getCategories(lang)
 ---
 
-<PageShell
+<Layout
   title={t('blog.categories')}
   description={t('blog.categoriesDescription')}
 >
-  {categories.length === 0 ? (
-    <p>{t('home.empty')}</p>
-  ) : (
-    <ul class='m-0 list-none p-0' role='list'>
-      {categories.map((category) => (
-        <li class='border-b border-line py-4'>
-          <a
-            class='text-xl no-underline'
-            href={getRelativeLocaleUrl(lang, `blog/category/${category.slug}`)}
-          >
-            {category.name}
-          </a>
-          <p class='text-muted'>{t('blog.count', { count: category.count })}</p>
-        </li>
-      ))}
-    </ul>
-  )}
-</PageShell>
+  <h1 class="mt-2 mb-9 text-2xl font-semibold">{t('blog.categories')}</h1>
+  <div class="flex flex-wrap gap-x-4 gap-y-2 text-lg">
+    {categories.map((category) => (
+      <a
+        href={getRelativeLocaleUrl(lang, `blog/category/${category.slug}`)}
+        class='hover:underline hover:underline-offset-4'
+      >
+        {category.name}
+      </a>
+    ))}
+  </div>
+</Layout>

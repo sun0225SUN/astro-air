@@ -8,35 +8,70 @@ import {
   localeFromParam,
 } from '../../lib/content'
 import FormattedDate from './FormattedDate.astro'
-import PostTerms from './PostTerms.astro'
 
 interface Props {
   posts?: BlogPost[]
+  variant?: 'latest' | 'archive' | 'dated'
+  limit?: number
 }
 
 const lang = localeFromParam(Astro.currentLocale)
 const t = useTranslations(lang)
-const posts = Astro.props.posts ?? (await getBlogPosts(lang))
+const variant = Astro.props.variant ?? 'dated'
+const source = Astro.props.posts ?? (await getBlogPosts(lang))
+const posts = Astro.props.limit ? source.slice(0, Astro.props.limit) : source
+const dateFormat = variant === 'archive' ? 'MM-DD' : 'YYYY-MM-DD'
+const dateWidth = variant === 'archive' ? 'w-20' : 'w-32'
+
+const groups = new Map<number, BlogPost[]>()
+if (variant === 'archive') {
+  for (const post of posts) {
+    const year = post.data.pubDate.getUTCFullYear()
+    const group = groups.get(year) ?? []
+    group.push(post)
+    groups.set(year, group)
+  }
+}
 ---
 
-{posts.length === 0 ? (
-  <p>{t('home.empty')}</p>
-) : (
-  <ul class='m-0 list-none p-0' role='list'>
-    {posts.map((post) => (
-      <li class='border-b border-line py-4'>
-        <a
-          class='text-xl no-underline'
-          href={getRelativeLocaleUrl(lang, `blog/${entrySlug(post.id)}`)}
+{variant === 'archive'
+  ? [...groups.keys()].map((year) => (
+      <div class='my-8'>
+        <h2 class='my-4 text-2xl font-bold'>{year}</h2>
+        {groups.get(year)?.map((post) => (
+          <a
+            href={getRelativeLocaleUrl(lang, `blog/${entrySlug(post.id)}`)}
+            class='my-3 flex visited:text-accent md:my-2'
+          >
+            <p
+              class:list={[
+                'flex shrink-0 truncate text-gray-500 dark:text-gray-400',
+                dateWidth,
+              ]}
+            >
+              <FormattedDate date={post.data.pubDate} format={dateFormat} />
+            </p>
+            <p class='line-clamp-2 text-lg hover:underline'>
+              {post.data.title}
+            </p>
+          </a>
+        ))}
+      </div>
+    ))
+  : posts.map((post) => (
+      <a
+        href={getRelativeLocaleUrl(lang, `blog/${entrySlug(post.id)}`)}
+        class='my-3 flex visited:text-accent md:my-2'
+      >
+        <p
+          class:list={[
+            'flex shrink-0 truncate text-gray-500 dark:text-gray-400',
+            dateWidth,
+          ]}
         >
-          {post.data.title}
-        </a>
-        <p class='text-muted'>{post.data.description}</p>
-        <p class='text-muted'>
-          <FormattedDate date={post.data.pubDate} />
+          <FormattedDate date={post.data.pubDate} format={dateFormat} />
         </p>
-        <PostTerms category={post.data.category} tags={post.data.tags} />
-      </li>
+        <p class='line-clamp-2 text-lg hover:underline'>{post.data.title}</p>
+      </a>
     ))}
-  </ul>
-)}
+{posts.length === 0 && <p class='text-gray-500'>{t('home.empty')}</p>}

@@ -1,13 +1,21 @@
 ---
-import { config } from '../../config'
+const year = new Date().getFullYear()
 ---
 
-<footer
-  class="mx-auto w-[min(42rem,calc(100%-2rem))] border-t border-line py-6 pb-10 text-muted"
->
-  <p>
-    {config.title}
-    {' · '}
-    <a href="/rss.xml">RSS</a>
-  </p>
+<footer class="flex flex-wrap items-center gap-1 py-10">
+  <p>&copy; {year}</p>
+  <p class="mx-1">|</p>
+  <p>Designed By</p>
+  <a
+    href="https://sunguoqi.com"
+    class="text-accent transition-colors duration-200 hover:text-accent-hover"
+    >Guoqi Sun</a
+  >
+  <p class="mx-1">|</p>
+  <p>Powered By</p>
+  <a
+    href="https://github.com/sun0225SUN/astro-air"
+    class="text-accent transition-colors duration-200 hover:text-accent-hover"
+    >Astro Air</a
+  >
 </footer>

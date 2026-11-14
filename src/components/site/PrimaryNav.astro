@@ -23,18 +23,17 @@ const links = [
 ]
 ---
 
-<nav aria-label={t('nav.primary')}>
-  <ul class="m-0 flex list-none flex-wrap items-baseline gap-x-4 gap-y-1 p-0">
-    {links.map((link) => (
-      <li>
-        <a
-          class='underline-offset-4 aria-current:font-semibold aria-current:underline aria-current:decoration-2 forced-colors:aria-current:outline'
-          href={link.href}
-          aria-current={currentPage(link.href)}
-        >
-          {link.label}
-        </a>
-      </li>
-    ))}
-  </ul>
+<nav
+  aria-label={t('nav.primary')}
+  class="mt-4 mb-10 flex gap-4 overflow-x-auto text-lg whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+>
+  {links.map((link) => (
+    <a
+      href={link.href}
+      class='hover:underline hover:underline-offset-4 aria-[current=page]:underline'
+      aria-current={currentPage(link.href)}
+    >
+      {link.label}
+    </a>
+  ))}
 </nav>

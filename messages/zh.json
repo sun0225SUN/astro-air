@@ -1,14 +1,10 @@
 {
   "nav": {
     "primary": "主导航",
-    "languages": "语言",
     "home": "首页",
     "blog": "博客"
   },
   "home": {
-    "posts": "文章",
-    "pages": "页面",
-    "allPosts": "全部文章",
     "empty": "还没有文章。"
   },
   "site": {
@@ -16,13 +12,13 @@
   },
   "blog": {
     "description": "Astro Air 的文章。",
+    "latest": "近期文章",
     "categories": "分类",
     "categoriesDescription": "全部分类。",
     "categoryDescription": "归入「{name}」的文章。",
     "tags": "标签",
     "tagsDescription": "全部标签。",
-    "tagDescription": "带有「{name}」标签的文章。",
-    "count": "{count} 篇"
+    "tagDescription": "带有「{name}」标签的文章。"
   },
   "post": {
     "updated": "更新于",
@@ -34,9 +30,5 @@
     "title": "页面不存在",
     "body": "你访问的页面不在这里。",
     "home": "返回首页"
-  },
-  "theme": {
-    "toDark": "切换到深色模式",
-    "toLight": "切换到浅色模式"
   }
 }

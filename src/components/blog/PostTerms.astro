@@ -12,34 +12,25 @@ const lang = localeFromParam(Astro.currentLocale)
 ---
 
 {(category || tags.length > 0) && (
-  <div class='mt-1 flex flex-wrap items-baseline gap-x-3 gap-y-1'>
+  <div class='space-x-3 pb-10 text-sm text-gray-500'>
     {category && (
       <a
-        class='no-underline'
         href={getRelativeLocaleUrl(
           lang,
           `blog/category/${taxonomySlug(category)}`,
         )}
+        class='inline-block no-underline hover:scale-105'
       >
         {category}
       </a>
     )}
-    {tags.length > 0 && (
-      <ul
-        class='m-0 flex list-none flex-wrap items-baseline gap-x-3 gap-y-1 p-0'
-        role='list'
+    {tags.map((tag) => (
+      <a
+        href={getRelativeLocaleUrl(lang, `blog/tag/${taxonomySlug(tag)}`)}
+        class='inline-block no-underline hover:scale-105'
       >
-        {tags.map((tag) => (
-          <li>
-            <a
-              class='no-underline'
-              href={getRelativeLocaleUrl(lang, `blog/tag/${taxonomySlug(tag)}`)}
-            >
-              {tag}
-            </a>
-          </li>
-        ))}
-      </ul>
-    )}
+        #{tag}
+      </a>
+    ))}
   </div>
 )}

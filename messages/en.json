@@ -1,14 +1,10 @@
 {
   "nav": {
     "primary": "Primary",
-    "languages": "Languages",
     "home": "Home",
     "blog": "Blog"
   },
   "home": {
-    "posts": "Posts",
-    "pages": "Pages",
-    "allPosts": "All posts",
     "empty": "No posts yet."
   },
   "site": {
@@ -16,13 +12,13 @@
   },
   "blog": {
     "description": "Posts from Astro Air.",
+    "latest": "Latest Posts",
     "categories": "Categories",
     "categoriesDescription": "All categories.",
     "categoryDescription": "Posts filed under {name}.",
     "tags": "Tags",
     "tagsDescription": "All tags.",
-    "tagDescription": "Posts tagged {name}.",
-    "count": "{count} posts"
+    "tagDescription": "Posts tagged {name}."
   },
   "post": {
     "updated": "Updated",
@@ -34,9 +30,5 @@
     "title": "Page not found",
     "body": "The page you requested is not here.",
     "home": "Go home"
-  },
-  "theme": {
-    "toDark": "Switch to dark theme",
-    "toLight": "Switch to light theme"
   }
 }

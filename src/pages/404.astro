@@ -1,12 +1,26 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n'
-import PageShell from '../components/content/PageShell.astro'
 import { defaultLang, useTranslations } from '../i18n'
+import Layout from '../layouts/Layout.astro'
 
 const t = useTranslations(defaultLang)
 ---
 
-<PageShell title={t('notFound.title')} description={t('notFound.body')}>
-  <p>{t('notFound.body')}</p>
-  <p><a href={getRelativeLocaleUrl(defaultLang)}>{t('notFound.home')}</a></p>
-</PageShell>
+<Layout title="404" description={t('notFound.body')}>
+  <section class="flex min-h-[60vh] items-center justify-center">
+    <div class="mx-auto max-w-xl px-4 text-center">
+      <h1 class="text-9xl font-bold text-gray-900 dark:text-gray-100">404</h1>
+      <div class="mt-4 text-gray-600 dark:text-gray-400">
+        <p class="mb-4 text-2xl">{t('notFound.title')}</p>
+        <p class="text-lg">{t('notFound.body')}</p>
+        <p class="mt-6">
+          <a
+            href={getRelativeLocaleUrl(defaultLang)}
+            class="text-accent hover:text-accent-hover"
+            >{t('notFound.home')}</a
+          >
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>

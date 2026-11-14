@@ -1,14 +1,10 @@
 {
   "nav": {
     "primary": "기본",
-    "languages": "언어",
     "home": "홈",
     "blog": "블로그"
   },
   "home": {
-    "posts": "글",
-    "pages": "페이지",
-    "allPosts": "모든 글",
     "empty": "아직 글이 없습니다."
   },
   "site": {
@@ -16,13 +12,13 @@
   },
   "blog": {
     "description": "Astro Air의 글.",
+    "latest": "최근 글",
     "categories": "분류",
     "categoriesDescription": "모든 분류.",
     "categoryDescription": "「{name}」에 속한 글.",
     "tags": "태그",
     "tagsDescription": "모든 태그.",
-    "tagDescription": "「{name}」 태그의 글.",
-    "count": "{count}개"
+    "tagDescription": "「{name}」 태그의 글."
   },
   "post": {
     "updated": "업데이트",
@@ -34,9 +30,5 @@
     "title": "페이지를 찾을 수 없습니다",
     "body": "요청한 페이지가 없습니다.",
     "home": "홈으로"
-  },
-  "theme": {
-    "toDark": "어두운 테마로 전환",
-    "toLight": "밝은 테마로 전환"
   }
 }

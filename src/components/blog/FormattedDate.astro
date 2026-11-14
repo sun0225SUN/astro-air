@@ -1,17 +1,17 @@
 ---
-import { localeFromParam } from '../../lib/content'
-
 interface Props {
   date: Date
+  format?: string
 }
 
-const { date } = Astro.props
-const lang = localeFromParam(Astro.currentLocale)
+const { date, format = 'YYYY-MM-DD' } = Astro.props
+const tokens: Record<string, string> = {
+  YYYY: String(date.getUTCFullYear()),
+  MM: String(date.getUTCMonth() + 1).padStart(2, '0'),
+  DD: String(date.getUTCDate()).padStart(2, '0'),
+}
+const label = format.replace(/YYYY|MM|DD/g, (match) => tokens[match] ?? match)
 const datetime = date.toISOString().slice(0, 10)
-const label = new Intl.DateTimeFormat(lang, {
-  dateStyle: 'long',
-  timeZone: 'UTC',
-}).format(date)
 ---
 
 <time datetime={datetime}>{label}</time>

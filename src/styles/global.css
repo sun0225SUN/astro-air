@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @font-face {
   font-family: Snell-Black;
@@ -20,81 +22,68 @@
     U+2026, U+2039-203A, U+20AC, U+2122, U+2212;
 }
 
-@plugin "@tailwindcss/typography";
-
 @theme {
   --font-title: Snell-Black, ui-serif, Georgia, "Times New Roman", serif;
-  --font-serif:
-    "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-  --color-ink: light-dark(#1c1917, #f5f5f4);
-  --color-muted: light-dark(#57534e, #a8a29e);
-  --color-line: light-dark(#e7e5e4, #44403c);
-  --color-paper: light-dark(#fafaf9, #1c1917);
+  --color-accent: #2563eb;
+  --color-accent-hover: #1d4ed8;
 }
 
-@custom-variant scheme-light {
-  :root:has(> head > meta[name="color-scheme"][content="light"]) & {
-    @slot;
+@keyframes theme-reveal {
+  from {
+    clip-path: inset(var(--from));
   }
 }
 
-@custom-variant scheme-dark {
-  :root:has(> head > meta[name="color-scheme"][content="dark"]) & {
-    @slot;
-  }
+::view-transition-new(theme-toggle-transition) {
+  z-index: 99;
+  clip-path: inset(0 0 0 0);
+  animation: theme-reveal 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@custom-variant system-light {
-  @media (prefers-color-scheme: light) {
-    :root:has(> head > meta[name="color-scheme"][content="light dark"]) & {
-      @slot;
-    }
-  }
+::view-transition-old(theme-toggle-transition) {
+  z-index: -1;
+  animation: none;
 }
 
-@custom-variant system-dark {
-  @media (prefers-color-scheme: dark) {
-    :root:has(> head > meta[name="color-scheme"][content="light dark"]) & {
-      @slot;
-    }
-  }
+html.dark {
+  --from: 0 0 100% 0;
 }
 
-@layer base {
-  :root {
-    color-scheme: light dark;
-  }
+html:not(.dark) {
+  --from: 100% 0 0 0;
+}
 
-  :root:has(> head > meta[name="color-scheme"][content="dark"]) {
-    color-scheme: dark;
-  }
+:root {
+  color-scheme: light;
+  accent-color: var(--color-accent);
+}
 
-  :root:has(> head > meta[name="color-scheme"][content="light"]) {
-    color-scheme: light;
-  }
+:root.dark {
+  color-scheme: dark;
+  --color-accent: #f97316;
+  --color-accent-hover: #fb923c;
+}
 
-  @supports not (color: light-dark(white, black)) {
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --color-ink: #f5f5f4;
-        --color-muted: #a8a29e;
-        --color-line: #44403c;
-        --color-paper: #1c1917;
-      }
-    }
+.prose {
+  --tw-prose-links: var(--color-accent);
+  --tw-prose-invert-links: var(--color-accent);
+}
 
-    :root:has(> head > meta[name="color-scheme"][content="dark"]) {
-      --color-ink: #f5f5f4;
-      --color-muted: #a8a29e;
-      --color-line: #44403c;
-      --color-paper: #1c1917;
-    }
+::selection {
+  background-color: color-mix(in srgb, var(--color-accent) 28%, transparent);
+}
 
-    :root:has(> head > meta[name="color-scheme"][content="light"]) {
-      --color-ink: #1c1917;
-      --color-muted: #57534e;
-      --color-line: #e7e5e4;
-      --color-paper: #fafaf9;
-    }
-  }
+article :not(pre) > code {
+  border-radius: 0.25rem;
+  background-color: color-mix(in srgb, var(--color-accent) 28%, transparent);
+  padding-inline: 0.25rem;
+}
+
+.dark article :not(pre) > code {
+  background-color: color-mix(in srgb, var(--color-accent) 42%, transparent);
+}
+
+article code::before,
+article code::after {
+  content: none;
 }

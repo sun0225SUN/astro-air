@@ -1,5 +1,6 @@
 ---
 import LocaleAlternates from '../components/site/LocaleAlternates.astro'
+import PrimaryNav from '../components/site/PrimaryNav.astro'
 import SiteFooter from '../components/site/SiteFooter.astro'
 import SiteHeader from '../components/site/SiteHeader.astro'
 import { config } from '../config'
@@ -13,7 +14,7 @@ interface Props {
 
 const { title, description } = Astro.props
 const lang = localeFromParam(Astro.currentLocale)
-const pageTitle = title === config.title ? title : `${title} | ${config.title}`
+const pageTitle = title === config.title ? title : `${config.title} - ${title}`
 const canonical = Astro.site
   ? new URL(Astro.url.pathname, Astro.site)
   : undefined
@@ -23,17 +24,24 @@ const canonical = Astro.site
 <html lang={lang}>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="color-scheme" content="light dark" />
+    <meta name="viewport" content="width=device-width" />
     <script is:inline>
-      try {
-        const stored = localStorage.getItem('color-scheme')
-        if (stored === 'light' || stored === 'dark') {
-          document.querySelector('meta[name="color-scheme"]').content = stored
+      const setTheme = () => {
+        let theme = 'light'
+        try {
+          theme =
+            localStorage.getItem('theme') ??
+            (matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light')
+        } catch {
+          theme = matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light'
         }
-      } catch {
-        // Follow the system scheme when storage is blocked.
+        document.documentElement.classList.toggle('dark', theme === 'dark')
       }
+      setTheme()
     </script>
     <link
       rel="alternate"
@@ -50,12 +58,16 @@ const canonical = Astro.site
     <LocaleAlternates />
   </head>
   <body
-    class="m-0 min-h-full bg-paper font-serif text-base leading-relaxed text-ink"
+    class="flex min-h-screen w-full justify-center px-6 md:px-0 dark:bg-[#121212] dark:text-white"
   >
-    <SiteHeader />
-    <div class="mx-auto w-[min(42rem,calc(100%-2rem))] py-8 pb-12">
+    <div
+      class="pointer-events-none fixed inset-0 -z-10 h-full w-full bg-[url('/noise.png')] bg-[length:128px_128px] bg-repeat opacity-[0.06]"
+    ></div>
+    <main id="content" tabindex="-1" class="mb-10 w-full max-w-3xl">
+      <SiteHeader />
+      <PrimaryNav />
       <slot />
-    </div>
-    <SiteFooter />
+      <SiteFooter />
+    </main>
   </body>
 </html>

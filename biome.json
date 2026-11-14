@@ -69,16 +69,6 @@
       }
     },
     {
-      "includes": ["src/components/content/PageHeading.astro"],
-      "linter": {
-        "rules": {
-          "a11y": {
-            "useHeadingContent": "off"
-          }
-        }
-      }
-    },
-    {
       "includes": ["**/*.svg", "**/*.astro"],
       "linter": {
         "rules": {

@@ -1,8 +1,7 @@
 ---
-import { getRelativeLocaleUrl } from 'astro:i18n'
 import PostList from '../../../../components/blog/PostList.astro'
-import PageShell from '../../../../components/content/PageShell.astro'
 import { locales, useTranslations } from '../../../../i18n'
+import Layout from '../../../../layouts/Layout.astro'
 import {
   getCategories,
   getPostsByCategory,
@@ -33,14 +32,10 @@ const t = useTranslations(lang)
 const posts = await getPostsByCategory(lang, Astro.params.slug ?? '')
 ---
 
-<PageShell
+<Layout
   title={category.name}
   description={t('blog.categoryDescription', { name: category.name })}
 >
-  <p class="text-muted">
-    <a href={getRelativeLocaleUrl(lang, 'blog/category')}
-      >{t('blog.categories')}</a
-    >
-  </p>
-  <PostList posts={posts} />
-</PageShell>
+  <h1 class="mt-2 mb-9 text-2xl font-semibold">{category.name}</h1>
+  <PostList posts={posts} variant="dated" />
+</Layout>

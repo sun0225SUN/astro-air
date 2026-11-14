@@ -8,6 +8,7 @@
         "@astrojs/markdown-satteri": "^0.4.10",
         "@astrojs/mdx": "^8.1.6",
         "@astrojs/rss": "^4.0.19",
+        "@lucide/astro": "^1.72.0",
         "astro": "^7.4.12",
         "dayjs": "^1.11.23",
         "reading-time": "^1.5.0",
@@ -238,6 +239,8 @@
     "@jridgewell/sourcemap-codec": ["@jridgewell/sourcemap-codec@1.6.0", "https://registry.npmmirror.com/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.6.0.tgz", {}, "sha512-T7jf+5zgsZHwNJ4lvQ7/aezbyk0nNX+zJVWpmHA7VYsEx7a7qr5Rg5IbtJFqkgze5Y2sruq1RUY8Q837Od7iFw=="],
 
     "@jridgewell/trace-mapping": ["@jridgewell/trace-mapping@0.3.31", "https://registry.npmmirror.com/@jridgewell/trace-mapping/-/trace-mapping-0.3.31.tgz", { "dependencies": { "@jridgewell/resolve-uri": "^3.1.0", "@jridgewell/sourcemap-codec": "^1.4.14" } }, "sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw=="],
+
+    "@lucide/astro": ["@lucide/astro@1.72.0", "https://registry.npmmirror.com/@lucide/astro/-/astro-1.72.0.tgz", { "peerDependencies": { "astro": "^4 || ^5 || ^6 || ^7" } }, "sha512-+kBS2kCF0eAOzQom0OIJY0YfaVyRYICgeimNZgOeGIEtwov4EVhMEGjOP3Yb2fWjlLIADY6DfsIaUBW6toVhjg=="],
 
     "@napi-rs/wasm-runtime": ["@napi-rs/wasm-runtime@1.2.7", "https://registry.npmmirror.com/@napi-rs/wasm-runtime/-/wasm-runtime-1.2.7.tgz", { "dependencies": { "@tybys/wasm-util": "^0.10.3" }, "peerDependencies": { "@emnapi/core": "^1.7.1 || 2.0.0-beta.2 || 2.0.0-beta.3", "@emnapi/runtime": "^1.7.1 || 2.0.0-beta.2 || 2.0.0-beta.3" } }, "sha512-zJccwplOAbgfZju95IUHazLnx9RAPtPN2YGJXI6UbrgeaR9QfPjGrQL6ERkSAtnVCA4Q+83ApGyaX5zdpCaKkQ=="],
 

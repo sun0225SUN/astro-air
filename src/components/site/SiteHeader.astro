@@ -1,10 +1,10 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n'
+import Rss from '@lucide/astro/icons/rss'
 import { config } from '../../config'
 import { useTranslations } from '../../i18n'
 import { localeFromParam } from '../../lib/content'
 import LanguageNav from './LanguageNav.astro'
-import PrimaryNav from './PrimaryNav.astro'
 import ThemeToggle from './ThemeToggle.astro'
 
 const lang = localeFromParam(Astro.currentLocale)
@@ -12,19 +12,22 @@ const t = useTranslations(lang)
 ---
 
 <a
-  class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:bg-paper focus:px-2.5 focus:py-1.5"
+  class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:bg-white focus:px-2 focus:py-1 dark:focus:bg-[#121212]"
   href="#content"
   >{t('skip')}</a
 >
-<header
-  class="mx-auto flex w-[min(42rem,calc(100%-2rem))] flex-wrap items-baseline justify-between gap-x-6 gap-y-3 border-b border-line py-5"
->
+<header class="flex min-h-24 w-full items-center justify-between py-3">
   <a href={getRelativeLocaleUrl(lang)} aria-label={config.title}>
     <div class="inline-block pr-1 font-title text-3xl leading-none">
       {config.title}
     </div>
   </a>
-  <PrimaryNav />
-  <LanguageNav />
-  <ThemeToggle />
+  <div class="flex items-center gap-6">
+    <a href="/rss.xml" aria-label="RSS" title="RSS">
+      <Rss size={22} aria-hidden="true" />
+      <span class="sr-only">RSS</span>
+    </a>
+    <LanguageNav />
+    <ThemeToggle />
+  </div>
 </header>

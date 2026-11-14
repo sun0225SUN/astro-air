@@ -1,10 +1,8 @@
 ---
-import { getRelativeLocaleUrl } from 'astro:i18n'
 import PostList from '../../components/blog/PostList.astro'
-import PageList from '../../components/content/PageList.astro'
-import PageShell from '../../components/content/PageShell.astro'
 import { config } from '../../config'
 import { localePaths, useTranslations } from '../../i18n'
+import Layout from '../../layouts/Layout.astro'
 import { pageLocale } from '../../lib/content'
 
 export function getStaticPaths() {
@@ -15,21 +13,10 @@ const lang = pageLocale(Astro.currentLocale, Astro.params.lang)
 const t = useTranslations(lang)
 ---
 
-<PageShell title={config.title} description={t('site.description')}>
-  <p class="text-muted">{t('site.description')}</p>
-
-  <section aria-labelledby="posts-heading">
-    <h2 id="posts-heading" class="text-2xl leading-snug font-semibold">
-      {t('home.posts')}
-    </h2>
-    <PostList />
-    <p><a href={getRelativeLocaleUrl(lang, 'blog')}>{t('home.allPosts')}</a></p>
-  </section>
-
-  <section aria-labelledby="pages-heading">
-    <h2 id="pages-heading" class="text-2xl leading-snug font-semibold">
-      {t('home.pages')}
-    </h2>
-    <PageList />
-  </section>
-</PageShell>
+<Layout title={config.title} description={t('site.description')}>
+  <div class="my-10">
+    <p>{t('site.description')}</p>
+  </div>
+  <div class="my-8 text-xl font-medium">{t('blog.latest')}</div>
+  <PostList variant="latest" limit={8} />
+</Layout>

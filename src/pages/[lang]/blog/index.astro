@@ -1,8 +1,7 @@
 ---
-import { getRelativeLocaleUrl } from 'astro:i18n'
 import PostList from '../../../components/blog/PostList.astro'
-import PageShell from '../../../components/content/PageShell.astro'
 import { localePaths, useTranslations } from '../../../i18n'
+import Layout from '../../../layouts/Layout.astro'
 import { pageLocale } from '../../../lib/content'
 
 export function getStaticPaths() {
@@ -13,13 +12,6 @@ const lang = pageLocale(Astro.currentLocale, Astro.params.lang)
 const t = useTranslations(lang)
 ---
 
-<PageShell title={t('nav.blog')} description={t('blog.description')}>
-  <p class="text-muted">
-    <a href={getRelativeLocaleUrl(lang, 'blog/category')}
-      >{t('blog.categories')}</a
-    >
-    {' · '}
-    <a href={getRelativeLocaleUrl(lang, 'blog/tag')}>{t('blog.tags')}</a>
-  </p>
-  <PostList />
-</PageShell>
+<Layout title={t('nav.blog')} description={t('blog.description')}>
+  <PostList variant="archive" />
+</Layout>

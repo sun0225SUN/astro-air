@@ -1,35 +1,22 @@
 ---
-import { languages, locales, useTranslations } from '../../i18n'
+import Languages from '@lucide/astro/icons/languages'
+import { languages, nextLocale } from '../../i18n'
 import { contentPath, localeFromParam, localeHref } from '../../lib/content'
 
 const lang = localeFromParam(Astro.currentLocale)
-const path = contentPath(Astro.url.pathname, lang)
-const t = useTranslations(lang)
-const languageLinks = await Promise.all(
-  locales.map(async (locale) => ({
-    locale,
-    label: languages[locale],
-    href: await localeHref(locale, path),
-  })),
-)
+const next = nextLocale(lang)
+const href = await localeHref(next, contentPath(Astro.url.pathname, lang))
+const label = languages[next]
 ---
 
-<nav aria-label={t('nav.languages')}>
-  <ul
-    class="m-0 flex list-none flex-wrap items-baseline gap-x-4 gap-y-1 p-0 text-sm"
-  >
-    {languageLinks.map((link) => (
-      <li>
-        <a
-          class='underline-offset-4 aria-current:font-semibold aria-current:underline aria-current:decoration-2 forced-colors:aria-current:outline'
-          href={link.href}
-          hrefLang={link.locale}
-          lang={link.locale}
-          aria-current={link.locale === lang ? 'true' : undefined}
-        >
-          {link.label}
-        </a>
-      </li>
-    ))}
-  </ul>
-</nav>
+<a
+  href={href}
+  hrefLang={next}
+  lang={next}
+  class="text-current"
+  aria-label={label}
+  title={label}
+>
+  <Languages size={22} aria-hidden="true" />
+  <span class="sr-only">{label}</span>
+</a>

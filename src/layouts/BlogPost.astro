@@ -4,7 +4,6 @@ import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import FormattedDate from '../components/blog/FormattedDate.astro'
 import PostTerms from '../components/blog/PostTerms.astro'
-import PageHeading from '../components/content/PageHeading.astro'
 import Prose from '../components/content/Prose.astro'
 import { useTranslations } from '../i18n'
 import { localeFromParam } from '../lib/content'
@@ -34,42 +33,35 @@ const lang = localeFromParam(Astro.currentLocale)
 const t = useTranslations(lang)
 const modified = lastModified ? dayjs(lastModified) : undefined
 const modifiedLabel = modified?.isValid()
-  ? modified
-      .utc()
-      .locale(lang === 'zh' ? 'zh-cn' : lang)
-      .format('HH:mm:ss DD MMMM YYYY UTC')
+  ? modified.utc().format('YYYY-MM-DD HH:mm')
   : undefined
 ---
 
 <Layout title={title} description={description}>
-  <article>
-    <header>
-      <p class="text-muted">
+  <article class="prose w-full max-w-3xl overflow-hidden dark:prose-invert">
+    <div class="flex flex-col gap-2">
+      <h2 class="my-0! text-3xl font-semibold">{title}</h2>
+      <div class="my-3 text-gray-500 dark:text-white/80">
         <FormattedDate date={pubDate} />
         {readingMinutes && (
-          <>
-            {' · '}
-            {t('post.readingTime', { minutes: readingMinutes })}
-          </>
+          <span> · {t('post.readingTime', { minutes: readingMinutes })}</span>
         )}
-      </p>
+      </div>
       {updatedDate && (
-        <p class='text-muted'>
+        <p class='my-0 text-sm text-gray-500 dark:text-white/70'>
           {t('post.updated')} <FormattedDate date={updatedDate} />
         </p>
       )}
       {modifiedLabel && lastModified && (
-        <p class='text-muted'>
+        <p class='my-0 text-sm text-gray-500 dark:text-white/70'>
           {t('post.lastModified')}{' '}
           <time datetime={lastModified}>{modifiedLabel}</time>
         </p>
       )}
-      <PageHeading>{title}</PageHeading>
-      <p class="text-muted">{description}</p>
-      <PostTerms category={category} tags={tags} />
-    </header>
+    </div>
     <Prose>
       <slot />
     </Prose>
+    <PostTerms category={category} tags={tags} />
   </article>
 </Layout>

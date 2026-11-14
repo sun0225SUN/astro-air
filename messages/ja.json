@@ -1,14 +1,10 @@
 {
   "nav": {
     "primary": "メイン",
-    "languages": "言語",
     "home": "ホーム",
     "blog": "ブログ"
   },
   "home": {
-    "posts": "記事",
-    "pages": "ページ",
-    "allPosts": "すべての記事",
     "empty": "記事はまだありません。"
   },
   "site": {
@@ -16,13 +12,13 @@
   },
   "blog": {
     "description": "Astro Air の記事。",
+    "latest": "最近の記事",
     "categories": "カテゴリー",
     "categoriesDescription": "すべてのカテゴリー。",
     "categoryDescription": "「{name}」の記事。",
     "tags": "タグ",
     "tagsDescription": "すべてのタグ。",
-    "tagDescription": "「{name}」タグの記事。",
-    "count": "{count} 件"
+    "tagDescription": "「{name}」タグの記事。"
   },
   "post": {
     "updated": "更新",
@@ -34,9 +30,5 @@
     "title": "ページが見つかりません",
     "body": "お探しのページはありません。",
     "home": "ホームへ戻る"
-  },
-  "theme": {
-    "toDark": "ダークモードに切り替え",
-    "toLight": "ライトモードに切り替え"
   }
 }
