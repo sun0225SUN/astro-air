@@ -26,17 +26,19 @@ const canonical = Astro.site ? new URL(publicPath, Astro.site) : undefined
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={lang} class:list={[config.handwriting && 'handwriting']}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <link
-      rel="preload"
-      href="/fonts/Snell-Black-SF.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
+    {!config.handwriting && (
+      <link
+        rel='preload'
+        href='/fonts/Snell-Black-SF.woff2'
+        as='font'
+        type='font/woff2'
+        crossorigin
+      />
+    )}
     <script is:inline>
       const setTheme = () => {
         let theme = 'light'

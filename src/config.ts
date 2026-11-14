@@ -7,6 +7,8 @@ export const config = {
     // A positive integer, or 'all' to show every post.
     perPage: 10,
   } satisfies { perPage: number | 'all' },
+  // Excalifont for Latin. Xiaolai, slightly larger, for other scripts.
+  handwriting: true,
   nav: [
     'home',
     'archive',
