@@ -1,6 +1,6 @@
 import { type CollectionEntry, getCollection } from 'astro:content'
 import { getRelativeLocaleUrl } from 'astro:i18n'
-import { isLocale, type Locale } from '../i18n/ui'
+import { isLocale, type Locale } from '../i18n'
 
 function isPublished(data: { draft?: boolean }) {
   return import.meta.env.PROD ? data.draft !== true : true
