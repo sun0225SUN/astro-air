@@ -12,6 +12,7 @@
         "dayjs": "^1.11.23",
         "reading-time": "^1.5.0",
         "satteri": "^0.11.7",
+        "yaml": "2.9.1",
       },
       "devDependencies": {
         "@biomejs/biome": "2.6.2",

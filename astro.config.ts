@@ -2,13 +2,14 @@ import { satteri } from '@astrojs/markdown-satteri'
 import mdx from '@astrojs/mdx'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'astro/config'
+import { config } from './src/config'
 import { defaultLang, locales } from './src/i18n'
 import { mdastModifiedTimePlugin } from './src/mdast/mdast-modified-time'
 import { mdastReadingTimePlugin } from './src/mdast/mdast-reading-time'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://astro-air.guoqi.dev',
+  site: config.url,
   integrations: [mdx()],
   vite: {
     plugins: [tailwindcss()],

@@ -1,7 +1,7 @@
 import { getCollection } from 'astro:content'
 import rss from '@astrojs/rss'
 import type { APIContext } from 'astro'
-import { SITE_TITLE } from '../consts'
+import { config } from '../config'
 import en from '../../messages/en.json'
 import { entrySlug } from '../lib/content'
 
@@ -26,7 +26,7 @@ export async function GET(context: APIContext) {
     })
 
   return rss({
-    title: SITE_TITLE,
+    title: config.title,
     description: en.site.description,
     site: context.site,
     items,

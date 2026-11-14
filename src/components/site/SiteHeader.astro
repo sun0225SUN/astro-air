@@ -1,6 +1,6 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n'
-import { SITE_TITLE } from '../../consts'
+import { config } from '../../config'
 import { useTranslations } from '../../i18n'
 import { localeFromParam } from '../../lib/content'
 import LanguageNav from './LanguageNav.astro'
@@ -13,7 +13,7 @@ const t = useTranslations(lang)
 
 <a class="skip-link visually-hidden" href="#content">{t('skip')}</a>
 <header class="site-header">
-  <a class="brand" href={getRelativeLocaleUrl(lang)}>{SITE_TITLE}</a>
+  <a class="brand" href={getRelativeLocaleUrl(lang)}>{config.title}</a>
   <PrimaryNav />
   <LanguageNav />
   <ThemeToggle />

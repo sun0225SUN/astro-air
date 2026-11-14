@@ -2,7 +2,7 @@
 import { getRelativeLocaleUrl } from 'astro:i18n'
 import PostList from '../../components/blog/PostList.astro'
 import PageList from '../../components/content/PageList.astro'
-import { SITE_TITLE } from '../../consts'
+import { config } from '../../config'
 import { locales, useTranslations } from '../../i18n'
 import Layout from '../../layouts/Layout.astro'
 import { localeFromParam } from '../../lib/content'
@@ -15,8 +15,8 @@ const lang = localeFromParam(Astro.currentLocale ?? Astro.params.lang)
 const t = useTranslations(lang)
 ---
 
-<Layout title={SITE_TITLE} description={t('site.description')}>
-  <h1 id="content" tabindex="-1">{SITE_TITLE}</h1>
+<Layout title={config.title} description={t('site.description')}>
+  <h1 id="content" tabindex="-1">{config.title}</h1>
   <p class="lede">{t('site.description')}</p>
 
   <section aria-labelledby="posts-heading">
