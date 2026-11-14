@@ -30,34 +30,42 @@ import Sun from '@lucide/astro/icons/sun'
     storeTheme(theme)
   }
 
-  themeButton?.addEventListener('click', () => {
-    const next = document.documentElement.classList.contains('dark')
-      ? 'light'
-      : 'dark'
-    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduceMotion || !document.startViewTransition) {
-      applyTheme(next)
-      return
-    }
+  if (themeButton && themeButton.dataset.bound !== 'true') {
+    themeButton.dataset.bound = 'true'
+    themeButton.addEventListener('click', () => {
+      const next = document.documentElement.classList.contains('dark')
+        ? 'light'
+        : 'dark'
+      const reduceMotion = matchMedia(
+        '(prefers-reduced-motion: reduce)',
+      ).matches
+      if (reduceMotion || !document.startViewTransition) {
+        applyTheme(next)
+        return
+      }
 
-    const root = document.documentElement
-    root.style.setProperty('view-transition-name', 'theme-toggle-transition')
-    root.setAttribute('data-theme-changing', '')
-    const transition = document.startViewTransition(() => applyTheme(next))
-    transition.finished.then(() => {
-      root.style.removeProperty('view-transition-name')
-      root.removeAttribute('data-theme-changing')
+      const root = document.documentElement
+      root.style.setProperty('view-transition-name', 'theme-toggle-transition')
+      root.setAttribute('data-theme-changing', '')
+      const transition = document.startViewTransition(() => applyTheme(next))
+      transition.finished.then(() => {
+        root.style.removeProperty('view-transition-name')
+        root.removeAttribute('data-theme-changing')
+      })
     })
-  })
+  }
 
-  window.addEventListener('storage', (event) => {
-    if (event.key !== 'theme') return
-    const theme =
-      event.newValue === 'dark' || event.newValue === 'light'
-        ? event.newValue
-        : themeMedia.matches
-          ? 'dark'
-          : 'light'
-    document.documentElement.classList.toggle('dark', theme === 'dark')
-  })
+  if (!window.__themeStorageBound) {
+    window.__themeStorageBound = true
+    window.addEventListener('storage', (event) => {
+      if (event.key !== 'theme') return
+      const theme =
+        event.newValue === 'dark' || event.newValue === 'light'
+          ? event.newValue
+          : themeMedia.matches
+            ? 'dark'
+            : 'light'
+      document.documentElement.classList.toggle('dark', theme === 'dark')
+    })
+  }
 </script>

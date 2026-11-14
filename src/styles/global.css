@@ -5,7 +5,7 @@
 @font-face {
   font-family: Snell-Black;
   src: url("/fonts/Snell-Black-SF.woff2") format("woff2");
-  font-display: swap;
+  font-display: optional;
   font-weight: 700;
   unicode-range:
     U+0020-007E, U+00A1-00A3, U+00A5, U+00A7-00AB, U+00AE-00B0,
@@ -86,4 +86,52 @@ article :not(pre) > code {
 article code::before,
 article code::after {
   content: none;
+}
+
+html[data-theme-changing] [data-astro-transition-scope],
+html[data-theme-changing] [data-disable-theme-toggle-transition] {
+  view-transition-name: none !important;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#post-content > * {
+  opacity: 0;
+  animation: fade-in-up 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+#post-content > *:nth-child(1) {
+  animation-delay: 0.12s;
+}
+#post-content > *:nth-child(2) {
+  animation-delay: 0.18s;
+}
+#post-content > *:nth-child(3) {
+  animation-delay: 0.24s;
+}
+#post-content > *:nth-child(4) {
+  animation-delay: 0.3s;
+}
+#post-content > *:nth-child(5) {
+  animation-delay: 0.36s;
+}
+#post-content > *:nth-child(n + 6) {
+  animation-delay: 0.42s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #post-content > * {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
 }

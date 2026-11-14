@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions'
 import LocaleAlternates from '../components/site/LocaleAlternates.astro'
 import PrimaryNav from '../components/site/PrimaryNav.astro'
 import SiteFooter from '../components/site/SiteFooter.astro'
@@ -25,6 +26,13 @@ const canonical = Astro.site
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <link
+      rel="preload"
+      href="/fonts/Snell-Black-SF.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <script is:inline>
       const setTheme = () => {
         let theme = 'light'
@@ -42,7 +50,25 @@ const canonical = Astro.site
         document.documentElement.classList.toggle('dark', theme === 'dark')
       }
       setTheme()
+      document.addEventListener('astro:before-swap', (event) => {
+        const root = event.newDocument?.documentElement
+        if (!root) return
+        let theme = 'light'
+        try {
+          theme =
+            localStorage.getItem('theme') ??
+            (matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light')
+        } catch {
+          theme = matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light'
+        }
+        root.classList.toggle('dark', theme === 'dark')
+      })
     </script>
+    <ClientRouter fallback="none" />
     <link
       rel="alternate"
       type="application/rss+xml"

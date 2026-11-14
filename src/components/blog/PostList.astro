@@ -38,40 +38,60 @@ if (variant === 'archive') {
   ? [...groups.keys()].map((year) => (
       <div class='my-8'>
         <h2 class='my-4 text-2xl font-bold'>{year}</h2>
-        {groups.get(year)?.map((post) => (
-          <a
-            href={getRelativeLocaleUrl(lang, `blog/${entrySlug(post.id)}`)}
-            class='my-3 flex visited:text-[VisitedText] md:my-2'
-          >
-            <p
-              class:list={[
-                'flex shrink-0 truncate text-gray-500 dark:text-gray-400',
-                dateWidth,
-              ]}
+        {groups.get(year)?.map((post) => {
+          const slug = entrySlug(post.id).replaceAll('/', '-')
+          return (
+            <a
+              href={getRelativeLocaleUrl(lang, `blog/${slug}`)}
+              class='my-3 flex visited:text-[VisitedText] md:my-2'
             >
-              <FormattedDate date={post.data.pubDate} format={dateFormat} />
-            </p>
-            <p class='line-clamp-2 text-lg hover:underline'>
-              {post.data.title}
-            </p>
-          </a>
-        ))}
+              <p
+                class:list={[
+                  'flex shrink-0 truncate text-gray-500 dark:text-gray-400',
+                  dateWidth,
+                ]}
+                transition:name={`time-${lang}-${slug}`}
+                data-disable-theme-toggle-transition
+              >
+                <FormattedDate date={post.data.pubDate} format={dateFormat} />
+              </p>
+              <p
+                class='line-clamp-2 text-lg hover:underline'
+                transition:name={`post-${lang}-${slug}`}
+                data-disable-theme-toggle-transition
+              >
+                {post.data.title}
+              </p>
+            </a>
+          )
+        })}
       </div>
     ))
-  : posts.map((post) => (
-      <a
-        href={getRelativeLocaleUrl(lang, `blog/${entrySlug(post.id)}`)}
-        class='my-3 flex visited:text-[VisitedText] md:my-2'
-      >
-        <p
-          class:list={[
-            'flex shrink-0 truncate text-gray-500 dark:text-gray-400',
-            dateWidth,
-          ]}
+  : posts.map((post) => {
+      const slug = entrySlug(post.id).replaceAll('/', '-')
+      return (
+        <a
+          href={getRelativeLocaleUrl(lang, `blog/${slug}`)}
+          class='my-3 flex visited:text-[VisitedText] md:my-2'
         >
-          <FormattedDate date={post.data.pubDate} format={dateFormat} />
-        </p>
-        <p class='line-clamp-2 text-lg hover:underline'>{post.data.title}</p>
-      </a>
-    ))}
+          <p
+            class:list={[
+              'flex shrink-0 truncate text-gray-500 dark:text-gray-400',
+              dateWidth,
+            ]}
+            transition:name={`time-${lang}-${slug}`}
+            data-disable-theme-toggle-transition
+          >
+            <FormattedDate date={post.data.pubDate} format={dateFormat} />
+          </p>
+          <p
+            class='line-clamp-2 text-lg hover:underline'
+            transition:name={`post-${lang}-${slug}`}
+            data-disable-theme-toggle-transition
+          >
+            {post.data.title}
+          </p>
+        </a>
+      )
+    })}
 {posts.length === 0 && <p class='text-gray-500'>{t('home.empty')}</p>}

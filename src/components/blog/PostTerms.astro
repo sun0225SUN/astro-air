@@ -3,27 +3,15 @@ import { getRelativeLocaleUrl } from 'astro:i18n'
 import { localeFromParam, taxonomySlug } from '../../lib/content'
 
 interface Props {
-  category?: string
   tags?: string[]
 }
 
-const { category, tags = [] } = Astro.props
+const { tags = [] } = Astro.props
 const lang = localeFromParam(Astro.currentLocale)
 ---
 
-{(category || tags.length > 0) && (
+{tags.length > 0 && (
   <div class='space-x-3 pb-10 text-sm text-gray-500'>
-    {category && (
-      <a
-        href={getRelativeLocaleUrl(
-          lang,
-          `blog/category/${taxonomySlug(category)}`,
-        )}
-        class='inline-block no-underline hover:scale-105'
-      >
-        {category}
-      </a>
-    )}
     {tags.map((tag) => (
       <a
         href={getRelativeLocaleUrl(lang, `blog/tag/${taxonomySlug(tag)}`)}

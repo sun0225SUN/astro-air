@@ -15,11 +15,19 @@ const t = useTranslations(lang)
   href="#content"
   >{t('skip')}</a
 >
-<header class="flex min-h-24 w-full items-center justify-between py-3">
-  <a href={getRelativeLocaleUrl(lang)} aria-label={config.title}>
-    <div class="inline-block pr-1 font-title text-3xl leading-none">
+<header class="flex h-24 w-full items-center justify-between">
+  <a
+    href={getRelativeLocaleUrl(lang)}
+    aria-label={config.title}
+    class="inline-flex h-12 items-center"
+  >
+    <span
+      class="font-title text-3xl leading-none"
+      transition:name={`site-title-${lang}`}
+      data-disable-theme-toggle-transition
+    >
       {config.title}
-    </div>
+    </span>
   </a>
   <div class="flex items-center gap-6">
     <LanguageNav />
