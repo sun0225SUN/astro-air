@@ -1,12 +1,42 @@
 :root {
-  color-scheme: light;
-  --ink: #1c1917;
-  --muted: #57534e;
-  --line: #e7e5e4;
-  --paper: #fafaf9;
-  --focus: #1c1917;
+  --ink-light: #1c1917;
+  --ink-dark: #f5f5f4;
+  --muted-light: #57534e;
+  --muted-dark: #a8a29e;
+  --line-light: #e7e5e4;
+  --line-dark: #44403c;
+  --paper-light: #fafaf9;
+  --paper-dark: #1c1917;
+  --ink: var(--ink-light);
+  --muted: var(--muted-light);
+  --line: var(--line-light);
+  --paper: var(--paper-light);
+  --focus: var(--ink);
+  color-scheme: light dark;
   font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
   line-height: 1.6;
+
+  @media (prefers-color-scheme: dark) {
+    --ink: var(--ink-dark);
+    --muted: var(--muted-dark);
+    --line: var(--line-dark);
+    --paper: var(--paper-dark);
+  }
+
+  @supports (color: light-dark(white, black)) {
+    --ink: light-dark(var(--ink-light), var(--ink-dark));
+    --muted: light-dark(var(--muted-light), var(--muted-dark));
+    --line: light-dark(var(--line-light), var(--line-dark));
+    --paper: light-dark(var(--paper-light), var(--paper-dark));
+  }
+}
+
+:root:has(> head > meta[name="color-scheme"][content="dark"]) {
+  color-scheme: dark;
+}
+
+:root:has(> head > meta[name="color-scheme"][content="light"]) {
+  color-scheme: light;
 }
 
 *,
@@ -89,6 +119,38 @@ a:hover {
 
 .languages {
   font-size: 0.95rem;
+}
+
+.theme-toggle {
+  border: 0;
+  padding: 0.2rem;
+  background: transparent;
+  color: inherit;
+  line-height: 0;
+}
+
+.theme-to-dark,
+.theme-to-light {
+  display: none;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:has(> head > meta[name="color-scheme"][content="light dark"])
+    .theme-to-dark {
+    display: inline-flex;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:has(> head > meta[name="color-scheme"][content="light dark"])
+    .theme-to-light {
+    display: inline-flex;
+  }
+}
+
+:root:has(> head > meta[name="color-scheme"][content="light"]) .theme-to-dark,
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .theme-to-light {
+  display: inline-flex;
 }
 
 .page {

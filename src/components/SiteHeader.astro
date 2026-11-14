@@ -9,6 +9,7 @@ import {
   localeFromParam,
   localeHref,
 } from '../lib/content'
+import ThemeToggle from './ThemeToggle.astro'
 
 const lang = localeFromParam(Astro.currentLocale)
 const path = contentPath(Astro.url.pathname, lang)
@@ -69,4 +70,5 @@ const languageLinks = await Promise.all(
       ))}
     </ul>
   </nav>
+  <ThemeToggle />
 </header>

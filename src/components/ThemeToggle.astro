@@ -1,0 +1,71 @@
+---
+import { useTranslations } from '../i18n/ui'
+import { localeFromParam } from '../lib/content'
+
+const t = useTranslations(localeFromParam(Astro.currentLocale))
+---
+
+<button type="button" id="theme-toggle" class="theme-toggle">
+  <span class="theme-to-dark">
+    <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20">
+      <circle cx="12" cy="12" r="4" fill="currentColor"></circle>
+      <path
+        fill="currentColor"
+        d="M12 2.5v2.2M12 19.3v2.2M4.8 4.8l1.6 1.6M17.6 17.6l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.8 19.2l1.6-1.6M17.6 6.4l1.6-1.6"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+      ></path>
+    </svg>
+    <span class="visually-hidden">{t('theme.toDark')}</span>
+  </span>
+  <span class="theme-to-light">
+    <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20">
+      <path
+        fill="currentColor"
+        d="M15.5 3.5a8.5 8.5 0 1 0 5 13.2A7 7 0 0 1 15.5 3.5z"
+      ></path>
+    </svg>
+    <span class="visually-hidden">{t('theme.toLight')}</span>
+  </span>
+</button>
+<script is:inline>
+  const themeMeta = document.querySelector('meta[name="color-scheme"]')
+  const themeButton = document.getElementById('theme-toggle')
+  const themeMedia = matchMedia('(prefers-color-scheme: dark)')
+
+  function renderedScheme() {
+    if (themeMeta.content === 'dark' || themeMeta.content === 'light') {
+      return themeMeta.content
+    }
+    return themeMedia.matches ? 'dark' : 'light'
+  }
+
+  function applyScheme(value) {
+    try {
+      if (value === 'light' || value === 'dark') {
+        localStorage.setItem('color-scheme', value)
+      } else {
+        localStorage.removeItem('color-scheme')
+      }
+    } catch {
+      // The theme still applies for this page when storage is blocked.
+    }
+    themeMeta.content =
+      value === 'light' || value === 'dark' ? value : 'light dark'
+  }
+
+  themeButton?.addEventListener('click', () => {
+    const target = renderedScheme() === 'dark' ? 'light' : 'dark'
+    const system = themeMedia.matches ? 'dark' : 'light'
+    applyScheme(target === system ? 'system' : target)
+  })
+
+  window.addEventListener('storage', (event) => {
+    if (event.key !== 'color-scheme') return
+    themeMeta.content =
+      event.newValue === 'light' || event.newValue === 'dark'
+        ? event.newValue
+        : 'light dark'
+  })
+</script>

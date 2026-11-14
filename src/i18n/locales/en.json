@@ -25,5 +25,9 @@
     "title": "Page not found",
     "body": "The page you requested is not here.",
     "home": "Go home"
+  },
+  "theme": {
+    "toDark": "Switch to dark theme",
+    "toLight": "Switch to light theme"
   }
 }
