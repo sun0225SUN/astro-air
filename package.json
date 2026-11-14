@@ -19,6 +19,7 @@
     "@astrojs/mdx": "^8.1.6",
     "astro": "^7.4.12",
     "dayjs": "^1.11.23",
+    "reading-time": "^1.5.0",
     "satteri": "^0.11.7"
   },
   "config": {

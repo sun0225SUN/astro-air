@@ -26,8 +26,16 @@ const lastModified =
   typeof remarkPluginFrontmatter.lastModified === 'string'
     ? remarkPluginFrontmatter.lastModified
     : undefined
+const readingMinutes =
+  typeof remarkPluginFrontmatter.readingMinutes === 'number'
+    ? remarkPluginFrontmatter.readingMinutes
+    : undefined
 ---
 
-<BlogPost {...post.data} lastModified={lastModified}>
+<BlogPost
+  {...post.data}
+  lastModified={lastModified}
+  readingMinutes={readingMinutes}
+>
   <Content />
 </BlogPost>

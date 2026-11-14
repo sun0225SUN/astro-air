@@ -19,7 +19,8 @@
   },
   "post": {
     "updated": "업데이트",
-    "lastModified": "마지막 수정"
+    "lastModified": "마지막 수정",
+    "readingTime": "약 {minutes}분 소요"
   },
   "skip": "본문으로 건너뛰기",
   "notFound": {

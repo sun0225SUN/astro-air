@@ -3,6 +3,7 @@ import mdx from '@astrojs/mdx'
 import { defineConfig } from 'astro/config'
 import { defaultLang, locales } from './src/i18n/ui'
 import { mdastModifiedTimePlugin } from './src/mdast/mdast-modified-time'
+import { mdastReadingTimePlugin } from './src/mdast/mdast-reading-time'
 
 // https://astro.build/config
 export default defineConfig({
@@ -10,7 +11,7 @@ export default defineConfig({
   integrations: [mdx()],
   markdown: {
     processor: satteri({
-      mdastPlugins: [mdastModifiedTimePlugin],
+      mdastPlugins: [mdastModifiedTimePlugin, mdastReadingTimePlugin],
     }),
   },
   i18n: {

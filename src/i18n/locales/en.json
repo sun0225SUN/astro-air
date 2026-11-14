@@ -19,7 +19,8 @@
   },
   "post": {
     "updated": "Updated",
-    "lastModified": "Last modified"
+    "lastModified": "Last modified",
+    "readingTime": "{minutes} min read"
   },
   "skip": "Skip to content",
   "notFound": {

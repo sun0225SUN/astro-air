@@ -14,9 +14,17 @@ dayjs.extend(utc)
 
 type Props = CollectionEntry<'blog'>['data'] & {
   lastModified?: string
+  readingMinutes?: number
 }
 
-const { title, description, pubDate, updatedDate, lastModified } = Astro.props
+const {
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  lastModified,
+  readingMinutes,
+} = Astro.props
 const lang = localeFromParam(Astro.currentLocale)
 const t = useTranslations(lang)
 const modified = lastModified ? dayjs(lastModified) : undefined
@@ -33,6 +41,12 @@ const modifiedLabel = modified?.isValid()
     <header>
       <p class="meta">
         <FormattedDate date={pubDate} />
+        {readingMinutes && (
+          <>
+            {' · '}
+            {t('post.readingTime').replace('{minutes}', String(readingMinutes))}
+          </>
+        )}
       </p>
       {updatedDate && (
         <p class='meta'>

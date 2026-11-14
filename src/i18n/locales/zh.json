@@ -19,7 +19,8 @@
   },
   "post": {
     "updated": "更新于",
-    "lastModified": "最后修改于"
+    "lastModified": "最后修改于",
+    "readingTime": "阅读约 {minutes} 分钟"
   },
   "skip": "跳到内容",
   "notFound": {

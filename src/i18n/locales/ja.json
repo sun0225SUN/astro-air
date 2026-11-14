@@ -19,7 +19,8 @@
   },
   "post": {
     "updated": "更新",
-    "lastModified": "最終更新"
+    "lastModified": "最終更新",
+    "readingTime": "約 {minutes} 分で読めます"
   },
   "skip": "本文へ移動",
   "notFound": {
