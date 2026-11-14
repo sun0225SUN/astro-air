@@ -1,11 +1,16 @@
 ---
+import { getRelativeLocaleUrl } from 'astro:i18n'
 import { useTranslations } from '../../i18n'
-import { localeFromParam } from '../../lib/content'
+import { contentPath, localeFromParam } from '../../lib/content'
 import { navLinks } from '../../lib/nav'
 
 const lang = localeFromParam(Astro.currentLocale)
 const t = useTranslations(lang)
-const current = Astro.url.pathname.replace(/\/$/, '') || '/'
+const current =
+  getRelativeLocaleUrl(lang, contentPath(Astro.url.pathname, lang)).replace(
+    /\/$/,
+    '',
+  ) || '/'
 const links = await navLinks(lang)
 
 function currentPage(href: string) {

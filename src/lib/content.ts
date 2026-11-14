@@ -1,6 +1,6 @@
 import { type CollectionEntry, getCollection } from 'astro:content'
 import { getRelativeLocaleUrl } from 'astro:i18n'
-import { isLocale, type Locale } from '../i18n'
+import { defaultLang, isLocale, type Locale } from '../i18n'
 import { pageCount } from './pagination'
 
 function isPublished(data: { draft?: boolean }) {
@@ -161,9 +161,15 @@ export async function hasLocalePath(locale: Locale, path: string) {
 }
 
 export function contentPath(pathname: string, locale: Locale) {
+  const normalized = pathname.replace(/\/+$/, '') || '/'
   const prefix = `/${locale}`
-  if (pathname !== prefix && !pathname.startsWith(`${prefix}/`)) return ''
-  return pathname.slice(prefix.length).replace(/^\/+|\/+$/g, '')
+  if (normalized === prefix || normalized.startsWith(`${prefix}/`)) {
+    return normalized.slice(prefix.length).replace(/^\/+/, '')
+  }
+  if (locale !== defaultLang) return ''
+  const segment = normalized.split('/').filter(Boolean)[0]
+  if (segment && isLocale(segment)) return ''
+  return normalized.replace(/^\//, '')
 }
 
 export async function localeHref(locale: Locale, path: string) {

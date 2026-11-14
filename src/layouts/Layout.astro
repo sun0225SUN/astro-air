@@ -1,4 +1,5 @@
 ---
+import { getRelativeLocaleUrl } from 'astro:i18n'
 import { ClientRouter } from 'astro:transitions'
 import LocaleAlternates from '../components/site/LocaleAlternates.astro'
 import PrimaryNav from '../components/site/PrimaryNav.astro'
@@ -6,7 +7,7 @@ import SiteFooter from '../components/site/SiteFooter.astro'
 import SiteHeader from '../components/site/SiteHeader.astro'
 import Umami from '../components/site/Umami.astro'
 import { config } from '../config'
-import { localeFromParam } from '../lib/content'
+import { contentPath, localeFromParam } from '../lib/content'
 import '../styles/global.css'
 
 interface Props {
@@ -17,9 +18,11 @@ interface Props {
 const { title, description } = Astro.props
 const lang = localeFromParam(Astro.currentLocale)
 const pageTitle = title === config.title ? title : `${config.title} - ${title}`
-const canonical = Astro.site
-  ? new URL(Astro.url.pathname, Astro.site)
-  : undefined
+const publicPath = getRelativeLocaleUrl(
+  lang,
+  contentPath(Astro.url.pathname, lang),
+)
+const canonical = Astro.site ? new URL(publicPath, Astro.site) : undefined
 ---
 
 <!doctype html>

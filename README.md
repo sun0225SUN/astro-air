@@ -30,7 +30,7 @@ bun install
 bun dev
 ```
 
-`/` redirects to the default locale. With the sample config, that is `/en/`.
+`defaultLocale` in `src/config.ts` is served at `/`, with no language prefix. The other locales keep a prefix, such as `/zh/` when English is the default. Changing `defaultLocale` moves that language to the domain root. There is no redirect page.
 
 | Command | Purpose |
 | --- | --- |
