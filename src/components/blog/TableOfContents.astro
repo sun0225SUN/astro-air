@@ -2,7 +2,6 @@
 import type { MarkdownHeading } from 'astro'
 import { useTranslations } from '../../i18n'
 import { localeFromParam } from '../../lib/content'
-import TocList, { type TocNode } from './TocList.astro'
 
 interface Props {
   headings: MarkdownHeading[]
@@ -10,148 +9,235 @@ interface Props {
 
 const { headings } = Astro.props
 const t = useTranslations(localeFromParam(Astro.currentLocale))
-
-function tocTree(items: MarkdownHeading[]) {
-  const root: TocNode[] = []
-  const stack: { depth: number; children: TocNode[] }[] = [
-    { depth: 1, children: root },
-  ]
-  for (const heading of items) {
-    if (heading.depth < 2 || heading.depth > 4) continue
-    const node: TocNode = { ...heading, children: [] }
-    while (stack.length > 1 && (stack.at(-1)?.depth ?? 0) >= heading.depth) {
-      stack.pop()
-    }
-    stack.at(-1)?.children.push(node)
-    stack.push(node)
-  }
-  return root
-}
-
-const items = tocTree(headings)
+const items = headings.filter(
+  (heading) => heading.depth >= 2 && heading.depth <= 3,
+)
 ---
 
 {items.length > 0 && (
-  <div class='toc pointer-events-none fixed top-1/2 z-20 hidden max-h-[80vh] w-[calc((90vw-48rem)/2)] -translate-y-1/2 overflow-y-auto [scrollbar-width:none] xl:block [&::-webkit-scrollbar]:hidden left-[calc((100vw+48rem)/2)]'>
-    <nav class='toc-nav pointer-events-auto p-6' aria-label={t('post.toc')}>
-      <TocList items={items} />
+  <div class='toc-container' id='toc'>
+    <nav class='toc-nav' aria-label={t('post.toc')}>
+      <ul class='toc-list'>
+        <li class='toc-item toc-level-0'>
+          <a
+            href='#content'
+            class='toc-link toc-title'
+            data-text={t('post.backToTop')}
+          >
+            {t('post.backToTop')}
+          </a>
+        </li>
+        {items.map((heading) => (
+          <li class={`toc-item toc-level-${heading.depth - 1}`}>
+            <a
+              href={`#${heading.slug}`}
+              class='toc-link'
+              data-text={heading.text}
+            >
+              {heading.text}
+            </a>
+          </li>
+        ))}
+      </ul>
     </nav>
   </div>
 )}
 
 <style>
-  .toc-nav a {
+  .toc-container {
+    display: none;
+  }
+
+  @media (min-width: 1400px) {
+    .toc-container {
+      position: fixed;
+      top: 50%;
+      left: calc(50% + 30rem);
+      z-index: 20;
+      display: block;
+      width: 11rem;
+      transform: translateY(-50%);
+    }
+  }
+
+  .toc-list,
+  .toc-item {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .toc-link {
+    position: relative;
+    display: block;
+    height: 1.125rem;
+    overflow: hidden;
     color: transparent;
+    font-size: 0;
+    line-height: 1.125rem;
+    white-space: nowrap;
+    text-decoration: none;
+    text-indent: 1.35rem;
+    text-overflow: ellipsis;
+    cursor: pointer;
   }
 
-  .toc-nav:hover a,
-  .toc-nav a:focus-visible {
-    color: #a3a3a3;
+  .toc-link::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 1rem;
+    height: 1px;
+    background: #a3a3a3;
+    opacity: 0.9;
+    transform: translateY(-50%);
+    transition:
+      width 0.1s ease-out,
+      opacity 0.1s ease-out;
   }
 
-  .toc-nav a.active,
-  .toc-nav a:hover {
+  .toc-link::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 1.35rem;
+    max-width: calc(100% - 1.35rem);
+    overflow: hidden;
+    color: #171717;
+    font-size: 0.8rem;
+    line-height: 1.125rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease-out;
+  }
+
+  :global(.dark) .toc-link::after {
+    color: #fff;
+  }
+
+  .toc-link:hover::after,
+  .toc-link:focus-visible::after {
+    opacity: 1;
+  }
+
+  .toc-link:hover::before,
+  .toc-link.active::before {
+    width: 0.55rem;
+    opacity: 1;
+    background: var(--color-accent);
+  }
+
+  .toc-link.active {
     color: inherit;
   }
 
-  .toc-nav a.active::before,
-  .toc-nav a:hover::before {
-    background-color: currentColor;
+  @media (prefers-reduced-motion: reduce) {
+    .toc-link,
+    .toc-link::before,
+    .toc-link::after {
+      transition: none;
+    }
   }
 </style>
 
 <script>
-  const tocNav = document.querySelector('.toc-nav')
-  if (tocNav) {
-    const tocLinks = Array.from(tocNav.querySelectorAll('a'))
-    const idToLink = new Map()
-    const headings = []
-    const seen = new Set()
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 
-    for (const link of tocLinks) {
-      const hash = link.hash || link.getAttribute('href')
-      if (hash?.charAt(0) !== '#') continue
-      const id = decodeURIComponent(hash.slice(1))
-      idToLink.set(id, link)
-      if (seen.has(id)) continue
-      const heading = document.getElementById(id)
-      if (!heading) continue
-      headings.push(heading)
-      seen.add(id)
-    }
+  function scrollToTarget(element) {
+    const behavior = reducedMotion.matches ? 'auto' : 'smooth'
+    const result = /** @type {unknown} */ (
+      element.scrollIntoView({ behavior, block: 'start' })
+    )
+    if (result instanceof Promise) return result
 
-    const offset = 100
-    let currentActive = null
-    let currentChain = []
-
-    function buildChain(link) {
-      const chain = []
-      if (!link) return chain
-      chain.push(link)
-      let item = link.closest('li')
-      while (item) {
-        const parent = item.parentElement
-          ? item.parentElement.closest('li')
-          : null
-        const parentLink = parent?.querySelector('a')
-        if (parentLink) chain.push(parentLink)
-        item = parent
+    return new Promise((resolve) => {
+      let timeoutId = 0
+      const finish = () => {
+        window.clearTimeout(timeoutId)
+        window.removeEventListener('scrollend', finish)
+        window.removeEventListener('scroll', onScroll)
+        resolve()
       }
-      return chain
-    }
-
-    function applyActiveChain(link) {
-      if (link === currentActive) return
-      const nextChain = buildChain(link)
-      for (const item of currentChain) {
-        if (!nextChain.includes(item)) item.classList.remove('active')
+      const onScroll = () => {
+        window.clearTimeout(timeoutId)
+        timeoutId = window.setTimeout(finish, 100)
       }
-      for (const item of nextChain) item.classList.add('active')
-      currentActive = link
-      currentChain = nextChain
-    }
+      window.addEventListener('scrollend', finish, { once: true })
+      window.addEventListener('scroll', onScroll, { passive: true })
+      timeoutId = window.setTimeout(finish, 100)
+    })
+  }
 
-    function updateActiveLink() {
-      let link = null
-      for (let index = headings.length - 1; index >= 0; index--) {
-        if (headings[index].getBoundingClientRect().top <= offset) {
-          link = idToLink.get(headings[index].id) ?? null
-          break
-        }
+  function bindToc(toc) {
+    if (toc.dataset.bound) return
+    toc.dataset.bound = 'true'
+
+    const links = Array.from(toc.querySelectorAll('.toc-link')).filter(
+      (link) => !link.classList.contains('toc-title'),
+    )
+    const headings = links.flatMap((link) => {
+      const id = decodeURIComponent((link.getAttribute('href') ?? '').slice(1))
+      const heading = id ? document.getElementById(id) : null
+      return heading ? [{ id, heading, link }] : []
+    })
+
+    function markActive() {
+      let active = headings[0]
+      for (const item of headings) {
+        if (item.heading.getBoundingClientRect().top <= 120) active = item
       }
-      applyActiveChain(link)
+      for (const item of headings) {
+        item.link.classList.toggle('active', item === active)
+      }
     }
 
     let ticking = false
-    function onScroll() {
+    const onScroll = () => {
+      if (!toc.isConnected) {
+        window.removeEventListener('scroll', onScroll)
+        return
+      }
       if (ticking) return
       ticking = true
       requestAnimationFrame(() => {
-        updateActiveLink()
+        markActive()
         ticking = false
       })
     }
 
-    tocNav.addEventListener('click', (event) => {
-      const link = event.target.closest('a')
-      if (!link || !tocNav.contains(link)) return
-      const hash = link.hash || link.getAttribute('href')
-      if (hash?.charAt(0) !== '#') return
-      const target = document.getElementById(decodeURIComponent(hash.slice(1)))
-      if (!target) return
-      event.preventDefault()
-      const reduceMotion = matchMedia(
-        '(prefers-reduced-motion: reduce)',
-      ).matches
-      target.scrollIntoView({
-        behavior: reduceMotion ? 'auto' : 'smooth',
-        block: 'start',
-      })
-      applyActiveChain(link)
-    })
-
     window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll, { passive: true })
-    updateActiveLink()
+    markActive()
+
+    let scrollId = 0
+    toc.addEventListener('click', async (event) => {
+      if (!(event.target instanceof Element)) return
+      const link = event.target.closest('a.toc-link')
+      if (!link) return
+      const href = link.getAttribute('href') ?? ''
+      if (!href.startsWith('#')) return
+      const id = decodeURIComponent(href.slice(1))
+      const target = id ? document.getElementById(id) : null
+      if (!target) return
+
+      event.preventDefault()
+      const current = ++scrollId
+      if (!target.hasAttribute('tabindex'))
+        target.setAttribute('tabindex', '-1')
+      history.pushState(null, '', href)
+      await scrollToTarget(target)
+      if (current !== scrollId) return
+      target.focus({ preventScroll: true })
+    })
   }
+
+  function initToc() {
+    const toc = document.querySelector('.toc-nav')
+    if (toc) bindToc(toc)
+  }
+
+  initToc()
+  document.addEventListener('astro:page-load', initToc)
 </script>
