@@ -88,9 +88,9 @@ git clone https://github.com/sun0225SUN/astro-air
 
 cd astro-air
 
-pnpm install
+bun install
 
-pnpm dev
+bun dev
 ```
 
 ## License
