@@ -43,7 +43,7 @@ const modifiedLabel = modified?.isValid()
 <Layout title={title} description={description}>
   <article>
     <header>
-      <p class="meta">
+      <p class="text-muted">
         <FormattedDate date={pubDate} />
         {readingMinutes && (
           <>
@@ -53,18 +53,24 @@ const modifiedLabel = modified?.isValid()
         )}
       </p>
       {updatedDate && (
-        <p class='meta'>
+        <p class='text-muted'>
           {t('post.updated')} <FormattedDate date={updatedDate} />
         </p>
       )}
       {modifiedLabel && lastModified && (
-        <p class='meta'>
+        <p class='text-muted'>
           {t('post.lastModified')}{' '}
           <time datetime={lastModified}>{modifiedLabel}</time>
         </p>
       )}
-      <h1 id="content" tabindex="-1">{title}</h1>
-      <p class="lede">{description}</p>
+      <h1
+        id="content"
+        class="mb-2 text-3xl leading-tight font-semibold"
+        tabindex="-1"
+      >
+        {title}
+      </h1>
+      <p class="text-muted">{description}</p>
       <PostTerms category={category} tags={tags} />
     </header>
     <Prose>

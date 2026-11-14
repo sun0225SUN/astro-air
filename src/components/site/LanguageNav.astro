@@ -15,10 +15,13 @@ const languageLinks = await Promise.all(
 ---
 
 <nav aria-label={t('nav.languages')}>
-  <ul class="languages">
+  <ul
+    class="m-0 flex list-none flex-wrap items-baseline gap-x-4 gap-y-1 p-0 text-sm"
+  >
     {languageLinks.map((link) => (
       <li>
         <a
+          class='underline-offset-4 aria-current:font-semibold aria-current:underline aria-current:decoration-2 forced-colors:aria-current:outline'
           href={link.href}
           hrefLang={link.locale}
           lang={link.locale}

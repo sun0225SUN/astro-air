@@ -17,19 +17,28 @@ const categories = await getCategories(lang)
   title={t('blog.categories')}
   description={t('blog.categoriesDescription')}
 >
-  <h1 id="content" tabindex="-1">{t('blog.categories')}</h1>
+  <h1
+    id="content"
+    class="mb-2 text-3xl leading-tight font-semibold"
+    tabindex="-1"
+  >
+    {t('blog.categories')}
+  </h1>
   {categories.length === 0 ? (
     <p>{t('home.empty')}</p>
   ) : (
-    <ul class='post-list' role='list'>
+    <ul class='m-0 list-none p-0' role='list'>
       {categories.map((category) => (
-        <li>
+        <li class='border-b border-line py-4'>
           <a
+            class='text-xl no-underline'
             href={getRelativeLocaleUrl(lang, `blog/category/${category.slug}`)}
           >
             {category.name}
           </a>
-          <p>{t('blog.count').replace('{count}', String(category.count))}</p>
+          <p class='text-muted'>
+            {t('blog.count').replace('{count}', String(category.count))}
+          </p>
         </li>
       ))}
     </ul>

@@ -11,9 +11,17 @@ const lang = localeFromParam(Astro.currentLocale)
 const t = useTranslations(lang)
 ---
 
-<a class="skip-link visually-hidden" href="#content">{t('skip')}</a>
-<header class="site-header">
-  <a class="brand" href={getRelativeLocaleUrl(lang)}>{config.title}</a>
+<a
+  class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-10 focus:bg-paper focus:px-2.5 focus:py-1.5"
+  href="#content"
+  >{t('skip')}</a
+>
+<header
+  class="mx-auto flex w-[min(42rem,calc(100%-2rem))] flex-wrap items-baseline justify-between gap-x-6 gap-y-3 border-b border-line py-5"
+>
+  <a class="font-semibold no-underline" href={getRelativeLocaleUrl(lang)}
+    >{config.title}</a
+  >
   <PrimaryNav />
   <LanguageNav />
   <ThemeToggle />

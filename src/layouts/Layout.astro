@@ -4,7 +4,6 @@ import SiteFooter from '../components/site/SiteFooter.astro'
 import SiteHeader from '../components/site/SiteHeader.astro'
 import { config } from '../config'
 import { localeFromParam } from '../lib/content'
-import '../styles/a11y.css'
 import '../styles/global.css'
 
 interface Props {
@@ -50,9 +49,11 @@ const canonical = Astro.site
     <title>{pageTitle}</title>
     <LocaleAlternates />
   </head>
-  <body>
+  <body
+    class="m-0 min-h-full bg-paper font-serif text-base leading-relaxed text-ink"
+  >
     <SiteHeader />
-    <div class="page">
+    <div class="mx-auto w-[min(42rem,calc(100%-2rem))] py-8 pb-12">
       <slot />
     </div>
     <SiteFooter />

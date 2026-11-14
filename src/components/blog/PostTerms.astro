@@ -12,9 +12,10 @@ const lang = localeFromParam(Astro.currentLocale)
 ---
 
 {(category || tags.length > 0) && (
-  <div class='terms'>
+  <div class='mt-1 flex flex-wrap items-baseline gap-x-3 gap-y-1'>
     {category && (
       <a
+        class='no-underline'
         href={getRelativeLocaleUrl(
           lang,
           `blog/category/${taxonomySlug(category)}`,
@@ -24,10 +25,14 @@ const lang = localeFromParam(Astro.currentLocale)
       </a>
     )}
     {tags.length > 0 && (
-      <ul class='term-list' role='list'>
+      <ul
+        class='m-0 flex list-none flex-wrap items-baseline gap-x-3 gap-y-1 p-0'
+        role='list'
+      >
         {tags.map((tag) => (
           <li>
             <a
+              class='no-underline'
               href={getRelativeLocaleUrl(lang, `blog/tag/${taxonomySlug(tag)}`)}
             >
               {tag}

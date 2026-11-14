@@ -14,17 +14,31 @@ const tags = await getTags(lang)
 ---
 
 <Layout title={t('blog.tags')} description={t('blog.tagsDescription')}>
-  <h1 id="content" tabindex="-1">{t('blog.tags')}</h1>
+  <h1
+    id="content"
+    class="mb-2 text-3xl leading-tight font-semibold"
+    tabindex="-1"
+  >
+    {t('blog.tags')}
+  </h1>
   {tags.length === 0 ? (
     <p>{t('home.empty')}</p>
   ) : (
-    <ul class='term-list' role='list'>
+    <ul
+      class='m-0 flex list-none flex-wrap items-baseline gap-x-3 gap-y-2 p-0'
+      role='list'
+    >
       {tags.map((tag) => (
-        <li>
-          <a href={getRelativeLocaleUrl(lang, `blog/tag/${tag.slug}`)}>
+        <li class='flex items-baseline gap-2'>
+          <a
+            class='no-underline'
+            href={getRelativeLocaleUrl(lang, `blog/tag/${tag.slug}`)}
+          >
             {tag.name}
           </a>
-          <span>{t('blog.count').replace('{count}', String(tag.count))}</span>
+          <span class='text-muted'>
+            {t('blog.count').replace('{count}', String(tag.count))}
+          </span>
         </li>
       ))}
     </ul>

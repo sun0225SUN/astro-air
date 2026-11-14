@@ -22,14 +22,17 @@ const posts = Astro.props.posts ?? (await getBlogPosts(lang))
 {posts.length === 0 ? (
   <p>{t('home.empty')}</p>
 ) : (
-  <ul class='post-list' role='list'>
+  <ul class='m-0 list-none p-0' role='list'>
     {posts.map((post) => (
-      <li>
-        <a href={getRelativeLocaleUrl(lang, `blog/${entrySlug(post.id)}`)}>
+      <li class='border-b border-line py-4'>
+        <a
+          class='text-xl no-underline'
+          href={getRelativeLocaleUrl(lang, `blog/${entrySlug(post.id)}`)}
+        >
           {post.data.title}
         </a>
-        <p>{post.data.description}</p>
-        <p class='meta'>
+        <p class='text-muted'>{post.data.description}</p>
+        <p class='text-muted'>
           <FormattedDate date={post.data.pubDate} />
         </p>
         <PostTerms category={post.data.category} tags={post.data.tags} />

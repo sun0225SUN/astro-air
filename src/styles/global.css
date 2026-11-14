@@ -1,268 +1,78 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-:root {
-  --ink-light: #1c1917;
-  --ink-dark: #f5f5f4;
-  --muted-light: #57534e;
-  --muted-dark: #a8a29e;
-  --line-light: #e7e5e4;
-  --line-dark: #44403c;
-  --paper-light: #fafaf9;
-  --paper-dark: #1c1917;
-  --ink: var(--ink-light);
-  --muted: var(--muted-light);
-  --line: var(--line-light);
-  --paper: var(--paper-light);
-  --focus: var(--ink);
-  color-scheme: light dark;
-  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-  line-height: 1.6;
+@theme {
+  --font-serif:
+    "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --color-ink: light-dark(#1c1917, #f5f5f4);
+  --color-muted: light-dark(#57534e, #a8a29e);
+  --color-line: light-dark(#e7e5e4, #44403c);
+  --color-paper: light-dark(#fafaf9, #1c1917);
+}
 
+@custom-variant scheme-light {
+  :root:has(> head > meta[name="color-scheme"][content="light"]) & {
+    @slot;
+  }
+}
+
+@custom-variant scheme-dark {
+  :root:has(> head > meta[name="color-scheme"][content="dark"]) & {
+    @slot;
+  }
+}
+
+@custom-variant system-light {
+  @media (prefers-color-scheme: light) {
+    :root:has(> head > meta[name="color-scheme"][content="light dark"]) & {
+      @slot;
+    }
+  }
+}
+
+@custom-variant system-dark {
   @media (prefers-color-scheme: dark) {
-    --ink: var(--ink-dark);
-    --muted: var(--muted-dark);
-    --line: var(--line-dark);
-    --paper: var(--paper-dark);
-  }
-
-  @supports (color: light-dark(white, black)) {
-    --ink: light-dark(var(--ink-light), var(--ink-dark));
-    --muted: light-dark(var(--muted-light), var(--muted-dark));
-    --line: light-dark(var(--line-light), var(--line-dark));
-    --paper: light-dark(var(--paper-light), var(--paper-dark));
+    :root:has(> head > meta[name="color-scheme"][content="light dark"]) & {
+      @slot;
+    }
   }
 }
 
-:root:has(> head > meta[name="color-scheme"][content="dark"]) {
-  color-scheme: dark;
-}
-
-:root:has(> head > meta[name="color-scheme"][content="light"]) {
-  color-scheme: light;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  margin: 0;
-  min-block-size: 100%;
-}
-
-body {
-  background: var(--paper);
-  color: var(--ink);
-}
-
-a {
-  color: inherit;
-}
-
-a:hover {
-  text-decoration-thickness: 2px;
-}
-
-:focus-visible {
-  outline: 2px solid var(--focus);
-  outline-offset: 3px;
-}
-
-.skip-link:focus {
-  position: fixed;
-  inset-block-start: 0.75rem;
-  inset-inline-start: 0.75rem;
-  z-index: 1;
-  padding: 0.4rem 0.7rem;
-  background: var(--paper);
-}
-
-.site-header,
-.site-footer,
-.page {
-  width: min(42rem, calc(100% - 2rem));
-  margin-inline: auto;
-}
-
-.site-header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.75rem 1.5rem;
-  padding-block: 1.25rem;
-  border-block-end: 1px solid var(--line);
-}
-
-.brand {
-  font-weight: 650;
-  text-decoration: none;
-}
-
-.site-header ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem 1rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.site-header a[aria-current="page"],
-.languages a[aria-current="true"] {
-  font-weight: 650;
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 0.2em;
-}
-
-.languages {
-  font-size: 0.95rem;
-}
-
-.theme-toggle {
-  border: 0;
-  padding: 0.2rem;
-  background: transparent;
-  color: inherit;
-  line-height: 0;
-}
-
-.theme-to-dark,
-.theme-to-light {
-  display: none;
-}
-
-@media (prefers-color-scheme: light) {
-  :root:has(> head > meta[name="color-scheme"][content="light dark"])
-    .theme-to-dark {
-    display: inline-flex;
+@layer base {
+  :root {
+    color-scheme: light dark;
   }
-}
 
-@media (prefers-color-scheme: dark) {
-  :root:has(> head > meta[name="color-scheme"][content="light dark"])
-    .theme-to-light {
-    display: inline-flex;
+  :root:has(> head > meta[name="color-scheme"][content="dark"]) {
+    color-scheme: dark;
   }
-}
 
-:root:has(> head > meta[name="color-scheme"][content="light"]) .theme-to-dark,
-:root:has(> head > meta[name="color-scheme"][content="dark"]) .theme-to-light {
-  display: inline-flex;
-}
+  :root:has(> head > meta[name="color-scheme"][content="light"]) {
+    color-scheme: light;
+  }
 
-.page {
-  padding-block: 2rem 3rem;
-}
+  @supports not (color: light-dark(white, black)) {
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --color-ink: #f5f5f4;
+        --color-muted: #a8a29e;
+        --color-line: #44403c;
+        --color-paper: #1c1917;
+      }
+    }
 
-.lede,
-.meta,
-.post-list p,
-.page-list p {
-  color: var(--muted);
-}
+    :root:has(> head > meta[name="color-scheme"][content="dark"]) {
+      --color-ink: #f5f5f4;
+      --color-muted: #a8a29e;
+      --color-line: #44403c;
+      --color-paper: #1c1917;
+    }
 
-.post-list,
-.page-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.post-list li,
-.page-list li {
-  padding-block: 1rem;
-  border-block-end: 1px solid var(--line);
-}
-
-.post-list a,
-.page-list a {
-  font-size: 1.25rem;
-  text-decoration: none;
-}
-
-.terms,
-.term-list {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.35rem 0.75rem;
-}
-
-.terms {
-  margin-block: 0.35rem 0;
-}
-
-.term-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.term-list a,
-.terms > a {
-  text-decoration: none;
-}
-
-h1 {
-  font-size: 2rem;
-  font-weight: 650;
-  line-height: 1.25;
-  margin-block: 0 0.4em;
-}
-
-h2 {
-  font-size: 1.4rem;
-  font-weight: 650;
-  line-height: 1.3;
-}
-
-.prose code:not(pre code)::before,
-.prose code:not(pre code)::after {
-  content: none;
-}
-
-.prose code:not(pre code) {
-  padding: 0.1em 0.35em;
-  border-radius: 0.25rem;
-  background: color-mix(in srgb, var(--ink) 8%, transparent);
-  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-  font-weight: 500;
-}
-
-.prose {
-  --tw-prose-body: var(--ink);
-  --tw-prose-headings: var(--ink);
-  --tw-prose-lead: var(--muted);
-  --tw-prose-links: var(--ink);
-  --tw-prose-bold: var(--ink);
-  --tw-prose-counters: var(--muted);
-  --tw-prose-bullets: var(--muted);
-  --tw-prose-hr: var(--line);
-  --tw-prose-quotes: var(--ink);
-  --tw-prose-quote-borders: var(--line);
-  --tw-prose-captions: var(--muted);
-  --tw-prose-code: var(--ink);
-  --tw-prose-pre-code: var(--ink);
-  --tw-prose-pre-bg: color-mix(in srgb, var(--ink) 6%, transparent);
-  --tw-prose-th-borders: var(--line);
-  --tw-prose-td-borders: var(--line);
-}
-
-.site-footer {
-  padding-block: 1.5rem 2.5rem;
-  border-block-start: 1px solid var(--line);
-  color: var(--muted);
-}
-
-@media (forced-colors: active) {
-  .site-header a[aria-current="page"],
-  .languages a[aria-current="true"] {
-    outline: 2px solid CanvasText;
+    :root:has(> head > meta[name="color-scheme"][content="light"]) {
+      --color-ink: #1c1917;
+      --color-muted: #57534e;
+      --color-line: #e7e5e4;
+      --color-paper: #fafaf9;
+    }
   }
 }

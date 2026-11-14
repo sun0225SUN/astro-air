@@ -24,10 +24,14 @@ const links = [
 ---
 
 <nav aria-label={t('nav.primary')}>
-  <ul>
+  <ul class="m-0 flex list-none flex-wrap items-baseline gap-x-4 gap-y-1 p-0">
     {links.map((link) => (
       <li>
-        <a href={link.href} aria-current={currentPage(link.href)}>
+        <a
+          class='underline-offset-4 aria-current:font-semibold aria-current:underline aria-current:decoration-2 forced-colors:aria-current:outline'
+          href={link.href}
+          aria-current={currentPage(link.href)}
+        >
           {link.label}
         </a>
       </li>

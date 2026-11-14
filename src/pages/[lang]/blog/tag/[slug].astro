@@ -34,8 +34,14 @@ const posts = await getPostsByTag(lang, Astro.params.slug ?? '')
   title={tag.name}
   description={t('blog.tagDescription').replace('{name}', tag.name)}
 >
-  <h1 id="content" tabindex="-1">{tag.name}</h1>
-  <p class="meta">
+  <h1
+    id="content"
+    class="mb-2 text-3xl leading-tight font-semibold"
+    tabindex="-1"
+  >
+    {tag.name}
+  </h1>
+  <p class="text-muted">
     <a href={getRelativeLocaleUrl(lang, 'blog/tag')}>{t('blog.tags')}</a>
   </p>
   <PostList posts={posts} />

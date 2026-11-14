@@ -6,13 +6,16 @@ const lang = localeFromParam(Astro.currentLocale)
 const pages = await getCustomPages(lang)
 ---
 
-<ul class="page-list" role="list">
+<ul class="m-0 list-none p-0" role="list">
   {pages.map((page) => (
-    <li>
-      <a href={getRelativeLocaleUrl(lang, entrySlug(page.id))}>
+    <li class='border-b border-line py-4'>
+      <a
+        class='text-xl no-underline'
+        href={getRelativeLocaleUrl(lang, entrySlug(page.id))}
+      >
         {page.data.title}
       </a>
-      <p>{page.data.description}</p>
+      <p class='text-muted'>{page.data.description}</p>
     </li>
   ))}
 </ul>

@@ -5,8 +5,12 @@ import { localeFromParam } from '../../lib/content'
 const t = useTranslations(localeFromParam(Astro.currentLocale))
 ---
 
-<button type="button" id="theme-toggle" class="theme-toggle">
-  <span class="theme-to-dark">
+<button
+  type="button"
+  id="theme-toggle"
+  class="border-0 bg-transparent p-0.5 leading-none text-inherit"
+>
+  <span class="hidden scheme-light:inline-flex system-light:inline-flex">
     <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20">
       <circle cx="12" cy="12" r="4" fill="currentColor"></circle>
       <path
@@ -17,16 +21,16 @@ const t = useTranslations(localeFromParam(Astro.currentLocale))
         stroke-linecap="round"
       ></path>
     </svg>
-    <span class="visually-hidden">{t('theme.toDark')}</span>
+    <span class="sr-only">{t('theme.toDark')}</span>
   </span>
-  <span class="theme-to-light">
+  <span class="hidden scheme-dark:inline-flex system-dark:inline-flex">
     <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20">
       <path
         fill="currentColor"
         d="M15.5 3.5a8.5 8.5 0 1 0 5 13.2A7 7 0 0 1 15.5 3.5z"
       ></path>
     </svg>
-    <span class="visually-hidden">{t('theme.toLight')}</span>
+    <span class="sr-only">{t('theme.toLight')}</span>
   </span>
 </button>
 <script is:inline>
