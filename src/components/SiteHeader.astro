@@ -1,30 +1,68 @@
 ---
+import { getRelativeLocaleUrl } from 'astro:i18n'
 import { SITE_TITLE } from '../consts'
-import { getCustomPages } from '../lib/content'
+import { languages, locales, useTranslations } from '../i18n/ui'
+import {
+  contentPath,
+  entrySlug,
+  getCustomPages,
+  localeFromParam,
+  localeHref,
+} from '../lib/content'
 
-const pages = await getCustomPages()
+const lang = localeFromParam(Astro.currentLocale)
+const path = contentPath(Astro.url.pathname, lang)
+const t = useTranslations(lang)
+const pages = await getCustomPages(lang)
 const current = Astro.url.pathname.replace(/\/$/, '') || '/'
 
 function currentPage(href: string) {
-  const path = href.replace(/\/$/, '') || '/'
-  return path === current ? 'page' : undefined
+  const normalized = href.replace(/\/$/, '') || '/'
+  return normalized === current ? 'page' : undefined
 }
 
 const links = [
-  { href: '/', label: 'Home' },
-  { href: '/blog', label: 'Blog' },
-  ...pages.map((page) => ({ href: `/${page.id}`, label: page.data.title })),
+  { href: getRelativeLocaleUrl(lang), label: t('nav.home') },
+  { href: getRelativeLocaleUrl(lang, 'blog'), label: t('nav.blog') },
+  ...pages.map((page) => ({
+    href: getRelativeLocaleUrl(lang, entrySlug(page.id)),
+    label: page.data.title,
+  })),
 ]
+
+const languageLinks = await Promise.all(
+  locales.map(async (locale) => ({
+    locale,
+    label: languages[locale],
+    href: await localeHref(locale, path),
+  })),
+)
 ---
 
-<a class="skip-link visually-hidden" href="#content">Skip to content</a>
+<a class="skip-link visually-hidden" href="#content">{t('skip')}</a>
 <header class="site-header">
-  <a class="brand" href="/">{SITE_TITLE}</a>
-  <nav aria-label="Primary">
+  <a class="brand" href={getRelativeLocaleUrl(lang)}>{SITE_TITLE}</a>
+  <nav aria-label={t('nav.primary')}>
     <ul>
       {links.map((link) => (
         <li>
           <a href={link.href} aria-current={currentPage(link.href)}>
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+  <nav aria-label={t('nav.languages')}>
+    <ul class="languages">
+      {languageLinks.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            hrefLang={link.locale}
+            lang={link.locale}
+            aria-current={link.locale === lang ? 'true' : undefined}
+          >
             {link.label}
           </a>
         </li>

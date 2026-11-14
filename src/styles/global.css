@@ -79,11 +79,16 @@ a:hover {
   list-style: none;
 }
 
-.site-header a[aria-current="page"] {
+.site-header a[aria-current="page"],
+.languages a[aria-current="true"] {
   font-weight: 650;
   text-decoration: underline;
   text-decoration-thickness: 2px;
   text-underline-offset: 0.2em;
+}
+
+.languages {
+  font-size: 0.95rem;
 }
 
 .page {
@@ -143,7 +148,8 @@ a:hover {
 }
 
 @media (forced-colors: active) {
-  .site-header a[aria-current="page"] {
+  .site-header a[aria-current="page"],
+  .languages a[aria-current="true"] {
     outline: 2px solid CanvasText;
   }
 }

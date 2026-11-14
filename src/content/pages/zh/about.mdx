@@ -1,0 +1,15 @@
+---
+title: 关于
+description: 和文章分开存放的自定义页面。
+order: 1
+---
+
+import Callout from '../../../components/Callout.astro'
+
+自定义页面不是文章，比如关于、链接、版权说明。它们共用一套 schema 和一条路由，新增一个文件就会发布一个页面。
+
+<Callout title="放在哪里">
+  把文件放进 `src/content/pages/<语言>`。去掉扩展名之后的文件名就是地址。这一页是 `/zh/about`。
+</Callout>
+
+用 `order` 决定导航里的顺序。还没准备好公开时，写上 `draft: true`。同名文件放到每个语言目录，就是这一页的翻译。

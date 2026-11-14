@@ -1,11 +1,15 @@
 ---
 import type { CollectionEntry } from 'astro:content'
 import FormattedDate from '../components/FormattedDate.astro'
+import { useTranslations } from '../i18n/ui'
+import { localeFromParam } from '../lib/content'
 import Layout from './Layout.astro'
 
 type Props = CollectionEntry<'blog'>['data']
 
 const { title, description, pubDate, updatedDate } = Astro.props
+const lang = localeFromParam(Astro.currentLocale)
+const t = useTranslations(lang)
 ---
 
 <Layout title={title} description={description}>
@@ -16,7 +20,7 @@ const { title, description, pubDate, updatedDate } = Astro.props
       </p>
       {updatedDate && (
         <p class='meta'>
-          Updated <FormattedDate date={updatedDate} />
+          {t('post.updated')} <FormattedDate date={updatedDate} />
         </p>
       )}
       <h1 id="content" tabindex="-1">{title}</h1>

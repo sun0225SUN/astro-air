@@ -1,0 +1,17 @@
+{
+  "nav.primary": "Primary",
+  "nav.languages": "Languages",
+  "nav.home": "Home",
+  "nav.blog": "Blog",
+  "home.posts": "Posts",
+  "home.pages": "Pages",
+  "home.allPosts": "All posts",
+  "home.empty": "No posts yet.",
+  "site.description": "A minimal personal blog.",
+  "blog.description": "Posts from Astro Air.",
+  "post.updated": "Updated",
+  "skip": "Skip to content",
+  "notFound.title": "Page not found",
+  "notFound.body": "The page you requested is not here.",
+  "notFound.home": "Go home"
+}

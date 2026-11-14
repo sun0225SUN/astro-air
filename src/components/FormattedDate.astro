@@ -1,11 +1,14 @@
 ---
+import { localeFromParam } from '../lib/content'
+
 interface Props {
   date: Date
 }
 
 const { date } = Astro.props
+const lang = localeFromParam(Astro.currentLocale)
 const datetime = date.toISOString().slice(0, 10)
-const label = new Intl.DateTimeFormat('en', {
+const label = new Intl.DateTimeFormat(lang, {
   dateStyle: 'long',
   timeZone: 'UTC',
 }).format(date)

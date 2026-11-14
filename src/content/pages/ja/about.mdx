@@ -1,0 +1,15 @@
+---
+title: このサイトについて
+description: 記事とは別に置くカスタムページ。
+order: 1
+---
+
+import Callout from '../../../components/Callout.astro'
+
+カスタムページは記事ではないページです。自己紹介、リンク集、奥付などが入ります。schema とルートは共通なので、ファイルを足すだけで公開できます。
+
+<Callout title="置き場所">
+  `src/content/pages/<言語>` に保存します。拡張子を除いたファイル名が URL です。このページは `/ja/about` です。
+</Callout>
+
+ナビゲーションの順番は `order` で決めます。まだ公開しないページには `draft: true` を書きます。同じファイル名を各言語のフォルダに置くと、そのページの翻訳になります。

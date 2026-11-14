@@ -8,4 +8,4 @@ Custom pages can be Markdown or MDX. Use Markdown when the page is only text.
 
 - [Astro pages](https://docs.astro.build/en/basics/astro-pages/)
 - [Content collections](https://docs.astro.build/en/guides/content-collections/)
-- [MDX](https://docs.astro.build/en/guides/integrations-guide/mdx/)
+- [Internationalization](https://docs.astro.build/en/guides/internationalization/)

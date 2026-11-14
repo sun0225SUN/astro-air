@@ -1,0 +1,47 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n'
+import PostList from '../../components/PostList.astro'
+import { SITE_TITLE } from '../../consts'
+import { locales, useTranslations } from '../../i18n/ui'
+import Layout from '../../layouts/Layout.astro'
+import {
+  entrySlug,
+  getBlogPosts,
+  getCustomPages,
+  localeFromParam,
+} from '../../lib/content'
+
+export function getStaticPaths() {
+  return locales.map((lang) => ({ params: { lang } }))
+}
+
+const lang = localeFromParam(Astro.currentLocale ?? Astro.params.lang)
+const t = useTranslations(lang)
+const posts = await getBlogPosts(lang)
+const pages = await getCustomPages(lang)
+---
+
+<Layout title={SITE_TITLE} description={t('site.description')}>
+  <h1 id="content" tabindex="-1">{SITE_TITLE}</h1>
+  <p class="lede">{t('site.description')}</p>
+
+  <section aria-labelledby="posts-heading">
+    <h2 id="posts-heading">{t('home.posts')}</h2>
+    <PostList posts={posts} />
+    <p><a href={getRelativeLocaleUrl(lang, 'blog')}>{t('home.allPosts')}</a></p>
+  </section>
+
+  <section aria-labelledby="pages-heading">
+    <h2 id="pages-heading">{t('home.pages')}</h2>
+    <ul class="page-list" role="list">
+      {pages.map((page) => (
+        <li>
+          <a href={getRelativeLocaleUrl(lang, entrySlug(page.id))}>
+            {page.data.title}
+          </a>
+          <p>{page.data.description}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Layout>

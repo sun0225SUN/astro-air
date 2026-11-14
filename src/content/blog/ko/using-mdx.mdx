@@ -1,0 +1,20 @@
+---
+title: MDX 사용하기
+description: 글 안에서 Markdown과 Astro 컴포넌트를 함께 씁니다.
+pubDate: 2024-06-01
+updatedDate: 2024-11-02
+---
+
+import Callout from '../../../components/Callout.astro'
+
+MDX는 컴포넌트를 넣을 수 있는 Markdown입니다. `astro.config.mjs`에서 `@astrojs/mdx`를 켜 두면 블로그 컬렉션이 `.md`와 `.mdx`를 함께 읽습니다.
+
+<Callout title="컴포넌트는 정적으로 렌더됩니다">
+  MDX 안의 컴포넌트는 빌드할 때 HTML이 됩니다. 브라우저에서 실행해야 할 때만 client 지시어를 붙입니다.
+</Callout>
+
+## 글 쓰기
+
+1. `src/content/blog/<언어>`에 파일을 추가합니다.
+2. `title`, `description`, `pubDate`를 채웁니다.
+3. Markdown보다 더 필요할 때만 컴포넌트를 가져옵니다.

@@ -1,9 +1,13 @@
 ---
+import { getRelativeLocaleUrl } from 'astro:i18n'
+import { defaultLang, useTranslations } from '../i18n/ui'
 import Layout from '../layouts/Layout.astro'
+
+const t = useTranslations(defaultLang)
 ---
 
-<Layout title="Page not found" description="That page does not exist.">
-  <h1 id="content" tabindex="-1">Page not found</h1>
-  <p>The page you requested is not here.</p>
-  <p><a href="/">Go home</a></p>
+<Layout title={t('notFound.title')} description={t('notFound.body')}>
+  <h1 id="content" tabindex="-1">{t('notFound.title')}</h1>
+  <p>{t('notFound.body')}</p>
+  <p><a href={getRelativeLocaleUrl(defaultLang)}>{t('notFound.home')}</a></p>
 </Layout>

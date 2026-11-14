@@ -1,0 +1,29 @@
+---
+import { type CollectionEntry, render } from 'astro:content'
+import { locales } from '../../i18n/ui'
+import Page from '../../layouts/Page.astro'
+import { entrySlug, getCustomPages } from '../../lib/content'
+
+export async function getStaticPaths() {
+  const paths = []
+  for (const lang of locales) {
+    const pages = await getCustomPages(lang)
+    for (const page of pages) {
+      paths.push({
+        params: { lang, slug: entrySlug(page.id) },
+        props: page,
+      })
+    }
+  }
+  return paths
+}
+
+type Props = CollectionEntry<'pages'>
+
+const page = Astro.props
+const { Content } = await render(page)
+---
+
+<Page {...page.data}>
+  <Content />
+</Page>

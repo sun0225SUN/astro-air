@@ -1,0 +1,15 @@
+---
+title: About
+description: A custom page stored with the other standalone pages.
+order: 1
+---
+
+import Callout from '../../../components/Callout.astro'
+
+Custom pages are the pages that are not posts: about, links, a colophon, a now page. They share one schema and one route, so adding a file is enough to publish one.
+
+<Callout title="Where to put it">
+  Save the file in `src/content/pages/<locale>`. The file name, without the extension, is the URL. This page is `/en/about`.
+</Callout>
+
+Set `order` when the navigation should list the page in a particular place. Leave `draft: true` while it is still private. Translate a page by adding the same file name under each locale folder.

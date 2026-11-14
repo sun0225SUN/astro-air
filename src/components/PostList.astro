@@ -1,21 +1,27 @@
 ---
-import type { CollectionEntry } from 'astro:content'
+import { getRelativeLocaleUrl } from 'astro:i18n'
+import { useTranslations } from '../i18n/ui'
+import { type BlogPost, entrySlug, localeFromParam } from '../lib/content'
 import FormattedDate from './FormattedDate.astro'
 
 interface Props {
-  posts: CollectionEntry<'blog'>[]
+  posts: BlogPost[]
 }
 
 const { posts } = Astro.props
+const lang = localeFromParam(Astro.currentLocale)
+const t = useTranslations(lang)
 ---
 
 {posts.length === 0 ? (
-  <p>No posts yet.</p>
+  <p>{t('home.empty')}</p>
 ) : (
   <ul class='post-list' role='list'>
     {posts.map((post) => (
       <li>
-        <a href={`/blog/${post.id}`}>{post.data.title}</a>
+        <a href={getRelativeLocaleUrl(lang, `blog/${entrySlug(post.id)}`)}>
+          {post.data.title}
+        </a>
         <p>{post.data.description}</p>
         <p class='meta'>
           <FormattedDate date={post.data.pubDate} />
