@@ -5,6 +5,8 @@ import { localeFromParam } from '../../lib/content'
 
 const year = new Date().getFullYear()
 const t = useTranslations(localeFromParam(Astro.currentLocale))
+const [authorBefore, authorAfter] = t('footer.designedBy').split('{author}')
+const [themeBefore, themeAfter] = t('footer.poweredBy').split('{theme}')
 const [rssBefore, rssAfter] = t('footer.rss').split('{rss}')
 ---
 
@@ -15,7 +17,7 @@ const [rssBefore, rssAfter] = t('footer.rss').split('{rss}')
     <span>&copy; {year}</span>
     <span aria-hidden="true">·</span>
     <span class="inline-flex items-center gap-1">
-      Designed By
+      {authorBefore}
       <a
         href="https://sunguoqi.com"
         class="text-accent hover:text-accent-hover dark:text-accent-dark dark:hover:text-accent-dark-hover"
@@ -23,10 +25,11 @@ const [rssBefore, rssAfter] = t('footer.rss').split('{rss}')
         data-umami-event-name="author"
         >Guoqi Sun</a
       >
+      {authorAfter}
     </span>
     <span aria-hidden="true">·</span>
     <span class="inline-flex items-center gap-1">
-      Powered By
+      {themeBefore}
       <a
         href="https://github.com/sun0225SUN/astro-air"
         class="text-accent hover:text-accent-hover dark:text-accent-dark dark:hover:text-accent-dark-hover"
@@ -34,6 +37,7 @@ const [rssBefore, rssAfter] = t('footer.rss').split('{rss}')
         data-umami-event-name="theme"
         >Astro Air</a
       >
+      {themeAfter}
     </span>
   </p>
   <p class="inline-flex items-center gap-1.5">

@@ -26,6 +26,16 @@ export async function getBlogPosts(locale: Locale) {
   )
 }
 
+export function isPinned(post: BlogPost) {
+  return (post.data.pin ?? 0) > 0
+}
+
+export function pinnedPosts(posts: BlogPost[]) {
+  return posts
+    .filter(isPinned)
+    .sort((a, b) => (b.data.pin ?? 0) - (a.data.pin ?? 0))
+}
+
 export function taxonomySlug(value: string) {
   return value
     .trim()

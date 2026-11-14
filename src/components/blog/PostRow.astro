@@ -1,5 +1,6 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n'
+import Pin from '@lucide/astro/icons/pin'
 import { type BlogPost, entrySlug } from '../../lib/content'
 
 interface Props {
@@ -7,6 +8,7 @@ interface Props {
   lang: string
   dateFormat?: string
   dateWidth?: string
+  pinned?: boolean
 }
 
 const {
@@ -14,6 +16,7 @@ const {
   lang,
   dateFormat = 'YYYY-MM-DD',
   dateWidth = 'w-32',
+  pinned = false,
 } = Astro.props
 const slug = entrySlug(post.id).replaceAll('/', '-')
 const href = getRelativeLocaleUrl(lang, `blog/${entrySlug(post.id)}`)
@@ -43,16 +46,24 @@ const dateLabel = dateFormat.replace(
   >
     <time
       datetime={date.toISOString().slice(0, 10)}
-      class="vt-time"
+      class="inline-block w-fit"
       transition:name={`time-${lang}-${slug}`}
     >
       {dateLabel}
     </time>
   </p>
-  <p
-    class="line-clamp-2 text-lg hover:underline"
-    transition:name={`post-${lang}-${slug}`}
-  >
-    {post.data.title}
-  </p>
+  <div class="relative w-fit max-w-full">
+    <p
+      class="line-clamp-2 w-fit max-w-full text-lg hover:underline"
+      transition:name={`post-${lang}-${slug}`}
+    >
+      {post.data.title}
+    </p>
+    {pinned && (
+      <Pin
+        aria-hidden='true'
+        class='pointer-events-none absolute top-1/2 left-full ml-1 size-4 -translate-y-1/2 rotate-45'
+      />
+    )}
+  </div>
 </a>

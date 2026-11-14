@@ -10,7 +10,7 @@
     "empty": "還沒有文章。"
   },
   "site": {
-    "description": "一個極簡的個人部落格。"
+    "description": "Astro Air 是一款為獨立寫作者打造的極簡多語部落格主題。它以清晰的排版與舒適的閱讀體驗為核心，內建深淺色主題、文章歸檔、分類與標籤、RSS 訂閱和響應式版面，並支援 Markdown/MDX 內容創作。保持足夠輕盈，也為個人化擴充保留空間。"
   },
   "blog": {
     "description": "Astro Air 的文章。",
@@ -23,11 +23,15 @@
     "tagDescription": "帶有「{name}」標籤的文章。"
   },
   "post": {
+    "author": "作者",
+    "filedUnder": "收錄於",
     "updated": "更新於",
     "lastModified": "最後修改於",
     "readingTime": "閱讀約 {minutes} 分鐘",
     "toc": "目錄",
-    "backToTop": "回到頂部"
+    "backToTop": "回到頂部",
+    "imageViewer": "圖片",
+    "closeImage": "關閉"
   },
   "skip": "跳到內容",
   "notFound": {
@@ -41,6 +45,8 @@
     "next": "下一頁"
   },
   "footer": {
+    "designedBy": "由 {author} 設計",
+    "poweredBy": "由 {theme} 驅動",
     "rss": "透過 {rss} 訂閱"
   }
 }

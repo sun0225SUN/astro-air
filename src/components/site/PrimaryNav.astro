@@ -21,12 +21,12 @@ function currentPage(href: string) {
 
 <nav
   aria-label={t('nav.primary')}
-  class="my-8 flex items-center gap-4 text-lg whitespace-nowrap"
+  class="nav-scroll my-8 flex items-center gap-4 text-lg whitespace-nowrap"
 >
   {links.map((link) => (
     <a
       href={link.href}
-      class='underline-offset-4 hover:underline aria-[current=page]:underline'
+      class='shrink-0 underline-offset-4 hover:underline aria-[current=page]:underline'
       aria-current={currentPage(link.href)}
       data-umami-event='nav'
       data-umami-event-name={link.name}
@@ -39,3 +39,31 @@ function currentPage(href: string) {
     </a>
   ))}
 </nav>
+
+<script>
+  function bindNavScroll() {
+    if (CSS.supports('animation-timeline', 'scroll()')) return
+    const scroller = document.querySelector('.nav-scroll')
+    if (!(scroller instanceof HTMLElement)) return
+    const links = [...scroller.querySelectorAll(':scope > a')]
+    const first = links[0]
+    const last = links.at(-1)
+    if (!first || !last || first === last) return
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const { target, intersectionRatio } of entries) {
+          scroller.classList.toggle(
+            target === first ? 'more-start' : 'more-end',
+            intersectionRatio < 1,
+          )
+        }
+      },
+      { root: scroller, threshold: 1, rootMargin: '1px' },
+    )
+    observer.observe(first)
+    observer.observe(last)
+  }
+
+  bindNavScroll()
+  document.addEventListener('astro:page-load', bindNavScroll)
+</script>

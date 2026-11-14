@@ -10,7 +10,7 @@
     "empty": "記事はまだありません。"
   },
   "site": {
-    "description": "小さな個人ブログ。"
+    "description": "Astro Air は、個人で活動する書き手のためのミニマルな多言語ブログテーマです。読みやすいタイポグラフィと心地よい読書体験を中心に、ライト・ダークテーマ、アーカイブ、カテゴリー、タグ、RSS、レスポンシブレイアウト、Markdown/MDX 執筆環境を備えています。軽快さを保ちながら、自分らしく拡張できる余白も残しています。"
   },
   "blog": {
     "description": "Astro Air の記事。",
@@ -23,11 +23,15 @@
     "tagDescription": "「{name}」タグの記事。"
   },
   "post": {
+    "author": "著者",
+    "filedUnder": "収録",
     "updated": "更新",
     "lastModified": "最終更新",
     "readingTime": "約 {minutes} 分で読めます",
     "toc": "目次",
-    "backToTop": "先頭へ"
+    "backToTop": "先頭へ",
+    "imageViewer": "画像",
+    "closeImage": "閉じる"
   },
   "skip": "本文へ移動",
   "notFound": {
@@ -41,6 +45,8 @@
     "next": "次へ"
   },
   "footer": {
+    "designedBy": "{author} がデザイン",
+    "poweredBy": "{theme} で構築",
     "rss": "{rss}で購読"
   }
 }

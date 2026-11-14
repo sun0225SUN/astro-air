@@ -1,6 +1,12 @@
 ---
 import { useTranslations } from '../../i18n'
-import { type BlogPost, getBlogPosts, localeFromParam } from '../../lib/content'
+import {
+  type BlogPost,
+  getBlogPosts,
+  isPinned,
+  localeFromParam,
+  pinnedPosts,
+} from '../../lib/content'
 import PostRow from './PostRow.astro'
 
 interface Props {
@@ -13,7 +19,11 @@ const lang = localeFromParam(Astro.currentLocale)
 const t = useTranslations(lang)
 const variant = Astro.props.variant ?? 'dated'
 const source = Astro.props.posts ?? (await getBlogPosts(lang))
-const posts = Astro.props.limit ? source.slice(0, Astro.props.limit) : source
+const pinned =
+  Astro.props.posts || variant !== 'latest' ? [] : pinnedPosts(source)
+const rest = pinned.length ? source.filter((post) => !isPinned(post)) : source
+const posts = Astro.props.limit ? rest.slice(0, Astro.props.limit) : rest
+const rows = [...pinned, ...posts]
 const grouped = variant === 'archive'
 
 const groups: { year: number; posts: BlogPost[] }[] = []
@@ -27,7 +37,7 @@ if (grouped) {
 }
 ---
 
-{posts.length === 0 ? (
+{rows.length === 0 ? (
   <p class='text-muted dark:text-muted-dark'>{t('home.empty')}</p>
 ) : grouped ? (
   <div class='flex flex-col gap-8'>
@@ -49,12 +59,13 @@ if (grouped) {
   </div>
 ) : (
   <div class='flex flex-col gap-3'>
-    {posts.map((post) => (
+    {rows.map((post) => (
       <PostRow
         post={post}
         lang={lang}
         dateFormat='YYYY-MM-DD'
         dateWidth='w-32'
+        pinned={variant === 'latest' && isPinned(post)}
       />
     ))}
   </div>

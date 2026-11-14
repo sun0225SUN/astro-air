@@ -29,3 +29,7 @@ html.handwriting {
   --font-sans: Excalifont, Xiaolai, ui-sans-serif, system-ui, sans-serif;
   --font-title: Excalifont, Xiaolai, ui-sans-serif, system-ui, sans-serif;
 }
+
+html:not(:lang(en)) {
+  letter-spacing: 0.12em;
+}

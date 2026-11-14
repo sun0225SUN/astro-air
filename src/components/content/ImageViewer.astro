@@ -1,0 +1,148 @@
+---
+import X from '@lucide/astro/icons/x'
+import { useTranslations } from '../../i18n'
+import { localeFromParam } from '../../lib/content'
+
+const t = useTranslations(localeFromParam(Astro.currentLocale))
+---
+
+<dialog id="image-viewer" closedby="any" aria-label={t('post.imageViewer')}>
+  <button type="button" autofocus aria-label={t('post.closeImage')}>
+    <X size={18} aria-hidden="true" />
+  </button>
+  <img alt="" />
+</dialog>
+
+<script>
+  const minSize = 100
+
+  function viewer() {
+    const dialog = document.querySelector('#image-viewer')
+    return dialog instanceof HTMLDialogElement ? dialog : null
+  }
+
+  function viewerImage(dialog: HTMLDialogElement) {
+    const image = dialog.querySelector('img')
+    return image instanceof HTMLImageElement ? image : null
+  }
+
+  function place(image: HTMLImageElement, rect: DOMRect, scale = 1) {
+    const tx = (window.innerWidth - rect.width * scale) / 2 - rect.left
+    const ty = (window.innerHeight - rect.height * scale) / 2 - rect.top
+    image.style.top = `${rect.top}px`
+    image.style.left = `${rect.left}px`
+    image.style.width = `${rect.width}px`
+    image.style.height = `${rect.height}px`
+    image.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`
+  }
+
+  function openViewer(source: HTMLImageElement) {
+    const dialog = viewer()
+    const image = dialog && viewerImage(dialog)
+    if (!dialog || !image || dialog.open) return
+    const rect = source.getBoundingClientRect()
+    image.src = source.currentSrc || source.src
+    image.alt = source.alt
+    image.style.transition = 'none'
+    place(image, rect)
+    dialog.showModal()
+    const scale = Math.min(
+      (window.innerWidth * (window.innerWidth < 768 ? 0.92 : 0.86)) /
+        rect.width,
+      (window.innerHeight * 0.86) / rect.height,
+    )
+    requestAnimationFrame(() => {
+      image.style.transition = 'transform 0.3s ease'
+      place(image, rect, scale)
+    })
+  }
+
+  function closeViewer() {
+    const dialog = viewer()
+    if (!dialog?.open) return
+    dialog.close()
+  }
+
+  function prepare() {
+    const dialog = viewer()
+    if (!dialog || dialog.dataset.bound) return
+    dialog.dataset.bound = 'true'
+    const image = viewerImage(dialog)
+    const close = dialog.querySelector('button')
+    close?.addEventListener('click', (event) => {
+      event.stopPropagation()
+      closeViewer()
+    })
+    dialog.addEventListener('click', (event) => {
+      if (event.target === close) return
+      closeViewer()
+    })
+    dialog.addEventListener('close', () => {
+      if (!image) return
+      image.style.transform = ''
+      image.removeAttribute('src')
+    })
+    if (!('closedBy' in HTMLDialogElement.prototype)) {
+      let pressedOutside = false
+      const outside = (event: PointerEvent) => {
+        const rect = image?.getBoundingClientRect()
+        if (!rect) return true
+        return (
+          event.clientX < rect.left ||
+          event.clientX > rect.right ||
+          event.clientY < rect.top ||
+          event.clientY > rect.bottom
+        )
+      }
+      dialog.addEventListener('pointerdown', (event) => {
+        pressedOutside = outside(event)
+      })
+      dialog.addEventListener('pointerup', (event) => {
+        if (pressedOutside && outside(event)) closeViewer()
+      })
+    }
+  }
+
+  function canZoom(image: HTMLImageElement) {
+    return (
+      image.closest('.prose') !== null &&
+      image.complete &&
+      image.naturalWidth >= minSize &&
+      image.naturalHeight >= minSize
+    )
+  }
+
+  document.addEventListener('click', (event) => {
+    const target = event.target
+    if (!(target instanceof HTMLImageElement) || !canZoom(target)) return
+    event.preventDefault()
+    openViewer(target)
+  })
+
+  document.addEventListener('keydown', (event) => {
+    const target = event.target
+    if (!(target instanceof HTMLImageElement) || !canZoom(target)) return
+    if (event.key !== 'Enter' && event.key !== ' ') return
+    event.preventDefault()
+    openViewer(target)
+  })
+
+  function markImages() {
+    for (const image of document.querySelectorAll('.prose img')) {
+      if (!(image instanceof HTMLImageElement)) continue
+      const enable = () => {
+        if (!canZoom(image)) return
+        image.tabIndex = 0
+      }
+      if (image.complete) enable()
+      else image.addEventListener('load', enable, { once: true })
+    }
+  }
+
+  prepare()
+  markImages()
+  document.addEventListener('astro:page-load', () => {
+    prepare()
+    markImages()
+  })
+</script>

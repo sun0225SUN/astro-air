@@ -62,33 +62,182 @@ article code::after {
   content: none;
 }
 
-.vt-time {
-  view-transition-class: post-time;
+.prose :where(img) {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: min(32rem, 70vh);
+  margin-inline: auto;
+  object-fit: contain;
+  border-radius: 0.75rem;
+  cursor: zoom-in;
 }
 
-::view-transition-group(*.post-time) {
-  animation-duration: 0.55s;
+#image-viewer {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+
+#image-viewer[open] {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  overflow: hidden;
+}
+
+#image-viewer:modal {
+  overscroll-behavior: contain;
+}
+
+#image-viewer::backdrop {
+  background: rgb(0 0 0 / 0.86);
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
+#image-viewer img {
+  position: fixed;
+  margin: 0;
+  cursor: zoom-out;
+  transform-origin: 0 0;
+  border-radius: 0.75rem;
+}
+
+#image-viewer button {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1;
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-page);
+  color: var(--color-ink);
+  padding: 0;
+  cursor: pointer;
+}
+
+:root.dark #image-viewer button {
+  background: var(--color-page-dark);
+  color: var(--color-ink-dark);
+}
+
+header {
+  view-transition-name: site-header;
+}
+
+nav {
+  view-transition-name: site-nav;
+}
+
+@property --fade-start {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --fade-end {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+.nav-scroll {
+  --fade-size: 1.5rem;
+  --fade-dir: right;
+  --fade-start-pos: 0;
+  --fade-end-pos: 100%;
+  min-inline-size: 0;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  scroll-padding-inline: var(--fade-size);
+  mask:
+    linear-gradient(black, black) no-clip subtract,
+    linear-gradient(to var(--fade-dir), black, transparent)
+    var(--fade-start-pos) 0 / var(--fade-start) 100% no-repeat no-clip,
+    linear-gradient(to var(--fade-dir), transparent, black) var(--fade-end-pos)
+    0 / var(--fade-end) 100% no-repeat no-clip;
+  animation:
+    reveal-fade-start linear both,
+    hide-fade-end linear both;
+  animation-timeline: scroll(self inline);
+  animation-range:
+    0 var(--fade-size),
+    calc(100% - var(--fade-size)) 100%;
+
+  &:dir(rtl) {
+    --fade-dir: left;
+    --fade-start-pos: 100%;
+    --fade-end-pos: 0;
+  }
+
+  &.more-start {
+    --fade-start: var(--fade-size);
+  }
+
+  &.more-end {
+    --fade-end: var(--fade-size);
+  }
+
+  > a {
+    outline-offset: -2px;
+  }
+}
+
+@supports not (scrollbar-width: none) {
+  .nav-scroll::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@keyframes reveal-fade-start {
+  to {
+    --fade-start: var(--fade-size);
+  }
+}
+
+@keyframes hide-fade-end {
+  from {
+    --fade-end: var(--fade-size);
+  }
+}
+
+footer {
+  view-transition-name: site-footer;
+}
+
+::view-transition-group(*) {
+  animation-duration: 0.42s;
   animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-::view-transition-image-pair(*.post-time) {
-  isolation: auto;
+::view-transition-old(*),
+::view-transition-new(*) {
+  mix-blend-mode: normal;
 }
 
-::view-transition-old(*.post-time) {
-  animation: vt-fade 0.28s ease both;
-  mix-blend-mode: normal;
-  object-fit: none;
-  object-position: left center;
-  overflow: clip;
+::view-transition-old(root) {
+  animation: 0.42s cubic-bezier(0.4, 0, 0.2, 1) both vt-fade;
 }
 
-::view-transition-new(*.post-time) {
-  animation: vt-fade 0.4s ease 0.12s both reverse;
-  mix-blend-mode: normal;
-  object-fit: none;
-  object-position: left center;
-  overflow: clip;
+::view-transition-new(root) {
+  animation: 0.42s cubic-bezier(0.4, 0, 0.2, 1) both vt-fade reverse;
+}
+
+::view-transition-group(site-header),
+::view-transition-group(site-nav),
+::view-transition-group(site-footer),
+::view-transition-group(site-title) {
+  z-index: 1;
 }
 
 @keyframes vt-fade {
@@ -97,45 +246,10 @@ article code::after {
   }
 }
 
-@keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(1.5rem);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-#post-content > * {
-  opacity: 0;
-  animation: fade-in-up 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-}
-
-#post-content > *:nth-child(1) {
-  animation-delay: 0.12s;
-}
-#post-content > *:nth-child(2) {
-  animation-delay: 0.18s;
-}
-#post-content > *:nth-child(3) {
-  animation-delay: 0.24s;
-}
-#post-content > *:nth-child(4) {
-  animation-delay: 0.3s;
-}
-#post-content > *:nth-child(5) {
-  animation-delay: 0.36s;
-}
-#post-content > *:nth-child(n + 6) {
-  animation-delay: 0.42s;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  #post-content > * {
-    opacity: 1;
-    transform: none;
-    animation: none;
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }

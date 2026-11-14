@@ -1,5 +1,6 @@
 export const config = {
   title: 'Air',
+  author: 'Guoqi Sun',
   url: 'https://astro-air.guoqi.dev',
   defaultLocale: 'en',
   locales: ['en', 'zh', 'zh-tw', 'ja', 'ko'],

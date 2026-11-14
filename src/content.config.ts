@@ -7,9 +7,12 @@ const blog = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
+    author: z.string().min(1).optional(),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
     draft: z.boolean().optional(),
+    // Higher numbers stay above other pinned posts. Omit or use 0 to leave a post in date order.
+    pin: z.number().int().min(0).max(99).optional().default(0),
     category: z.string().min(1).optional(),
     tags: z.array(z.string().min(1)).default([]),
   }),
