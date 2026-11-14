@@ -2,6 +2,7 @@
 	"name": "hilarious-hubble",
 	"type": "module",
 	"version": "0.0.1",
+	"license": "GPL-3.0-only",
 	"engines": {
 		"node": ">=22.23.4"
 	},
