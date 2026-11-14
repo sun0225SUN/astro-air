@@ -1,0 +1,65 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n'
+import { useTranslations } from '../../i18n'
+import { localeFromParam } from '../../lib/content'
+import { pagePath } from '../../lib/pagination'
+
+interface Props {
+  page: number
+  lastPage: number
+  base: string
+}
+
+const { page, lastPage, base } = Astro.props
+const lang = localeFromParam(Astro.currentLocale)
+const t = useTranslations(lang)
+const pages = Array.from({ length: lastPage }, (_, index) => index + 1)
+---
+
+{lastPage > 1 && (
+  <nav
+    aria-label={t('pager.label')}
+    class='mt-10 flex flex-wrap items-center gap-x-4 gap-y-2'
+  >
+    {page > 1 ? (
+      <a
+        href={getRelativeLocaleUrl(lang, pagePath(base, page - 1))}
+        class='hover:underline hover:underline-offset-4'
+      >
+        {t('pager.prev')}
+      </a>
+    ) : (
+      <span class='text-gray-400'>{t('pager.prev')}</span>
+    )}
+    <ol class='m-0 flex list-none flex-wrap gap-3 p-0'>
+      {pages.map((number) =>
+        number === page ? (
+          <li>
+            <span aria-current='page' class='font-semibold'>
+              {number}
+            </span>
+          </li>
+        ) : (
+          <li>
+            <a
+              href={getRelativeLocaleUrl(lang, pagePath(base, number))}
+              class='hover:underline hover:underline-offset-4'
+            >
+              {number}
+            </a>
+          </li>
+        ),
+      )}
+    </ol>
+    {page < lastPage ? (
+      <a
+        href={getRelativeLocaleUrl(lang, pagePath(base, page + 1))}
+        class='hover:underline hover:underline-offset-4'
+      >
+        {t('pager.next')}
+      </a>
+    ) : (
+      <span class='text-gray-400'>{t('pager.next')}</span>
+    )}
+  </nav>
+)}

@@ -1,0 +1,31 @@
+---
+import Pager from '../../../../components/blog/Pager.astro'
+import PostList from '../../../../components/blog/PostList.astro'
+import { locales, useTranslations } from '../../../../i18n'
+import Layout from '../../../../layouts/Layout.astro'
+import { getBlogPosts, pageLocale } from '../../../../lib/content'
+import { pageCount, pageItems, postsPerPage } from '../../../../lib/pagination'
+
+export async function getStaticPaths() {
+  if (postsPerPage() === 'all') return []
+  const paths = []
+  for (const lang of locales) {
+    const posts = await getBlogPosts(lang)
+    const lastPage = pageCount(posts.length)
+    for (let page = 2; page <= lastPage; page++) {
+      paths.push({ params: { lang, page: String(page) } })
+    }
+  }
+  return paths
+}
+
+const lang = pageLocale(Astro.currentLocale, Astro.params.lang)
+const page = Number(Astro.params.page)
+const t = useTranslations(lang)
+const posts = await getBlogPosts(lang)
+---
+
+<Layout title={t('nav.blog')} description={t('blog.description')}>
+  <PostList posts={pageItems(posts, page)} variant="archive" />
+  <Pager page={page} lastPage={pageCount(posts.length)} base="blog" />
+</Layout>

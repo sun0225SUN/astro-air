@@ -30,5 +30,10 @@
     "title": "Page not found",
     "body": "The page you requested is not here.",
     "home": "Go home"
+  },
+  "pager": {
+    "label": "Pagination",
+    "prev": "Previous",
+    "next": "Next"
   }
 }

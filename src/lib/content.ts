@@ -1,6 +1,7 @@
 import { type CollectionEntry, getCollection } from 'astro:content'
 import { getRelativeLocaleUrl } from 'astro:i18n'
 import { isLocale, type Locale } from '../i18n'
+import { pageCount } from './pagination'
 
 function isPublished(data: { draft?: boolean }) {
   return import.meta.env.PROD ? data.draft !== true : true
@@ -103,6 +104,13 @@ export async function getCustomPages(locale: Locale) {
     )
 }
 
+function listPage(path: string, prefix: string) {
+  if (!path.startsWith(`${prefix}/page/`)) return
+  const page = Number(path.slice(`${prefix}/page/`.length))
+  if (!Number.isInteger(page) || page < 2) return
+  return page
+}
+
 export async function hasLocalePath(locale: Locale, path: string) {
   if (
     path === '' ||
@@ -111,6 +119,23 @@ export async function hasLocalePath(locale: Locale, path: string) {
     path === 'blog/tag'
   ) {
     return true
+  }
+  const blogPage = listPage(path, 'blog')
+  if (blogPage) {
+    const posts = await getBlogPosts(locale)
+    return blogPage <= pageCount(posts.length)
+  }
+  const categoryPage = /^blog\/category\/(.+)\/page\/(\d+)$/.exec(path)
+  if (categoryPage) {
+    const page = Number(categoryPage[2])
+    const posts = await getPostsByCategory(locale, categoryPage[1])
+    return page >= 2 && page <= pageCount(posts.length)
+  }
+  const tagPage = /^blog\/tag\/(.+)\/page\/(\d+)$/.exec(path)
+  if (tagPage) {
+    const page = Number(tagPage[2])
+    const posts = await getPostsByTag(locale, tagPage[1])
+    return page >= 2 && page <= pageCount(posts.length)
   }
   if (path.startsWith('blog/')) {
     const posts = await getBlogPosts(locale)

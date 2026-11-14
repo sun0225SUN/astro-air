@@ -1,0 +1,58 @@
+---
+import Pager from '../../../../../../components/blog/Pager.astro'
+import PostList from '../../../../../../components/blog/PostList.astro'
+import { locales, useTranslations } from '../../../../../../i18n'
+import Layout from '../../../../../../layouts/Layout.astro'
+import {
+  getCategories,
+  getPostsByCategory,
+  pageLocale,
+} from '../../../../../../lib/content'
+import {
+  pageCount,
+  pageItems,
+  postsPerPage,
+} from '../../../../../../lib/pagination'
+
+export async function getStaticPaths() {
+  if (postsPerPage() === 'all') return []
+  const paths = []
+  for (const lang of locales) {
+    const categories = await getCategories(lang)
+    for (const category of categories) {
+      const posts = await getPostsByCategory(lang, category.slug)
+      const lastPage = pageCount(posts.length)
+      for (let page = 2; page <= lastPage; page++) {
+        paths.push({
+          params: { lang, slug: category.slug, page: String(page) },
+          props: { category },
+        })
+      }
+    }
+  }
+  return paths
+}
+
+interface Props {
+  category: { name: string }
+}
+
+const lang = pageLocale(Astro.currentLocale, Astro.params.lang)
+const page = Number(Astro.params.page)
+const { category } = Astro.props
+const t = useTranslations(lang)
+const posts = await getPostsByCategory(lang, Astro.params.slug ?? '')
+---
+
+<Layout
+  title={category.name}
+  description={t('blog.categoryDescription', { name: category.name })}
+>
+  <h1 class="mt-2 mb-9 text-2xl font-semibold">{category.name}</h1>
+  <PostList posts={pageItems(posts, page)} variant="dated" />
+  <Pager
+    page={page}
+    lastPage={pageCount(posts.length)}
+    base={`blog/category/${Astro.params.slug}`}
+  />
+</Layout>
