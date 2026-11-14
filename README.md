@@ -152,6 +152,17 @@ To add a language:
 
 `defaultLocale` must be one of `locales`.
 
+## Analytics
+
+Umami loads only when both variables are set. Copy `.env.example` to `.env` for local builds, and set the same variables in the host for production.
+
+```bash
+UMAMI_URL=https://umami.example
+UMAMI_WEBSITE_ID=your-website-id
+```
+
+`UMAMI_URL` is the Umami origin, without a trailing slash. The site adds `/script.js` and `/recorder.js`, and passes `UMAMI_WEBSITE_ID` as `data-website-id`.
+
 ## RSS
 
 `/rss.xml` lists every published post in every locale. Each item links to its locale-prefixed URL. Drafts are omitted.

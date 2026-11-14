@@ -1,0 +1,23 @@
+---
+import { UMAMI_URL, UMAMI_WEBSITE_ID } from 'astro:env/server'
+
+const host = UMAMI_URL?.replace(/\/$/, '')
+const websiteId = UMAMI_WEBSITE_ID
+---
+
+{host && websiteId && (
+  <>
+    <script
+      is:inline
+      defer
+      src={`${host}/script.js`}
+      data-website-id={websiteId}
+    />
+    <script
+      is:inline
+      defer
+      src={`${host}/recorder.js`}
+      data-website-id={websiteId}
+    />
+  </>
+)}

@@ -152,6 +152,17 @@ MDX 可以引入 `src/components/` 里的组件。
 
 `defaultLocale` 必须是 `locales` 里的一项。
 
+## 统计
+
+只有两个变量都有值时才会加载 Umami。本地把 `.env.example` 复制成 `.env`，线上在托管平台设置同样的变量。
+
+```bash
+UMAMI_URL=https://umami.example
+UMAMI_WEBSITE_ID=your-website-id
+```
+
+`UMAMI_URL` 是 Umami 的源站地址，不要以斜杠结尾。站点会加上 `/script.js` 和 `/recorder.js`，并把 `UMAMI_WEBSITE_ID` 写进 `data-website-id`。
+
 ## RSS
 
 `/rss.xml` 收录所有语言里已发布的文章。每条链接都带语言前缀。草稿不会出现。
