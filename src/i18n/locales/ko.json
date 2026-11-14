@@ -15,7 +15,14 @@
     "description": "작은 개인 블로그."
   },
   "blog": {
-    "description": "Astro Air의 글."
+    "description": "Astro Air의 글.",
+    "categories": "분류",
+    "categoriesDescription": "모든 분류.",
+    "categoryDescription": "「{name}」에 속한 글.",
+    "tags": "태그",
+    "tagsDescription": "모든 태그.",
+    "tagDescription": "「{name}」 태그의 글.",
+    "count": "{count}개"
   },
   "post": {
     "updated": "업데이트",

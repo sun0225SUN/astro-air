@@ -15,7 +15,14 @@
     "description": "一个极简的个人博客。"
   },
   "blog": {
-    "description": "Astro Air 的文章。"
+    "description": "Astro Air 的文章。",
+    "categories": "分类",
+    "categoriesDescription": "全部分类。",
+    "categoryDescription": "归入「{name}」的文章。",
+    "tags": "标签",
+    "tagsDescription": "全部标签。",
+    "tagDescription": "带有「{name}」标签的文章。",
+    "count": "{count} 篇"
   },
   "post": {
     "updated": "更新于",

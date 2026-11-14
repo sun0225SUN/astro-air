@@ -1,7 +1,7 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n'
-import { useTranslations } from '../i18n/ui'
-import { entrySlug, getCustomPages, localeFromParam } from '../lib/content'
+import { useTranslations } from '../../i18n/ui'
+import { entrySlug, getCustomPages, localeFromParam } from '../../lib/content'
 
 const lang = localeFromParam(Astro.currentLocale)
 const t = useTranslations(lang)

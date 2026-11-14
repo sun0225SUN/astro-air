@@ -3,9 +3,13 @@ title: MDX を使う
 description: 記事の中で Markdown と Astro コンポーネントを混ぜる。
 pubDate: 2024-06-01
 updatedDate: 2024-11-02
+category: ガイド
+tags:
+  - MDX
+  - Markdown
 ---
 
-import Callout from '../../../components/Callout.astro'
+import { Callout } from '../../../components'
 
 MDX はコンポーネントを置ける Markdown です。`astro.config.mjs` で `@astrojs/mdx` を有効にすると、ブログコレクションは `.md` と `.mdx` の両方を読みます。
 

@@ -2,8 +2,7 @@
 import type { CollectionEntry } from 'astro:content'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
-import FormattedDate from '../components/FormattedDate.astro'
-import Prose from '../components/Prose.astro'
+import { FormattedDate, PostTerms, Prose } from '../components'
 import { useTranslations } from '../i18n/ui'
 import { localeFromParam } from '../lib/content'
 import Layout from './Layout.astro'
@@ -23,6 +22,8 @@ const {
   description,
   pubDate,
   updatedDate,
+  category,
+  tags,
   lastModified,
   readingMinutes,
 } = Astro.props
@@ -62,6 +63,7 @@ const modifiedLabel = modified?.isValid()
       )}
       <h1 id="content" tabindex="-1">{title}</h1>
       <p class="lede">{description}</p>
+      <PostTerms category={category} tags={tags} />
     </header>
     <Prose>
       <slot />

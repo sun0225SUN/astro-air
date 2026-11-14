@@ -1,0 +1,37 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n'
+import { locales, useTranslations } from '../../../../i18n/ui'
+import Layout from '../../../../layouts/Layout.astro'
+import { getCategories, localeFromParam } from '../../../../lib/content'
+
+export function getStaticPaths() {
+  return locales.map((lang) => ({ params: { lang } }))
+}
+
+const lang = localeFromParam(Astro.currentLocale ?? Astro.params.lang)
+const t = useTranslations(lang)
+const categories = await getCategories(lang)
+---
+
+<Layout
+  title={t('blog.categories')}
+  description={t('blog.categoriesDescription')}
+>
+  <h1 id="content" tabindex="-1">{t('blog.categories')}</h1>
+  {categories.length === 0 ? (
+    <p>{t('home.empty')}</p>
+  ) : (
+    <ul class='post-list' role='list'>
+      {categories.map((category) => (
+        <li>
+          <a
+            href={getRelativeLocaleUrl(lang, `blog/category/${category.slug}`)}
+          >
+            {category.name}
+          </a>
+          <p>{t('blog.count').replace('{count}', String(category.count))}</p>
+        </li>
+      ))}
+    </ul>
+  )}
+</Layout>

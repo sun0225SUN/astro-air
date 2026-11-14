@@ -3,9 +3,13 @@ title: 使用 MDX
 description: 在文章里把 Markdown 和 Astro 组件写在一起。
 pubDate: 2024-06-01
 updatedDate: 2024-11-02
+category: 指南
+tags:
+  - MDX
+  - Markdown
 ---
 
-import Callout from '../../../components/Callout.astro'
+import { Callout } from '../../../components'
 
 MDX 是可以包含组件的 Markdown。`astro.config.mjs` 里启用了 `@astrojs/mdx`，博客集合会同时加载 `.md` 和 `.mdx`。
 

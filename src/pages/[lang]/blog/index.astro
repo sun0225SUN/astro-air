@@ -1,5 +1,6 @@
 ---
-import PostList from '../../../components/PostList.astro'
+import { getRelativeLocaleUrl } from 'astro:i18n'
+import { PostList } from '../../../components'
 import { locales, useTranslations } from '../../../i18n/ui'
 import Layout from '../../../layouts/Layout.astro'
 import { localeFromParam } from '../../../lib/content'
@@ -14,5 +15,12 @@ const t = useTranslations(lang)
 
 <Layout title={t('nav.blog')} description={t('blog.description')}>
   <h1 id="content" tabindex="-1">{t('nav.blog')}</h1>
+  <p class="meta">
+    <a href={getRelativeLocaleUrl(lang, 'blog/category')}
+      >{t('blog.categories')}</a
+    >
+    {' · '}
+    <a href={getRelativeLocaleUrl(lang, 'blog/tag')}>{t('blog.tags')}</a>
+  </p>
   <PostList />
 </Layout>

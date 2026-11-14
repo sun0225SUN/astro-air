@@ -1,7 +1,7 @@
 ---
 import { getAbsoluteLocaleUrl } from 'astro:i18n'
-import { defaultLang, locales } from '../i18n/ui'
-import { contentPath, hasLocalePath, localeFromParam } from '../lib/content'
+import { defaultLang, locales } from '../../i18n/ui'
+import { contentPath, hasLocalePath, localeFromParam } from '../../lib/content'
 
 const lang = localeFromParam(Astro.currentLocale)
 const path = contentPath(Astro.url.pathname, lang)

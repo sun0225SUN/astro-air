@@ -1,0 +1,42 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n'
+import { PostList } from '../../../../components'
+import { locales, useTranslations } from '../../../../i18n/ui'
+import Layout from '../../../../layouts/Layout.astro'
+import {
+  getPostsByTag,
+  getTags,
+  localeFromParam,
+} from '../../../../lib/content'
+
+export async function getStaticPaths() {
+  const paths = []
+  for (const lang of locales) {
+    const tags = await getTags(lang)
+    for (const tag of tags) {
+      paths.push({ params: { lang, slug: tag.slug }, props: { tag } })
+    }
+  }
+  return paths
+}
+
+interface Props {
+  tag: { name: string }
+}
+
+const lang = localeFromParam(Astro.currentLocale ?? Astro.params.lang)
+const { tag } = Astro.props
+const t = useTranslations(lang)
+const posts = await getPostsByTag(lang, Astro.params.slug ?? '')
+---
+
+<Layout
+  title={tag.name}
+  description={t('blog.tagDescription').replace('{name}', tag.name)}
+>
+  <h1 id="content" tabindex="-1">{tag.name}</h1>
+  <p class="meta">
+    <a href={getRelativeLocaleUrl(lang, 'blog/tag')}>{t('blog.tags')}</a>
+  </p>
+  <PostList posts={posts} />
+</Layout>

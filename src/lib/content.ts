@@ -25,6 +25,70 @@ export async function getBlogPosts(locale: Locale) {
   )
 }
 
+export function taxonomySlug(value: string) {
+  return value
+    .trim()
+    .toLocaleLowerCase()
+    .replace(/[\\/]+/g, '-')
+    .replace(/\s+/g, '-')
+}
+
+export type Term = {
+  name: string
+  slug: string
+  count: number
+}
+
+function collectTerms(
+  posts: BlogPost[],
+  locale: Locale,
+  pick: (post: BlogPost) => string[],
+) {
+  const terms = new Map<string, Term>()
+  for (const post of posts) {
+    for (const name of pick(post)) {
+      const slug = taxonomySlug(name)
+      const existing = terms.get(slug)
+      if (existing) {
+        existing.count += 1
+      } else {
+        terms.set(slug, { name, slug, count: 1 })
+      }
+    }
+  }
+  return [...terms.values()].sort((a, b) =>
+    a.name.localeCompare(b.name, locale),
+  )
+}
+
+export async function getCategories(locale: Locale) {
+  const posts = await getBlogPosts(locale)
+  return collectTerms(posts, locale, (post) =>
+    post.data.category ? [post.data.category] : [],
+  )
+}
+
+export async function getTags(locale: Locale) {
+  const posts = await getBlogPosts(locale)
+  return collectTerms(posts, locale, (post) => post.data.tags)
+}
+
+export async function getPostsByCategory(locale: Locale, slug: string) {
+  const posts = await getBlogPosts(locale)
+  return posts.filter(
+    (post) =>
+      post.data.category !== undefined &&
+      taxonomySlug(post.data.category) === slug,
+  )
+}
+
+export async function getPostsByTag(locale: Locale, slug: string) {
+  const posts = await getBlogPosts(locale)
+  return posts.filter((post) =>
+    post.data.tags.some((tag) => taxonomySlug(tag) === slug),
+  )
+}
+
 export async function getCustomPages(locale: Locale) {
   const pages = await getCollection(
     'pages',
@@ -40,7 +104,24 @@ export async function getCustomPages(locale: Locale) {
 }
 
 export async function hasLocalePath(locale: Locale, path: string) {
-  if (path === '' || path === 'blog') return true
+  if (
+    path === '' ||
+    path === 'blog' ||
+    path === 'blog/category' ||
+    path === 'blog/tag'
+  ) {
+    return true
+  }
+  if (path.startsWith('blog/category/')) {
+    const slug = path.slice('blog/category/'.length)
+    const categories = await getCategories(locale)
+    return categories.some((category) => category.slug === slug)
+  }
+  if (path.startsWith('blog/tag/')) {
+    const slug = path.slice('blog/tag/'.length)
+    const tags = await getTags(locale)
+    return tags.some((tag) => tag.slug === slug)
+  }
   if (path.startsWith('blog/')) {
     const slug = path.slice('blog/'.length)
     const posts = await getBlogPosts(locale)
@@ -59,6 +140,12 @@ export function contentPath(pathname: string, locale: Locale) {
 export async function localeHref(locale: Locale, path: string) {
   if (await hasLocalePath(locale, path))
     return getRelativeLocaleUrl(locale, path)
+  if (path.startsWith('blog/category')) {
+    return getRelativeLocaleUrl(locale, 'blog/category')
+  }
+  if (path.startsWith('blog/tag')) {
+    return getRelativeLocaleUrl(locale, 'blog/tag')
+  }
   if (path.startsWith('blog/')) return getRelativeLocaleUrl(locale, 'blog')
   return getRelativeLocaleUrl(locale)
 }

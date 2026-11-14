@@ -15,7 +15,14 @@
     "description": "A minimal personal blog."
   },
   "blog": {
-    "description": "Posts from Astro Air."
+    "description": "Posts from Astro Air.",
+    "categories": "Categories",
+    "categoriesDescription": "All categories.",
+    "categoryDescription": "Posts filed under {name}.",
+    "tags": "Tags",
+    "tagsDescription": "All tags.",
+    "tagDescription": "Posts tagged {name}.",
+    "count": "{count} posts"
   },
   "post": {
     "updated": "Updated",

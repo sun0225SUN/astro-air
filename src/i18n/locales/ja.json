@@ -15,7 +15,14 @@
     "description": "小さな個人ブログ。"
   },
   "blog": {
-    "description": "Astro Air の記事。"
+    "description": "Astro Air の記事。",
+    "categories": "カテゴリー",
+    "categoriesDescription": "すべてのカテゴリー。",
+    "categoryDescription": "「{name}」の記事。",
+    "tags": "タグ",
+    "tagsDescription": "すべてのタグ。",
+    "tagDescription": "「{name}」タグの記事。",
+    "count": "{count} 件"
   },
   "post": {
     "updated": "更新",
