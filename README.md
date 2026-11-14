@@ -10,7 +10,6 @@ Live site: [astro-air.guoqi.dev](https://astro-air.guoqi.dev)
 
 - English, Simplified Chinese, Japanese, and Korean
 - Home, archive, tags, categories, and custom pages
-- Markdown and MDX, rendered with [Sätteri](https://github.com/withastro/markdown-satteri)
 - Reading time, and a last-modified time taken from Git
 - A table of contents that smooth-scrolls to the heading
 - Light and dark themes, with a view transition between pages

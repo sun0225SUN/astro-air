@@ -10,7 +10,6 @@
 
 - 英文、简体中文、日文、韩文
 - 首页、归档、标签、分类，以及独立页面
-- Markdown 与 MDX，由 [Sätteri](https://github.com/withastro/markdown-satteri) 渲染
 - 阅读时间，以及从 Git 读取的最后修改时间
 - 宽屏目录，点击后平滑滚到对应标题
 - 浅色 / 深色主题，页面切换带视图过渡
