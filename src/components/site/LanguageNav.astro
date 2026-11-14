@@ -1,12 +1,12 @@
 ---
 import Languages from '@lucide/astro/icons/languages'
-import { languages, nextLocale } from '../../i18n'
+import { nextLocale } from '../../i18n'
 import { contentPath, localeFromParam, localeHref } from '../../lib/content'
 
 const lang = localeFromParam(Astro.currentLocale)
 const next = nextLocale(lang)
 const href = await localeHref(next, contentPath(Astro.url.pathname, lang))
-const label = languages[next]
+const label = next
 ---
 
 <a

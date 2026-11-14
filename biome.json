@@ -7,14 +7,7 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": [
-      "**",
-      "!node_modules",
-      "!.astro",
-      "!dist",
-      "!**/*.md",
-      "!**/*.{yml,yaml}"
-    ]
+    "includes": ["**", "!node_modules", "!.astro", "!dist", "!**/*.md"]
   },
   "formatter": {
     "enabled": true,

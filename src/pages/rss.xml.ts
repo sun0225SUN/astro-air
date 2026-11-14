@@ -7,7 +7,7 @@ import { entrySlug, getBlogPosts } from '../lib/content'
 export async function GET(context: APIContext) {
   if (!context.site) {
     throw new Error(
-      'Set `url` in src/config.yml before generating the RSS feed.',
+      'Set `url` in src/config.ts before generating the RSS feed.',
     )
   }
 

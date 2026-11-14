@@ -1,37 +1,32 @@
 ---
-import { getRelativeLocaleUrl } from 'astro:i18n'
 import { useTranslations } from '../../i18n'
-import { entrySlug, getCustomPages, localeFromParam } from '../../lib/content'
+import { localeFromParam } from '../../lib/content'
+import { navLinks } from '../../lib/nav'
 
 const lang = localeFromParam(Astro.currentLocale)
 const t = useTranslations(lang)
-const pages = await getCustomPages(lang)
 const current = Astro.url.pathname.replace(/\/$/, '') || '/'
+const links = await navLinks(lang)
 
 function currentPage(href: string) {
   const normalized = href.replace(/\/$/, '') || '/'
   return normalized === current ? 'page' : undefined
 }
-
-const links = [
-  { href: getRelativeLocaleUrl(lang), label: t('nav.home') },
-  { href: getRelativeLocaleUrl(lang, 'blog'), label: t('nav.blog') },
-  ...pages.map((page) => ({
-    href: getRelativeLocaleUrl(lang, entrySlug(page.id)),
-    label: page.data.title,
-  })),
-]
 ---
 
 <nav
   aria-label={t('nav.primary')}
-  class="mt-4 mb-10 flex gap-4 overflow-x-auto text-lg whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+  class="mt-4 mb-10 flex h-8 items-center gap-4 text-lg whitespace-nowrap"
 >
   {links.map((link) => (
     <a
       href={link.href}
       class='hover:underline hover:underline-offset-4 aria-[current=page]:underline'
       aria-current={currentPage(link.href)}
+      target={'external' in link && link.external ? '_blank' : undefined}
+      rel={
+        'external' in link && link.external ? 'noopener noreferrer' : undefined
+      }
     >
       {link.label}
     </a>

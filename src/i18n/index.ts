@@ -2,21 +2,26 @@ import en from '../../messages/en.json'
 import ja from '../../messages/ja.json'
 import ko from '../../messages/ko.json'
 import zh from '../../messages/zh.json'
+import { config } from '../config'
 
-export const locales = ['en', 'zh', 'ja', 'ko'] as const
+const messages = { en, zh, ja, ko }
 
-export type Locale = (typeof locales)[number]
+export type Locale = keyof typeof messages
 
-export const defaultLang: Locale = 'en'
-
-export const languages: Record<Locale, string> = {
-  en: 'English',
-  zh: '中文',
-  ja: '日本語',
-  ko: '한국어',
+function knownLocale(code: string): Locale {
+  if (!(code in messages)) {
+    throw new Error(`src/config.ts locale "${code}" has no messages file`)
+  }
+  return code as Locale
 }
 
-const ui = { en, zh, ja, ko } satisfies Record<Locale, typeof en>
+export const locales = config.locales.map((locale) => knownLocale(locale))
+
+export const defaultLang = knownLocale(config.defaultLocale)
+
+const ui = Object.fromEntries(
+  locales.map((locale) => [locale, messages[locale]]),
+) as Record<Locale, typeof en>
 
 type MessageTree = {
   [key: string]: string | MessageTree
