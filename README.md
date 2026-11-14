@@ -1,150 +1,162 @@
 # Astro Air
 
-A minimalism, personal blog theme for Astro.
+[中文](./README.zh-CN.md)
 
-> If you find this project helpful, please consider giving it a star ⭐️
+A minimal multilingual blog theme for [Astro](https://astro.build).
 
-[![Built with Astro](https://astro.badg.es/v1/built-with-astro/tiny.svg)](https://astro.build) [![Netlify Status](https://api.netlify.com/api/v1/badges/3e2c71b9-071f-4846-9321-41c949134ebf/deploy-status)](https://app.netlify.com/sites/astro-air/deploys)
-
-<img style="border-radius: 10px;" src="https://cdn.jsdelivr.net/gh/sun0225SUN/astro-air/public/preview.png" alt="Astro Air">
-
-## Showcase
-
-- [Astro Air](https://astro-air.guoqi.dev)
-- [Guoqi's blog](https://blog.sunguoqi.com)
-- ...
-
-> welcome to add your own blog to the list ❤️
+Live site: [astro-air.guoqi.dev](https://astro-air.guoqi.dev)
 
 ## Features
 
-- [x] 🌓 Dark mode support
-- [x] 📱 Fully device responsive
-- [x] 🎨 Clean and minimalist design
-- [x] 📝 Markdown/MDX for content authoring
-- [x] 🏄‍♂️ SSG static rendering, SEO friendly
-- [x] 🌐 i18n support (EN/ZH)
-- [x] 🔗 Social media integration
-- [x] 📰 RSS feed & sitemap support
-- [x] 🛠️ Google analysis integration
-- [x] 💬 Commenting Integration (Twikoo)
-- [x] 🎨 Enhance Transition and Animation
-- [ ] 🔍 Local search functionality
-- [ ] ...and more
+- English, Simplified Chinese, Japanese, and Korean
+- Home, archive, tags, categories, and custom pages
+- Markdown and MDX, rendered with [Sätteri](https://github.com/withastro/markdown-satteri)
+- Reading time, and a last-modified time taken from Git
+- A table of contents that smooth-scrolls to the heading
+- Light and dark themes, with a view transition between pages
+- One RSS feed for every published post
+- Pagination, or a single page that lists every post
 
-## Quick Start
+## Requirements
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/sun0225SUN/astro-air)
+[Bun](https://bun.sh) 1.4.4 or newer. `package.json` pins `packageManager` to `bun@1.4.4`.
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/sun0225SUN/astro-air)
-
-## Configuration
-
-- Open `src/config/index.ts` and customize your site settings
-
-- Open `src/config/links.ts` and customize your site links
-
-- Open `src/config/zh(en)/about.mdx(intro.mdx、links.mdx)` and customize your pages content
-
-## Writing Content
-
-1. Create new blog posts in the `src/content/posts/` directory
-2. Use the following frontmatter template:
-
-```markdown
----
-title: "Your Post Title"
-description: "A brief description of your post"
-pubDate: YYYY-MM-DD
-updatedDate(optional): YYYY-MM-DD
-tags(optional): ["tag1", "tag2"]
-ogImage(optional): "cover image URL"
----
-
-Your content here...
-```
-
-## Update Theme
-
-```bash
-git remote add upstream https://github.com/sun0225SUN/astro-air
-
-git fetch upstream
-
-git merge upstream/main --allow-unrelated-histories
-
-```
-
-## Contributing
-
-Contributions are welcome! Feel free to:
-
-1. Fork the repository
-2. Create your feature branch
-3. Submit a pull request
+## Start
 
 ```bash
 git clone https://github.com/sun0225SUN/astro-air
-
 cd astro-air
-
+git switch dev
 bun install
-
 bun dev
 ```
 
-## License
+`/` redirects to the default locale. With the sample config, that is `/en/`.
 
-This project is licensed under the GPL-3.0 License - see the LICENSE file for details.
+| Command | Purpose |
+| --- | --- |
+| `bun dev` | Start the dev server |
+| `bun run build` | Build the static site into `dist/` |
+| `bun run preview` | Serve the build |
+| `bun run lint` | Check formatting and lint with Biome |
+| `bun run format` | Format with Biome |
 
-## 贡献者
+Package scripts run on Bun. `bunfig.toml` sets that, because the Astro CLI ships with a Node shebang.
 
-<!-- readme: collaborators,contributors -start -->
-<!-- readme: collaborators,contributors -end -->
-
-# Astro Starter Kit: Basics
-
-```sh
-bun create astro@latest -- --template basics
-```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+## Layout
 
 ```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+src/config.ts              Site title, URL, locales, navigation, page size
+messages/                  Interface copy, one JSON file per locale
+src/content/blog/<locale>  Posts
+src/content/pages/<locale> Standalone pages such as about and links
+src/i18n/                  Locale list and the t() lookup
+src/pages/                 Routes
+public/                    Favicon, fonts, and other static files
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Configuration
 
-## 🧞 Commands
+`src/config.ts` is the only site config:
 
-All commands are run from the root of the project, from a terminal:
+```ts
+export const config = {
+  title: 'Air',
+  url: 'https://astro-air.guoqi.dev',
+  defaultLocale: 'en',
+  locales: ['en', 'zh', 'ja', 'ko'],
+  blog: {
+    // A positive integer, or 'all' to show every post.
+    perPage: 10,
+  },
+  nav: [
+    'home',
+    'archive',
+    'tags',
+    'about',
+  ],
+}
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `bun install`             | Installs dependencies                            |
-| `bun dev`             | Starts local dev server at `localhost:4321`      |
-| `bun build`           | Build your production site to `./dist/`          |
-| `bun preview`         | Preview your build locally, before deploying     |
-| `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `bun astro -- --help` | Get help using the Astro CLI                     |
+`url` is the canonical site address. Astro uses it for the RSS feed.
 
-## 👀 Want to learn more?
+`locales` is both the list and the order of languages. The language button cycles through that list and stays on the same page when the translation exists. Each code needs a `messages/<code>.json` file with the same nested keys as `messages/en.json`. A missing file fails the build. `t('blog.latest')` reads those nested keys.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+`nav` mixes three kinds of items, in the order they should appear:
+
+| Item | Result |
+| --- | --- |
+| `'home'` | Home. The label comes from `nav.home`. |
+| `'archive'` or `'blog'` | The archive at `/blog`. The label comes from `nav.archive`. |
+| `'tags'` | The tag index at `/blog/tag`. The label comes from `nav.tags`. |
+| `'about'` | A page whose file name is `about`, using that page's title. |
+| `{ link, label }` | Any URL. `label.default` is the fallback. Add `zh`, `ja`, or another locale key to override it. |
+
+`blog.perPage` is a positive integer, or `'all'` to show every post on one page.
+
+## Write a post
+
+Add a `.md` or `.mdx` file under `src/content/blog/<locale>/`. The file name is the slug. A folder becomes part of the URL, so `notes/hello.md` is served at `/<locale>/blog/notes/hello`.
+
+```markdown
+---
+title: First post
+description: How posts in this blog are written and published.
+pubDate: 2024-07-08
+updatedDate: 2024-08-01
+draft: false
+category: Notes
+tags:
+  - writing
+  - markdown
+---
+```
+
+`title`, `description`, and `pubDate` are required. `updatedDate`, `draft`, `category`, and `tags` are optional. Tags default to an empty list.
+
+`draft: true` stays visible while you run `bun dev`, and is left out of `bun run build` and the RSS feed.
+
+Translate a post by adding the same file name under each locale folder. A locale that has no file has no page for that slug.
+
+The archive groups posts by year and shows `MM-DD` beside the title. The home page and tag pages show `YYYY-MM-DD`. Visited titles turn purple.
+
+Headings from `h2` and `h3` become the table of contents on wide screens. Clicking one smooth-scrolls to that heading.
+
+## Write a page
+
+Standalone pages live in `src/content/pages/<locale>/`. The file name, without the extension, is the URL. `about.mdx` is `/<locale>/about`.
+
+```markdown
+---
+title: About
+description: A custom page stored with the other standalone pages.
+order: 1
+draft: false
+---
+```
+
+`title` and `description` are required. `order` sorts pages when something lists them. `draft` behaves the same way it does for posts.
+
+To put a page in the header, add its slug to `nav`, for example `'about'`. A file named `blog` is reserved and is not treated as a custom page.
+
+MDX files can import components from `src/components/`.
+
+## Interface copy
+
+Edit `messages/en.json`, `messages/zh.json`, `messages/ja.json`, and `messages/ko.json`. Keys are nested. In a component, `t('post.readingTime', { minutes })` replaces `{minutes}` in the string.
+
+To add a language:
+
+1. Append its code to `locales` in `src/config.ts`.
+2. Add `messages/<code>.json` with the same keys as `messages/en.json`.
+3. Put posts and pages in `src/content/blog/<code>/` and `src/content/pages/<code>/`.
+
+`defaultLocale` must be one of `locales`.
+
+## RSS
+
+`/rss.xml` lists every published post in every locale. Each item links to its locale-prefixed URL. Drafts are omitted.
+
+## License
+
+[GPL-3.0-only](./LICENSE)
