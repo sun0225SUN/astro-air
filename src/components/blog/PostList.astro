@@ -41,7 +41,7 @@ if (variant === 'archive') {
         {groups.get(year)?.map((post) => (
           <a
             href={getRelativeLocaleUrl(lang, `blog/${entrySlug(post.id)}`)}
-            class='my-3 flex visited:text-accent md:my-2'
+            class='my-3 flex visited:text-[VisitedText] md:my-2'
           >
             <p
               class:list={[
@@ -61,7 +61,7 @@ if (variant === 'archive') {
   : posts.map((post) => (
       <a
         href={getRelativeLocaleUrl(lang, `blog/${entrySlug(post.id)}`)}
-        class='my-3 flex visited:text-accent md:my-2'
+        class='my-3 flex visited:text-[VisitedText] md:my-2'
       >
         <p
           class:list={[
