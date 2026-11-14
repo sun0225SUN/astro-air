@@ -14,7 +14,6 @@ import Sun from '@lucide/astro/icons/sun'
   <Moon class="hidden dark:block" size={22} aria-hidden="true" />
 </button>
 <script is:inline>
-  const themeButton = document.getElementById('theme-toggle')
   const themeMedia = matchMedia('(prefers-color-scheme: dark)')
 
   function storeTheme(theme) {
@@ -30,16 +29,35 @@ import Sun from '@lucide/astro/icons/sun'
     storeTheme(theme)
   }
 
-  if (themeButton && themeButton.dataset.bound !== 'true') {
-    themeButton.dataset.bound = 'true'
-    themeButton.addEventListener('click', () => {
+  function clearThemeTransition() {
+    const root = document.documentElement
+    root.style.removeProperty('view-transition-name')
+    root.removeAttribute('data-theme-changing')
+  }
+
+  if (!window.__themeToggleBound) {
+    window.__themeToggleBound = true
+    let themeTransition = null
+    let generation = 0
+
+    document.addEventListener('click', (event) => {
+      const button = event.target.closest('#theme-toggle')
+      if (!button) return
       const next = document.documentElement.classList.contains('dark')
         ? 'light'
         : 'dark'
+      const gen = ++generation
       const reduceMotion = matchMedia(
         '(prefers-reduced-motion: reduce)',
       ).matches
-      if (reduceMotion || !document.startViewTransition) {
+      const canAnimate =
+        !reduceMotion &&
+        !themeTransition &&
+        typeof document.startViewTransition === 'function'
+      if (!canAnimate) {
+        themeTransition?.skipTransition?.()
+        themeTransition = null
+        clearThemeTransition()
         applyTheme(next)
         return
       }
@@ -47,16 +65,32 @@ import Sun from '@lucide/astro/icons/sun'
       const root = document.documentElement
       root.style.setProperty('view-transition-name', 'theme-toggle-transition')
       root.setAttribute('data-theme-changing', '')
-      const transition = document.startViewTransition(() => applyTheme(next))
-      transition.finished.then(() => {
-        root.style.removeProperty('view-transition-name')
-        root.removeAttribute('data-theme-changing')
-      })
+      const done = () => {
+        if (gen !== generation) return
+        themeTransition = null
+        clearThemeTransition()
+      }
+      try {
+        themeTransition = document.startViewTransition(() => {
+          if (gen !== generation) return
+          applyTheme(next)
+        })
+      } catch {
+        themeTransition = null
+        clearThemeTransition()
+        applyTheme(next)
+        return
+      }
+      themeTransition.finished.then(done, done)
     })
-  }
 
-  if (!window.__themeStorageBound) {
-    window.__themeStorageBound = true
+    document.addEventListener('astro:before-preparation', () => {
+      generation += 1
+      themeTransition?.skipTransition?.()
+      themeTransition = null
+      clearThemeTransition()
+    })
+
     window.addEventListener('storage', (event) => {
       if (event.key !== 'theme') return
       const theme =
