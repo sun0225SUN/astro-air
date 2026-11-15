@@ -52,6 +52,13 @@ src/content/pages/<语言>   关于、链接这类独立页面
 src/i18n/                  语言列表和 t() 查找
 src/pages/                 路由
 public/                    图标、字体和其他静态文件
+src/styles/global.css       设计令牌、配色方案，以及样式引入
+src/styles/theme.css        浅色和深色帘子
+src/styles/transition.css  正文渐入
+src/styles/prose.css        文章链接、代码和图片
+src/styles/image-viewer.css 图片查看器
+src/styles/nav.css          导航两端的淡出
+docs/animations.md         动画说明
 ```
 
 ## 配置
@@ -171,7 +178,7 @@ UMAMI_URL=https://umami.example
 UMAMI_WEBSITE_ID=your-website-id
 ```
 
-`UMAMI_URL` 是 Umami 的源站地址，不要以斜杠结尾。站点会加上 `/script.js` 和 `/recorder.js`，并把 `UMAMI_WEBSITE_ID` 写进 `data-website-id`。
+`UMAMI_URL` 是 Umami 的源站地址，不要以斜杠结尾。站点会加上 `/script.js` 和 `/recorder.js`，并把 `UMAMI_WEBSITE_ID` 写进 `data-website-id`。自定义事件只加在按钮上，目前只有主题切换。链接不加 `data-umami-event`，否则 Umami 会取消点击，页面过渡就不会发生。
 
 ## RSS
 

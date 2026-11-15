@@ -52,6 +52,13 @@ src/content/pages/<locale> Standalone pages such as about and links
 src/i18n/                  Locale list and the t() lookup
 src/pages/                 Routes
 public/                    Favicon, fonts, and other static files
+src/styles/global.css       Tokens, color scheme, and style imports
+src/styles/theme.css        Light and dark curtain
+src/styles/transition.css  Article enter animation
+src/styles/prose.css        Article links, code, and images
+src/styles/image-viewer.css Image zoom dialog
+src/styles/nav.css          Nav edge fade
+docs/animations.md         How those animations are wired
 ```
 
 ## Configuration
@@ -171,7 +178,7 @@ UMAMI_URL=https://umami.example
 UMAMI_WEBSITE_ID=your-website-id
 ```
 
-`UMAMI_URL` is the Umami origin, without a trailing slash. The site adds `/script.js` and `/recorder.js`, and passes `UMAMI_WEBSITE_ID` as `data-website-id`.
+`UMAMI_URL` is the Umami origin, without a trailing slash. The site adds `/script.js` and `/recorder.js`, and passes `UMAMI_WEBSITE_ID` as `data-website-id`. Custom events stay on buttons. The theme toggle is the only one. Links do not carry `data-umami-event`, because Umami would cancel the click and skip the page transition.
 
 ## RSS
 

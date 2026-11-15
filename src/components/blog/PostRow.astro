@@ -32,12 +32,7 @@ const dateLabel = dateFormat.replace(
 )
 ---
 
-<a
-  href={href}
-  class="flex visited:text-visited"
-  data-umami-event="post"
-  data-umami-event-slug={entrySlug(post.id)}
->
+<a href={href} class="flex visited:text-visited">
   <p
     class:list={[
       'flex shrink-0 truncate text-muted dark:text-faint',
@@ -48,16 +43,20 @@ const dateLabel = dateFormat.replace(
       datetime={date.toISOString().slice(0, 10)}
       class="inline-block w-fit"
       transition:name={`time-${lang}-${slug}`}
+      data-disable-theme-toggle-transition
     >
       {dateLabel}
     </time>
   </p>
   <div class="relative w-fit max-w-full">
-    <p
-      class="line-clamp-2 w-fit max-w-full text-lg hover:underline"
-      transition:name={`post-${lang}-${slug}`}
-    >
-      {post.data.title}
+    <p class="w-fit max-w-full text-lg hover:underline">
+      <span
+        class="inline-block max-w-full"
+        transition:name={`post-${lang}-${slug}`}
+        data-disable-theme-toggle-transition
+      >
+        {post.data.title}
+      </span>
     </p>
     {pinned && (
       <Pin

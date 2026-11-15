@@ -1,0 +1,38 @@
+.prose :where(a):not(:where(.not-prose, .not-prose *)) {
+  color: var(--color-accent);
+}
+
+.dark .prose :where(a):not(:where(.not-prose, .not-prose *)) {
+  color: var(--color-accent-dark);
+}
+
+article :not(pre) > code {
+  border-radius: 0.25rem;
+  background-color: color-mix(in srgb, var(--color-accent) 28%, transparent);
+  padding-inline: 0.25rem;
+}
+
+.dark article :not(pre) > code {
+  background-color: color-mix(
+    in srgb,
+    var(--color-accent-dark) 42%,
+    transparent
+  );
+}
+
+article code::before,
+article code::after {
+  content: none;
+}
+
+.prose :where(img) {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: min(32rem, 70vh);
+  margin-inline: auto;
+  object-fit: contain;
+  border-radius: 0.75rem;
+  cursor: zoom-in;
+}

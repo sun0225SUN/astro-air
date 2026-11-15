@@ -1,0 +1,117 @@
+/* Article enter animation. See docs/animations.md.
+   Do not set ::view-transition-old(*) or ::view-transition-new(*).
+   That shorthand replaces the list-to-article morph.
+*/
+
+@keyframes content-rise {
+  from {
+    opacity: 0;
+    translate: 0 3rem;
+  }
+}
+
+#post-content > * {
+  animation: content-rise 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) both;
+}
+
+#post-content > *:nth-child(1) {
+  animation-delay: 0.15s;
+}
+
+#post-content > *:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+#post-content > *:nth-child(3) {
+  animation-delay: 0.25s;
+}
+
+#post-content > *:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+#post-content > *:nth-child(5) {
+  animation-delay: 0.35s;
+}
+
+#post-content > *:nth-child(6) {
+  animation-delay: 0.4s;
+}
+
+#post-content > *:nth-child(7) {
+  animation-delay: 0.45s;
+}
+
+#post-content > *:nth-child(8) {
+  animation-delay: 0.5s;
+}
+
+#post-content > *:nth-child(9) {
+  animation-delay: 0.55s;
+}
+
+#post-content > *:nth-child(10) {
+  animation-delay: 0.6s;
+}
+
+#post-content > *:nth-child(11) {
+  animation-delay: 0.65s;
+}
+
+#post-content > *:nth-child(12) {
+  animation-delay: 0.7s;
+}
+
+#post-content > *:nth-child(13) {
+  animation-delay: 0.75s;
+}
+
+#post-content > *:nth-child(14) {
+  animation-delay: 0.8s;
+}
+
+#post-content > *:nth-child(15) {
+  animation-delay: 0.85s;
+}
+
+#post-content > *:nth-child(n + 16) {
+  animation-delay: 0.9s;
+}
+
+#toc .toc-item {
+  animation: content-rise 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) both;
+}
+
+#toc .toc-item:nth-child(1) {
+  animation-delay: 0.175s;
+}
+
+#toc .toc-item:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+#toc .toc-item:nth-child(3) {
+  animation-delay: 0.225s;
+}
+
+#toc .toc-item:nth-child(n + 4) {
+  animation-delay: 0.25s;
+}
+
+@media (max-width: 767px) {
+  #post-content > *:nth-child(n + 8),
+  #toc .toc-item:nth-child(n + 8) {
+    opacity: 1;
+    translate: 0 0;
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #post-content > *,
+  #toc .toc-item {
+    opacity: 1;
+    translate: 0 0;
+    animation: none;
+  }
+}

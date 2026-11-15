@@ -21,7 +21,11 @@ const t = useTranslations(lang)
     aria-label={config.title}
     class="inline-flex items-center"
   >
-    <span class="font-title text-3xl leading-none" transition:name="site-title">
+    <span
+      class="inline-block font-title text-3xl leading-none"
+      transition:name="site-title"
+      data-disable-theme-toggle-transition
+    >
       {config.title}
     </span>
   </a>

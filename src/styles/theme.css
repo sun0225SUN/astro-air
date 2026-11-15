@@ -1,0 +1,30 @@
+/* Light and dark curtain. See docs/animations.md. */
+
+@keyframes theme-reveal {
+  from {
+    clip-path: inset(var(--theme-from));
+  }
+}
+
+::view-transition-new(theme-toggle-transition) {
+  z-index: 1;
+  clip-path: inset(0);
+  animation: theme-reveal 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::view-transition-old(theme-toggle-transition) {
+  z-index: -1;
+  animation: none;
+}
+
+html.dark {
+  --theme-from: 0 0 100% 0;
+}
+
+html:not(.dark) {
+  --theme-from: 100% 0 0 0;
+}
+
+html[data-theme-changing] [data-disable-theme-toggle-transition] {
+  view-transition-name: none;
+}

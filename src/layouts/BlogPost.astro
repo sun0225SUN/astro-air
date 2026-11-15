@@ -49,12 +49,13 @@ const modifiedLabel = modified?.isValid()
 ---
 
 <Layout title={title} description={description}>
-  <article class="prose dark:prose-invert w-full max-w-3xl overflow-hidden">
+  <article class="prose dark:prose-invert w-full max-w-3xl">
     <div class="flex flex-col gap-2">
       <h2 class="my-0! text-3xl font-semibold">
         <span
           class="inline-block w-fit max-w-full"
           transition:name={`post-${lang}-${slug}`}
+          data-disable-theme-toggle-transition
         >
           {title}
         </span>
@@ -73,8 +74,6 @@ const modifiedLabel = modified?.isValid()
                 `blog/category/${taxonomySlug(category)}`,
               )}
               class='text-accent no-underline hover:text-accent-hover dark:text-accent-dark dark:hover:text-accent-dark-hover'
-              data-umami-event='category'
-              data-umami-event-name={category}
             >
               {category}
             </a>
@@ -84,6 +83,7 @@ const modifiedLabel = modified?.isValid()
         <span
           class="inline-block w-fit"
           transition:name={`time-${lang}-${slug}`}
+          data-disable-theme-toggle-transition
         >
           <FormattedDate date={pubDate} />
         </span>

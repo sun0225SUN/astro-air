@@ -28,8 +28,6 @@ function currentPage(href: string) {
       href={link.href}
       class='shrink-0 underline-offset-4 hover:underline aria-[current=page]:underline'
       aria-current={currentPage(link.href)}
-      data-umami-event='nav'
-      data-umami-event-name={link.name}
       target={'external' in link && link.external ? '_blank' : undefined}
       rel={
         'external' in link && link.external ? 'noopener noreferrer' : undefined

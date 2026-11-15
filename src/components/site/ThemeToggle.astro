@@ -44,12 +44,15 @@ import Sun from '@lucide/astro/icons/sun'
     }
     const root = document.documentElement
     const id = ++themeTransition
-    root.classList.add('theme-toggle')
+    root.setAttribute('data-theme-changing', '')
+    root.style.viewTransitionName = 'theme-toggle-transition'
     const transition = document.startViewTransition(() => {
       applyTheme(next)
     })
     const clear = () => {
-      if (id === themeTransition) root.classList.remove('theme-toggle')
+      if (id !== themeTransition) return
+      root.removeAttribute('data-theme-changing')
+      root.style.removeProperty('view-transition-name')
     }
     transition.finished.then(clear, clear)
   }
