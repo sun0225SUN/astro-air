@@ -9,9 +9,6 @@
   "home": {
     "empty": "還沒有文章。"
   },
-  "site": {
-    "description": "Astro Air 是一款為獨立寫作者打造的極簡多語部落格主題。它以清晰的排版與舒適的閱讀體驗為核心，內建深淺色主題、文章歸檔、分類與標籤、RSS 訂閱和響應式版面，並支援 Markdown/MDX 內容創作。保持足夠輕盈，也為個人化擴充保留空間。"
-  },
   "blog": {
     "description": "Astro Air 的文章。",
     "latest": "近期文章",

@@ -1,8 +1,8 @@
 import { getRelativeLocaleUrl } from 'astro:i18n'
 import rss from '@astrojs/rss'
 import type { APIContext } from 'astro'
-import { config } from '../config'
-import { defaultLang, locales, useTranslations } from '../i18n'
+import { config, siteDescription } from '../config'
+import { defaultLang, locales } from '../i18n'
 import { entrySlug, getBlogPosts } from '../lib/content'
 
 export async function GET(context: APIContext) {
@@ -21,7 +21,7 @@ export async function GET(context: APIContext) {
 
   return rss({
     title: config.title,
-    description: useTranslations(defaultLang)('site.description'),
+    description: siteDescription(defaultLang),
     site: context.site,
     items: posts.map((post) => {
       const locale = post.id.slice(0, post.id.indexOf('/'))

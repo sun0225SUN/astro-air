@@ -45,7 +45,7 @@ Package scripts run on Bun. `bunfig.toml` sets that, because the Astro CLI ships
 ## Layout
 
 ```text
-src/config.ts              Site title, URL, locales, navigation, page size
+src/config.ts              Site identity, metadata, locales, navigation, page size
 messages/                  Interface copy, one JSON file per locale
 src/content/blog/<locale>  Posts
 src/content/pages/<locale> Standalone pages such as about and links
@@ -61,6 +61,15 @@ public/                    Favicon, fonts, and other static files
 ```ts
 export const config = {
   title: 'Air',
+  author: 'Guoqi Sun',
+  description: {
+    default: 'A minimal multilingual blog theme.',
+    zh: '一个多语言极简博客主题。',
+  },
+  favicon: [
+    { href: '/favicon.svg', type: 'image/svg+xml' },
+    { href: '/favicon.ico' },
+  ],
   url: 'https://astro-air.guoqi.dev',
   defaultLocale: 'en',
   locales: ['en', 'zh', 'zh-tw', 'ja', 'ko'],
@@ -77,7 +86,7 @@ export const config = {
 }
 ```
 
-`url` is the canonical site address. Astro uses it for the RSS feed.
+`description` provides the homepage, SEO, and RSS description. Use locale codes for translations and `default` as the fallback. `favicon` accepts the attributes for each generated `<link rel="icon">`; put those files in `public/`. `url` is the canonical site address used by Astro and the RSS feed.
 
 `locales` is both the list and the order of languages. The language button cycles through that list and stays on the same page when the translation exists. Each code needs a `messages/<code>.json` file with the same nested keys as `messages/en.json`. A missing file fails the build. `t('blog.latest')` reads those nested keys.
 

@@ -12,7 +12,7 @@ import Callout from '../../../components/content/Callout.astro'
 
 ## 사이트 설정
 
-`src/config.ts`에서 제목, 기본 작성자, 대표 URL, 언어, 페이지당 글 수, 손글씨 글꼴, 탐색 메뉴를 설정합니다. 글의 `author`는 기본값을 덮어씁니다. 탐색 항목에는 기본 페이지 이름이나 다국어 이름을 가진 외부 링크를 쓸 수 있습니다.
+`src/config.ts`에서 제목, 기본 작성자, 다국어 사이트 설명, favicon 파일, 대표 URL, 언어, 페이지당 글 수, 손글씨 글꼴, 탐색 메뉴를 설정합니다. 사이트 설명은 홈, SEO 메타데이터, RSS에서 함께 사용하며 favicon 경로는 `public/` 안의 파일을 가리킵니다. 글의 `author`는 기본값을 덮어씁니다. 탐색 항목에는 기본 페이지 이름이나 다국어 이름을 가진 외부 링크를 쓸 수 있습니다.
 
 <Callout title="언어 파일을 함께 관리하세요">
   `config.locales`의 각 언어에는 대응하는 `messages/` 파일과 `src/content/` 디렉터리가 필요합니다.

@@ -45,7 +45,7 @@ bun dev
 ## 目录
 
 ```text
-src/config.ts              站点标题、地址、语言、导航、每页篇数
+src/config.ts              站点身份、元数据、语言、导航、每页篇数
 messages/                  界面文案，每种语言一个 JSON
 src/content/blog/<语言>    文章
 src/content/pages/<语言>   关于、链接这类独立页面
@@ -61,6 +61,15 @@ public/                    图标、字体和其他静态文件
 ```ts
 export const config = {
   title: 'Air',
+  author: 'Guoqi Sun',
+  description: {
+    default: 'A minimal multilingual blog theme.',
+    zh: '一个多语言极简博客主题。',
+  },
+  favicon: [
+    { href: '/favicon.svg', type: 'image/svg+xml' },
+    { href: '/favicon.ico' },
+  ],
   url: 'https://astro-air.guoqi.dev',
   defaultLocale: 'en',
   locales: ['en', 'zh', 'zh-tw', 'ja', 'ko'],
@@ -77,7 +86,7 @@ export const config = {
 }
 ```
 
-`url` 是站点的正式地址，RSS 会用到它。
+`description` 同时提供首页文案、SEO 描述和 RSS 描述。用语言代码配置译文，`default` 是回退值。`favicon` 中的每一项都会生成一个 `<link rel="icon">`，对应文件放在 `public/`。`url` 是 Astro 和 RSS 使用的站点正式地址。
 
 `locales` 同时决定有哪些语言、按什么顺序切换。语言按钮按这个顺序循环，并能尽量留在当前页面。每个语言代码都要有一份 `messages/<代码>.json`，键结构和 `messages/en.json` 一致。缺文件时构建会失败。组件里用 `t('blog.latest')` 读取这些嵌套键。
 

@@ -12,7 +12,7 @@ import Callout from '../../../components/content/Callout.astro'
 
 ## 配置站点
 
-在 `src/config.ts` 中设置标题、默认作者、规范网址、可用语言、每页文章数、手写字体和导航。文章自己的 `author` 会覆盖默认作者。导航项可以是内置页面名，也可以是带多语言名称的外部链接。
+在 `src/config.ts` 中设置标题、默认作者、多语言站点描述、favicon 文件、规范网址、可用语言、每页文章数、手写字体和导航。站点描述由首页、SEO 元数据和 RSS 共用；favicon 路径对应 `public/` 中的文件。文章自己的 `author` 会覆盖默认作者。导航项可以是内置页面名，也可以是带多语言名称的外部链接。
 
 <Callout title="保持语言文件同步">
   `config.locales` 中的每种语言都需要有对应的 `messages/` 文件，以及 `src/content/` 下对应的内容目录。

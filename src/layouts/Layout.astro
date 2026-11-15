@@ -88,8 +88,7 @@ const canonical = Astro.site ? new URL(publicPath, Astro.site) : undefined
       title={config.title}
       href={new URL('rss.xml', Astro.site)}
     />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    {config.favicon.map((icon) => <link rel='icon' {...icon} />)}
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     {canonical && <link rel='canonical' href={canonical} />}

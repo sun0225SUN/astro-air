@@ -12,7 +12,7 @@ import Callout from '../../../components/content/Callout.astro'
 
 ## 設定網站
 
-在 `src/config.ts` 設定標題、預設作者、標準網址、可用語言、每頁文章數、手寫字型與導覽。文章自己的 `author` 會覆蓋預設作者。導覽項目可使用內建頁面名稱或帶多語名稱的外部連結。
+在 `src/config.ts` 設定標題、預設作者、多語網站描述、favicon 檔案、標準網址、可用語言、每頁文章數、手寫字型與導覽。網站描述由首頁、SEO 中繼資料和 RSS 共用；favicon 路徑對應 `public/` 中的檔案。文章自己的 `author` 會覆蓋預設作者。導覽項目可使用內建頁面名稱或帶多語名稱的外部連結。
 
 <Callout title="保持語言檔案同步">
   `config.locales` 中的每種語言都需要對應的 `messages/` 檔案，以及 `src/content/` 下的內容目錄。

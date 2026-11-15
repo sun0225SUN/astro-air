@@ -1,6 +1,6 @@
 ---
 import PostList from '../../components/blog/PostList.astro'
-import { config } from '../../config'
+import { config, siteDescription } from '../../config'
 import { localePaths, useTranslations } from '../../i18n'
 import Layout from '../../layouts/Layout.astro'
 import { pageLocale } from '../../lib/content'
@@ -11,10 +11,11 @@ export function getStaticPaths() {
 
 const lang = pageLocale(Astro.currentLocale, Astro.params.lang)
 const t = useTranslations(lang)
+const description = siteDescription(lang)
 ---
 
-<Layout title={config.title} description={t('site.description')}>
-  <p>{t('site.description')}</p>
+<Layout title={config.title} description={description}>
+  <p>{description}</p>
   <div class="my-8 text-xl font-medium">{t('blog.latest')}</div>
   <PostList variant="latest" limit={8} />
 </Layout>

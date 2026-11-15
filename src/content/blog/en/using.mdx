@@ -12,7 +12,7 @@ import Callout from '../../../components/content/Callout.astro'
 
 ## Configure the site
 
-Edit `src/config.ts` to set the title, default author, canonical URL, locales, page size, handwriting font, and navigation. A post-level `author` overrides the default author. Navigation accepts built-in page names or external links with localized labels.
+Edit `src/config.ts` to set the title, default author, localized site description, favicon files, canonical URL, locales, page size, handwriting font, and navigation. The description is shared by the homepage, SEO metadata, and RSS; favicon paths point to files in `public/`. A post-level `author` overrides the default author. Navigation accepts built-in page names or external links with localized labels.
 
 <Callout title="Keep locale files in sync">
   Every locale in `config.locales` needs a matching file under `messages/` and content directories under `src/content/`.
