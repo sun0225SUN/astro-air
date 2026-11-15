@@ -3,6 +3,7 @@ import { getRelativeLocaleUrl } from 'astro:i18n'
 import { ClientRouter } from 'astro:transitions'
 import ImageViewer from '../components/content/ImageViewer.astro'
 import LocaleAlternates from '../components/site/LocaleAlternates.astro'
+import LocaleDetect from '../components/site/LocaleDetect.astro'
 import PrimaryNav from '../components/site/PrimaryNav.astro'
 import SiteFooter from '../components/site/SiteFooter.astro'
 import SiteHeader from '../components/site/SiteHeader.astro'
@@ -37,6 +38,7 @@ const canonical = Astro.site ? new URL(publicPath, Astro.site) : undefined
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <LocaleDetect />
     {!config.handwriting && (
       <link
         rel='preload'

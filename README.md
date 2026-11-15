@@ -36,6 +36,8 @@ bun dev
 
 `defaultLocale` in `src/config.ts` is served at `/`, with no language prefix. The other locales keep a prefix, such as `/zh/` when English is the default. Changing `defaultLocale` moves that language to the domain root. There is no redirect page.
 
+A first visit to an unprefixed page follows the browser language when it matches a configured locale. The header language button stores that choice and later visits keep it. A prefixed address, such as `/ja/posts/hello`, stays on that language.
+
 | Command | Purpose |
 | --- | --- |
 | `bun dev` | Start the dev server |

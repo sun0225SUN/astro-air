@@ -1,0 +1,77 @@
+---
+import { defaultLang, locales } from '../../i18n'
+---
+
+<script is:inline define:vars={{ locales, defaultLang }}>
+  const localeKey = 'locale'
+
+  function browserLocale() {
+    const requested = navigator.languages?.length
+      ? navigator.languages
+      : [navigator.language]
+    for (const item of requested) {
+      if (!item) continue
+      const code = item.toLowerCase()
+      if (locales.includes(code)) return code
+      if (code.startsWith('zh')) {
+        const traditional =
+          code.includes('tw') ||
+          code.includes('hk') ||
+          code.includes('mo') ||
+          code.includes('hant')
+        if (traditional && locales.includes('zh-tw')) return 'zh-tw'
+        if (locales.includes('zh')) return 'zh'
+      }
+      const base = code.split('-')[0]
+      if (locales.includes(base)) return base
+    }
+    return null
+  }
+
+  function preferredLocale() {
+    let saved = null
+    try {
+      saved = localStorage.getItem(localeKey)
+    } catch {
+      return null
+    }
+    if (saved && locales.includes(saved)) return saved
+    return browserLocale()
+  }
+
+  if (!window.__localeChoiceBound) {
+    window.__localeChoiceBound = true
+    document.addEventListener(
+      'click',
+      (event) => {
+        const source = event.target
+        if (!(source instanceof Element)) return
+        const link = source.closest('a[hreflang]')
+        if (!(link instanceof HTMLAnchorElement)) return
+        const code = link.getAttribute('hreflang')
+        if (!code || !locales.includes(code)) return
+        try {
+          localStorage.setItem(localeKey, code)
+        } catch {
+          // Private mode can reject storage. The URL still changes.
+        }
+      },
+      true,
+    )
+  }
+
+  const current = document.documentElement.lang
+  if (current !== defaultLang) {
+    // Already on a prefixed locale. Leave the address alone.
+  } else {
+    const preferred = preferredLocale()
+    if (preferred && preferred !== defaultLang) {
+      const path = location.pathname
+      const prefix = `/${preferred}`
+      if (path !== prefix && !path.startsWith(`${prefix}/`)) {
+        const target = `${prefix}${path === '/' ? '/' : path}`
+        location.replace(`${target}${location.search}${location.hash}`)
+      }
+    }
+  }
+</script>
