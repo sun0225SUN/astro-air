@@ -102,8 +102,8 @@ export const config = {
 | 写法 | 结果 |
 | --- | --- |
 | `'home'` | 首页。文案来自 `nav.home`。 |
-| `'archive'` 或 `'blog'` | `/blog` 归档。文案来自 `nav.archive`。 |
-| `'tags'` | `/blog/tag` 标签页。文案来自 `nav.tags`。 |
+| `'archive'` 或 `'blog'` | `/posts` 归档。文案来自 `nav.archive`。 |
+| `'tags'` | `/posts/tag` 标签页。文案来自 `nav.tags`。 |
 | `'about'` | 文件名是 `about` 的独立页面，用那一页自己的标题。 |
 | `{ link, label }` | 任意链接。`label.default` 是兜底文案，可以再写 `zh`、`ja` 等语言覆盖。 |
 
@@ -111,7 +111,7 @@ export const config = {
 
 ## 写文章
 
-在 `src/content/blog/<语言>/` 下新建 `.md` 或 `.mdx`。文件名就是 slug。文件夹会进 URL，所以 `notes/hello.md` 对应 `/<语言>/blog/notes/hello`。
+在 `src/content/blog/<语言>/` 下新建 `.md` 或 `.mdx`。文件名就是 slug。文件夹会进 URL，所以 `notes/hello.md` 对应 `/<语言>/posts/notes/hello`。
 
 ```markdown
 ---
@@ -153,7 +153,7 @@ draft: false
 
 `title` 和 `description` 必填。`order` 用于页面之间的排序。`draft` 的规则和文章相同。
 
-想出现在顶栏里，就把 slug 写进 `nav`，例如 `'about'`。名为 `blog` 的文件被路由占用，不会当成独立页面。
+想出现在顶栏里，就把 slug 写进 `nav`，例如 `'about'`。名为 `posts` 的文件被路由占用，不会当成独立页面。
 
 MDX 可以引入 `src/components/` 里的组件。
 

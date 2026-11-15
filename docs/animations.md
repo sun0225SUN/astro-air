@@ -19,7 +19,7 @@
 | `src/styles/transition.css` | 正文渐入。不写页面淡出，也不写主题帘子 |
 | `src/components/blog/PostRow.astro` | 列表上的标题、日期过渡名 |
 | `src/layouts/BlogPost.astro` | 文章页上的同一对过渡名 |
-| `src/pages/[lang]/blog/[...slug].astro` | 把 slug 传给 `BlogPost` |
+| `src/pages/[lang]/posts/[...slug].astro` | 把 slug 传给 `BlogPost` |
 | `src/components/site/SiteHeader.astro` | 站点标题 `site-title` |
 | `src/components/site/ThemeToggle.astro` | 主题帘子的脚本 |
 | `src/components/site/LanguageNav.astro` | `data-astro-reload`，换语言整页打开，不走视图过渡 |

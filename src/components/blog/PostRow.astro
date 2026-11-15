@@ -19,7 +19,7 @@ const {
   pinned = false,
 } = Astro.props
 const slug = entrySlug(post.id).replaceAll('/', '-')
-const href = getRelativeLocaleUrl(lang, `blog/${entrySlug(post.id)}`)
+const href = getRelativeLocaleUrl(lang, `posts/${entrySlug(post.id)}`)
 const date = post.data.pubDate
 const tokens: Record<string, string> = {
   YYYY: String(date.getUTCFullYear()),

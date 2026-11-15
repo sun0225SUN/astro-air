@@ -22,7 +22,7 @@ const tags = await getTags(lang)
       {tags.map((tag) => (
         <li>
           <a
-            href={getRelativeLocaleUrl(lang, `blog/tag/${tag.slug}`)}
+            href={getRelativeLocaleUrl(lang, `posts/tag/${tag.slug}`)}
             class='inline-flex items-baseline gap-2 rounded-full border border-line px-3 py-1 text-sm hover:border-accent hover:text-accent dark:border-line-dark dark:hover:border-accent-dark dark:hover:text-accent-dark'
           >
             {tag.name}

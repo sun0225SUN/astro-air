@@ -28,5 +28,5 @@ const posts = await getBlogPosts(lang)
 <Layout title={t('nav.archive')} description={t('blog.description')}>
   <h1 class="sr-only">{t('nav.archive')}</h1>
   <PostList posts={pageItems(posts, page)} variant="archive" />
-  <Pager page={page} lastPage={pageCount(posts.length)} base="blog" />
+  <Pager page={page} lastPage={pageCount(posts.length)} base="posts" />
 </Layout>

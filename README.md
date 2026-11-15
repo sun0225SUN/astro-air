@@ -102,8 +102,8 @@ export const config = {
 | Item | Result |
 | --- | --- |
 | `'home'` | Home. The label comes from `nav.home`. |
-| `'archive'` or `'blog'` | The archive at `/blog`. The label comes from `nav.archive`. |
-| `'tags'` | The tag index at `/blog/tag`. The label comes from `nav.tags`. |
+| `'archive'` or `'blog'` | The archive at `/posts`. The label comes from `nav.archive`. |
+| `'tags'` | The tag index at `/posts/tag`. The label comes from `nav.tags`. |
 | `'about'` | A page whose file name is `about`, using that page's title. |
 | `{ link, label }` | Any URL. `label.default` is the fallback. Add `zh`, `ja`, or another locale key to override it. |
 
@@ -111,7 +111,7 @@ export const config = {
 
 ## Write a post
 
-Add a `.md` or `.mdx` file under `src/content/blog/<locale>/`. The file name is the slug. A folder becomes part of the URL, so `notes/hello.md` is served at `/<locale>/blog/notes/hello`.
+Add a `.md` or `.mdx` file under `src/content/blog/<locale>/`. The file name is the slug. A folder becomes part of the URL, so `notes/hello.md` is served at `/<locale>/posts/notes/hello`.
 
 ```markdown
 ---
@@ -153,7 +153,7 @@ draft: false
 
 `title` and `description` are required. `order` sorts pages when something lists them. `draft` behaves the same way it does for posts.
 
-To put a page in the header, add its slug to `nav`, for example `'about'`. A file named `blog` is reserved and is not treated as a custom page.
+To put a page in the header, add its slug to `nav`, for example `'about'`. A file named `posts` is reserved and is not treated as a custom page.
 
 MDX files can import components from `src/components/`.
 

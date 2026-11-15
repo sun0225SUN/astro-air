@@ -38,7 +38,7 @@ export async function navLinks(locale: Locale) {
     if (item === 'blog' || item === 'archive') {
       return [
         {
-          href: getRelativeLocaleUrl(locale, 'blog'),
+          href: getRelativeLocaleUrl(locale, 'posts'),
           label: t('nav.archive'),
           name: 'archive',
         },
@@ -47,7 +47,7 @@ export async function navLinks(locale: Locale) {
     if (item === 'tags') {
       return [
         {
-          href: getRelativeLocaleUrl(locale, 'blog/tag'),
+          href: getRelativeLocaleUrl(locale, 'posts/tag'),
           label: t('nav.tags'),
           name: 'tags',
         },

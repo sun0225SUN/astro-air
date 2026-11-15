@@ -53,6 +53,6 @@ const posts = await getPostsByCategory(lang, Astro.params.slug ?? '')
   <Pager
     page={page}
     lastPage={pageCount(posts.length)}
-    base={`blog/category/${Astro.params.slug}`}
+    base={`posts/category/${Astro.params.slug}`}
   />
 </Layout>

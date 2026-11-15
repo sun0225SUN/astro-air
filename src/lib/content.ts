@@ -106,7 +106,7 @@ export async function getCustomPages(locale: Locale) {
     ({ id, data }) => inLocale(id, locale) && isPublished(data),
   )
   return pages
-    .filter((page) => entrySlug(page.id) !== 'blog')
+    .filter((page) => entrySlug(page.id) !== 'posts')
     .sort(
       (a, b) =>
         (a.data.order ?? 0) - (b.data.order ?? 0) ||
@@ -124,46 +124,46 @@ function listPage(path: string, prefix: string) {
 export async function hasLocalePath(locale: Locale, path: string) {
   if (
     path === '' ||
-    path === 'blog' ||
-    path === 'blog/category' ||
-    path === 'blog/tag'
+    path === 'posts' ||
+    path === 'posts/category' ||
+    path === 'posts/tag'
   ) {
     return true
   }
-  const blogPage = listPage(path, 'blog')
+  const blogPage = listPage(path, 'posts')
   if (blogPage) {
     const posts = await getBlogPosts(locale)
     return blogPage <= pageCount(posts.length)
   }
-  const categoryPage = /^blog\/category\/(.+)\/page\/(\d+)$/.exec(path)
+  const categoryPage = /^posts\/category\/(.+)\/page\/(\d+)$/.exec(path)
   if (categoryPage) {
     const page = Number(categoryPage[2])
     const posts = await getPostsByCategory(locale, categoryPage[1])
     return page >= 2 && page <= pageCount(posts.length)
   }
-  const tagPage = /^blog\/tag\/(.+)\/page\/(\d+)$/.exec(path)
+  const tagPage = /^posts\/tag\/(.+)\/page\/(\d+)$/.exec(path)
   if (tagPage) {
     const page = Number(tagPage[2])
     const posts = await getPostsByTag(locale, tagPage[1])
     return page >= 2 && page <= pageCount(posts.length)
   }
-  if (path.startsWith('blog/')) {
+  if (path.startsWith('posts/')) {
     const posts = await getBlogPosts(locale)
-    if (path.startsWith('blog/category/')) {
-      const slug = path.slice('blog/category/'.length)
+    if (path.startsWith('posts/category/')) {
+      const slug = path.slice('posts/category/'.length)
       return posts.some(
         (post) =>
           post.data.category !== undefined &&
           taxonomySlug(post.data.category) === slug,
       )
     }
-    if (path.startsWith('blog/tag/')) {
-      const slug = path.slice('blog/tag/'.length)
+    if (path.startsWith('posts/tag/')) {
+      const slug = path.slice('posts/tag/'.length)
       return posts.some((post) =>
         post.data.tags.some((tag) => taxonomySlug(tag) === slug),
       )
     }
-    const slug = path.slice('blog/'.length)
+    const slug = path.slice('posts/'.length)
     return posts.some((post) => entrySlug(post.id) === slug)
   }
   const pages = await getCustomPages(locale)
@@ -185,13 +185,13 @@ export function contentPath(pathname: string, locale: Locale) {
 export async function localeHref(locale: Locale, path: string) {
   if (await hasLocalePath(locale, path))
     return getRelativeLocaleUrl(locale, path)
-  if (path.startsWith('blog/category')) {
-    return getRelativeLocaleUrl(locale, 'blog/category')
+  if (path.startsWith('posts/category')) {
+    return getRelativeLocaleUrl(locale, 'posts/category')
   }
-  if (path.startsWith('blog/tag')) {
-    return getRelativeLocaleUrl(locale, 'blog/tag')
+  if (path.startsWith('posts/tag')) {
+    return getRelativeLocaleUrl(locale, 'posts/tag')
   }
-  if (path.startsWith('blog/')) return getRelativeLocaleUrl(locale, 'blog')
+  if (path.startsWith('posts/')) return getRelativeLocaleUrl(locale, 'posts')
   return getRelativeLocaleUrl(locale)
 }
 

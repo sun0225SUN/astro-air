@@ -30,7 +30,7 @@ export async function GET(context: APIContext) {
         title: post.data.title,
         pubDate: post.data.pubDate,
         description: post.data.description,
-        link: getRelativeLocaleUrl(locale, `blog/${entrySlug(post.id)}`),
+        link: getRelativeLocaleUrl(locale, `posts/${entrySlug(post.id)}`),
       }
     }),
     customData: '<language>en</language>',
