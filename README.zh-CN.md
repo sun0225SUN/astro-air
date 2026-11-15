@@ -4,17 +4,22 @@
 
 一个用 [Astro](https://astro.build) 写的多语言极简博客主题。
 
-线上站点：[astro-air.guoqi.dev](https://astro-air.guoqi.dev)
+[astro-air.guoqi.dev](https://astro-air.guoqi.dev)
+
+![笔记本和手机上的 Astro Air](./docs/preview.jpg)
 
 ## 功能
 
-- 英文、简体中文、繁体中文、日文、韩文
+- 英文、简体中文、繁体中文、日文、韩文。默认语言直接挂在 `/`。
 - 首页、归档、标签、分类，以及独立页面
-- 阅读时间，以及从 Git 读取的最后修改时间
+- 置顶、阅读时间，以及从 Git 读取的最后修改时间
 - 宽屏目录，点击后平滑滚到对应标题
-- 浅色 / 深色主题，页面切换带视图过渡
+- 浅色 / 深色主题。列表标题会移进文章，主题像帘子一样揭开。
+- 点击文中图片可以放大查看
 - 一份收录全部已发布文章的 RSS
 - 分页，也可以一页列出全部文章
+
+动画怎么接在一起，写在 [docs/animations.md](./docs/animations.md)。
 
 ## 环境
 
@@ -25,7 +30,6 @@
 ```bash
 git clone https://github.com/sun0225SUN/astro-air
 cd astro-air
-git switch dev
 bun install
 bun dev
 ```
@@ -45,19 +49,11 @@ bun dev
 ## 目录
 
 ```text
-src/config.ts              站点身份、元数据、语言、导航、每页篇数
+src/config.ts              站点身份、语言、导航、每页篇数
 messages/                  界面文案，每种语言一个 JSON
-src/content/blog/<语言>    文章
-src/content/pages/<语言>   关于、链接这类独立页面
-src/i18n/                  语言列表和 t() 查找
-src/pages/                 路由
-public/                    图标、字体和其他静态文件
-src/styles/global.css       设计令牌、配色方案，以及样式引入
-src/styles/theme.css        浅色和深色帘子
-src/styles/transition.css  正文渐入
-src/styles/prose.css        文章链接、代码和图片
-src/styles/image-viewer.css 图片查看器
-src/styles/nav.css          导航两端的淡出
+src/content/blog/<语言>    文章。公开地址是 /posts，不是这个文件夹。
+src/content/pages/<语言>   关于这类独立页面
+src/styles/                设计令牌、主题帘子、正文动画、排版、图片、导航
 docs/animations.md         动画说明
 ```
 
@@ -80,6 +76,7 @@ export const config = {
   url: 'https://astro-air.guoqi.dev',
   defaultLocale: 'en',
   locales: ['en', 'zh', 'zh-tw', 'ja', 'ko'],
+  handwriting: true,
   blog: {
     // 正整数，或者 'all' 表示一页显示全部文章。
     perPage: 10,
@@ -93,7 +90,7 @@ export const config = {
 }
 ```
 
-`description` 同时提供首页文案、SEO 描述和 RSS 描述。用语言代码配置译文，`default` 是回退值。`favicon` 中的每一项都会生成一个 `<link rel="icon">`，对应文件放在 `public/`。`url` 是 Astro 和 RSS 使用的站点正式地址。
+`description` 同时提供首页文案、SEO 描述和 RSS 描述。用语言代码配置译文，`default` 是回退值。`favicon` 中的每一项都会生成一个 `<link rel="icon">`，对应文件放在 `public/`。`url` 是 Astro 和 RSS 使用的站点正式地址。`handwriting: true` 让标题和正文使用手写字体。
 
 `locales` 同时决定有哪些语言、按什么顺序切换。语言按钮按这个顺序循环，并能尽量留在当前页面。每个语言代码都要有一份 `messages/<代码>.json`，键结构和 `messages/en.json` 一致。缺文件时构建会失败。组件里用 `t('blog.latest')` 读取这些嵌套键。
 
@@ -111,7 +108,7 @@ export const config = {
 
 ## 写文章
 
-在 `src/content/blog/<语言>/` 下新建 `.md` 或 `.mdx`。文件名就是 slug。文件夹会进 URL，所以 `notes/hello.md` 对应 `/<语言>/posts/notes/hello`。
+在 `src/content/blog/<语言>/` 下新建 `.md` 或 `.mdx`。文件名就是 slug。文件夹会进 URL。默认语言下，`notes/hello.md` 对应 `/posts/notes/hello`；其他语言对应 `/<语言>/posts/notes/hello`。
 
 ```markdown
 ---
@@ -140,7 +137,7 @@ tags:
 
 ## 写独立页面
 
-独立页面放在 `src/content/pages/<语言>/`。去掉扩展名后的文件名就是 URL。`about.mdx` 对应 `/<语言>/about`。
+独立页面放在 `src/content/pages/<语言>/`。去掉扩展名后的文件名就是 URL。默认语言下，`about.mdx` 是 `/about`；其他语言是 `/<语言>/about`。
 
 ```markdown
 ---
@@ -182,7 +179,7 @@ UMAMI_WEBSITE_ID=your-website-id
 
 ## RSS
 
-`/rss.xml` 收录所有语言里已发布的文章。每条链接都带语言前缀。草稿不会出现。
+`/rss.xml` 收录所有语言里已发布的文章。每条链接都指向对应语言的地址，默认语言不带前缀。草稿不会出现。
 
 ## 许可证
 

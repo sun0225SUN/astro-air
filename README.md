@@ -4,17 +4,22 @@
 
 A minimal multilingual blog theme for [Astro](https://astro.build).
 
-Live site: [astro-air.guoqi.dev](https://astro-air.guoqi.dev)
+[astro-air.guoqi.dev](https://astro-air.guoqi.dev)
+
+![Astro Air on a laptop and a phone](./docs/preview.jpg)
 
 ## Features
 
-- English, Simplified Chinese, Traditional Chinese, Japanese, and Korean
+- English, Simplified Chinese, Traditional Chinese, Japanese, and Korean. The default language is served at `/`.
 - Home, archive, tags, categories, and custom pages
-- Reading time, and a last-modified time taken from Git
+- Pinned posts, reading time, and a last-modified time taken from Git
 - A table of contents that smooth-scrolls to the heading
-- Light and dark themes, with a view transition between pages
+- Light and dark themes. The list title moves into the article, and the theme opens like a curtain.
+- Click an image in a post to view it
 - One RSS feed for every published post
 - Pagination, or a single page that lists every post
+
+How the motion works is in [docs/animations.md](./docs/animations.md).
 
 ## Requirements
 
@@ -25,7 +30,6 @@ Live site: [astro-air.guoqi.dev](https://astro-air.guoqi.dev)
 ```bash
 git clone https://github.com/sun0225SUN/astro-air
 cd astro-air
-git switch dev
 bun install
 bun dev
 ```
@@ -45,20 +49,12 @@ Package scripts run on Bun. `bunfig.toml` sets that, because the Astro CLI ships
 ## Layout
 
 ```text
-src/config.ts              Site identity, metadata, locales, navigation, page size
+src/config.ts              Site identity, locales, navigation, page size
 messages/                  Interface copy, one JSON file per locale
-src/content/blog/<locale>  Posts
-src/content/pages/<locale> Standalone pages such as about and links
-src/i18n/                  Locale list and the t() lookup
-src/pages/                 Routes
-public/                    Favicon, fonts, and other static files
-src/styles/global.css       Tokens, color scheme, and style imports
-src/styles/theme.css        Light and dark curtain
-src/styles/transition.css  Article enter animation
-src/styles/prose.css        Article links, code, and images
-src/styles/image-viewer.css Image zoom dialog
-src/styles/nav.css          Nav edge fade
-docs/animations.md         How those animations are wired
+src/content/blog/<locale>  Posts. The public URL is /posts, not this folder.
+src/content/pages/<locale> Standalone pages such as about
+src/styles/                Tokens, theme curtain, article motion, prose, images, nav
+docs/animations.md         Motion design
 ```
 
 ## Configuration
@@ -80,6 +76,7 @@ export const config = {
   url: 'https://astro-air.guoqi.dev',
   defaultLocale: 'en',
   locales: ['en', 'zh', 'zh-tw', 'ja', 'ko'],
+  handwriting: true,
   blog: {
     // A positive integer, or 'all' to show every post.
     perPage: 10,
@@ -93,7 +90,7 @@ export const config = {
 }
 ```
 
-`description` provides the homepage, SEO, and RSS description. Use locale codes for translations and `default` as the fallback. `favicon` accepts the attributes for each generated `<link rel="icon">`; put those files in `public/`. `url` is the canonical site address used by Astro and the RSS feed.
+`description` provides the homepage, SEO, and RSS description. Use locale codes for translations and `default` as the fallback. `favicon` accepts the attributes for each generated `<link rel="icon">`; put those files in `public/`. `url` is the canonical site address used by Astro and the RSS feed. `handwriting: true` uses a handwritten face for the title and body.
 
 `locales` is both the list and the order of languages. The language button cycles through that list and stays on the same page when the translation exists. Each code needs a `messages/<code>.json` file with the same nested keys as `messages/en.json`. A missing file fails the build. `t('blog.latest')` reads those nested keys.
 
@@ -111,7 +108,7 @@ export const config = {
 
 ## Write a post
 
-Add a `.md` or `.mdx` file under `src/content/blog/<locale>/`. The file name is the slug. A folder becomes part of the URL, so `notes/hello.md` is served at `/<locale>/posts/notes/hello`.
+Add a `.md` or `.mdx` file under `src/content/blog/<locale>/`. The file name is the slug. A folder becomes part of the URL, so `notes/hello.md` is served at `/posts/notes/hello` for the default language, and `/<locale>/posts/notes/hello` for the others.
 
 ```markdown
 ---
@@ -140,7 +137,7 @@ Headings from `h2` and `h3` become the table of contents on wide screens. Clicki
 
 ## Write a page
 
-Standalone pages live in `src/content/pages/<locale>/`. The file name, without the extension, is the URL. `about.mdx` is `/<locale>/about`.
+Standalone pages live in `src/content/pages/<locale>/`. The file name, without the extension, is the URL. For the default language, `about.mdx` is `/about`. For the others it is `/<locale>/about`.
 
 ```markdown
 ---
@@ -182,7 +179,7 @@ UMAMI_WEBSITE_ID=your-website-id
 
 ## RSS
 
-`/rss.xml` lists every published post in every locale. Each item links to its locale-prefixed URL. Drafts are omitted.
+`/rss.xml` lists every published post in every locale. Each item links to its locale URL. The default language has no prefix. Drafts are omitted.
 
 ## License
 
