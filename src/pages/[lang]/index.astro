@@ -1,9 +1,10 @@
 ---
 import PostList from '../../components/blog/PostList.astro'
-import { config, siteDescription } from '../../config'
+import { config } from '../../config'
 import { localePaths, useTranslations } from '../../i18n'
 import Layout from '../../layouts/Layout.astro'
 import { pageLocale } from '../../lib/content'
+import { siteDescription } from '../../lib/site'
 
 export function getStaticPaths() {
   return localePaths()

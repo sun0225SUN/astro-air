@@ -51,8 +51,3 @@ export const config = {
     'about',
   ],
 }
-
-export function siteDescription(locale: string) {
-  const descriptions: Record<string, string> = config.description
-  return descriptions[locale] ?? config.description.default
-}

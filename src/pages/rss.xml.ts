@@ -1,9 +1,10 @@
 import { getRelativeLocaleUrl } from 'astro:i18n'
 import rss from '@astrojs/rss'
 import type { APIContext } from 'astro'
-import { config, siteDescription } from '../config'
+import { config } from '../config'
 import { defaultLang, locales } from '../i18n'
 import { entrySlug, getBlogPosts } from '../lib/content'
+import { siteDescription } from '../lib/site'
 
 export async function GET(context: APIContext) {
   if (!context.site) {
